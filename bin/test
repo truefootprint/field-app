@@ -1,3 +1,7 @@
 #!/bin/bash
 
-npx jest --testTimeout=60000 --testMatch="**/*_spec.js"
+npx jest                          \
+  --testMatch="**/*_spec.js"      \
+  --testTimeout=60000             \
+  --runInBand                     \
+  $@
