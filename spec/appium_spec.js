@@ -1,17 +1,8 @@
-import { remote } from "webdriverio";
+import feature from "./helpers/feature";
 
-it("works with appium", async () => {
-  const client = await remote({
-    logLevel: "warn",
-    capabilities: {
-      platformName: "android"
-    }
-  });
-
-  const field = await client.$("//android.widget.TextView");
+feature("works with appium", async driver => {
+  const field = await driver.$("//android.widget.TextView");
   const text = await field.getText();
 
   expect(text).toBe("Open up App.js to start working on your app!");
-
-  await client.deleteSession();
 });
