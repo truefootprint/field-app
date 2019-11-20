@@ -1,0 +1,3 @@
+#!/bin/bash
+
+npx appium -p 4444
