@@ -1,0 +1,3 @@
+#!/bin/bash
+
+touch App.js # Trigger expo_server to re-bundle the app
