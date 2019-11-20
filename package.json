@@ -8,6 +8,7 @@
     "react-native-web": "^0.11.7"
   },
   "devDependencies": {
+    "appium": "^1.16.0-beta.1",
     "babel-preset-expo": "^7.1.0"
   },
   "private": true
