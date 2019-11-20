@@ -1,0 +1,3 @@
+#!/bin/bash
+
+cd $ANDROID_HOME/tools && emulator -avd $(emulator -list-avds | head -1)
