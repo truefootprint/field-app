@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Shake the Android device to reveal the Expo menu.
+adb shell input keyevent 82
