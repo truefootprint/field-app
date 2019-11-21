@@ -1,6 +1,5 @@
-import feature from "./helpers/feature";
-
-feature("works with appium", async driver => {
+it("works with appium", async () => {
+  const driver = await appiumDriver;
   const field = await driver.$("//android.widget.TextView");
   const text = await field.getText();
 
