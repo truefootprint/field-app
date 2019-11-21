@@ -1,19 +1,11 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { View, Text, Button } from "react-native";
 
-const Home = () => (
-  <View style={styles.container} accessibilityLabel="root">
-    <Text>Open up App.js to start working on your app!</Text>
+const Home = ({ navigation }) => (
+  <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+    <Text>Home Screen</Text>
+    <Button title="click me" onPress={() => navigation.navigate("Another")} />
   </View>
 );
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
 
 export default Home;
