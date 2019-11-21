@@ -1,5 +1,7 @@
 it("works with appium", async () => {
   const driver = await appiumDriver;
+  await reloadApp();
+
   const field = await driver.$("//android.widget.TextView");
   const text = await field.getText();
 
