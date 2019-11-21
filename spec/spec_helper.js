@@ -1,22 +1,5 @@
 const Environment = require("jest-environment-node");
-const remote = require("webdriverio").remote;
-const execSync = require("child_process").execSync;
-
-const appiumDriver = remote({
-  logLevel: "warn",
-  capabilities: {
-    platformName: "android",
-  },
-});
-
-const reloadApp = async () => {
-  execSync("./bin/reload");
-
-  const driver = await appiumDriver;
-  const root = await driver.$("//*[@content-desc='root']/*");
-
-  await root.isDisplayed();
-};
+const appium = require("./helpers/appium");
 
 class SpecHelper extends Environment {
   constructor(config){
@@ -26,8 +9,8 @@ class SpecHelper extends Environment {
   async setup() {
     await super.setup();
 
-    this.global.appiumDriver = appiumDriver;
-    this.global.reloadApp = reloadApp;
+    this.global.appiumDriver = appium.driver;
+    this.global.reloadApp = appium.reloadApp;
   }
 
   async teardown() {
