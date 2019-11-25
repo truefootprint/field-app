@@ -6,6 +6,8 @@ const appiumDriver = remote({
   logLevel: "warn",
   capabilities: {
     platformName: "android",
+    automationName: "UiAutomator2",
+    newCommandTimeout: 2000000,
   },
 });
 
