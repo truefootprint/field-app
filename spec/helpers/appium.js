@@ -1,17 +1,18 @@
+const Environment = require("jest-environment-node");
 const remote = require("webdriverio").remote;
 const execSync = require("child_process").execSync;
 
-module.exports.driver = remote({
+const appiumDriver = remote({
   logLevel: "warn",
   capabilities: {
     platformName: "android",
   },
 });
 
-module.exports.reloadApp = async () => {
+const reloadApp = async () => {
   execSync("./bin/shake_device");
 
-  const driver = await module.exports.driver;
+  const driver = await appiumDriver;
   await driver.setImplicitTimeout(60000);
 
   const reload = await driver.$("//*[@text='Reload']");
@@ -20,3 +21,18 @@ module.exports.reloadApp = async () => {
   const inner = await driver.$("//*[@content-desc='root']/*");
   await inner.isDisplayed();
 };
+
+class AppiumEnvironment extends Environment {
+  constructor(config) { super(config); }
+  async teardown() { await super.teardown(); }
+  runScript(script) { return super.runScript(script); }
+
+  async setup() {
+    await super.setup();
+
+    this.global.appiumDriver = appiumDriver;
+    this.global.reloadApp = reloadApp;
+  }
+}
+
+module.exports = AppiumEnvironment;

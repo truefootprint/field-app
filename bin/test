@@ -1,8 +1,8 @@
 #!/bin/bash
 
-npx jest                                 \
-  --testMatch="**/*_spec.js"             \
-  --testTimeout=60000                    \
-  --testEnvironment ./spec/spec_helper   \
-  --runInBand                            \
+npx jest                                  \
+  --testMatch="**/*_spec.js"              \
+  --testTimeout=60000                     \
+  --testEnvironment ./spec/helpers/appium \
+  --runInBand                             \
   $@
