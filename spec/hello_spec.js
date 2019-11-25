@@ -5,8 +5,8 @@ import App from "../App";
 
 describe("<App />", () => {
   it("has 1 child", () => {
-    const app = render(<App />);
+    const { getByTestId } = render(<App />);
 
-    expect(app.getByTestId("home.text").props.children).toBe("Home Screen");
+    expect(getByTestId("home.text")).toHaveText("Home Screen");
   });
 });

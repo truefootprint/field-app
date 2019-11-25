@@ -1,1 +1,1 @@
-import innerText from "./helpers/inner_text";
+import "./helpers/have_text";
