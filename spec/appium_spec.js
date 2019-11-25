@@ -8,23 +8,23 @@ it("works with appium", async () => {
 
   let field, text, button;
 
-  field = await driver.$("//android.widget.TextView");
+  field = await driver.$("//*[@content-desc='home.text']");
   text = await field.getText();
   expect(text).toBe("Home Screen");
 
-  button = await driver.$("//android.widget.Button");
+  button = await driver.$("//*[@content-desc='home.button']");
   await driver.touchAction({ action: "tap", element: button });
   await sleep(500);
 
-  field = await driver.$("//android.widget.TextView");
+  field = await driver.$("//*[@content-desc='another.text']");
   text = await field.getText();
   expect(text).toBe("Another Screen");
 
-  button = await driver.$("//android.widget.Button");
+  button = await driver.$("//*[@content-desc='another.button']");
   await driver.touchAction({ action: "tap", element: button });
   await sleep(500);
 
-  field = await driver.$("//android.widget.TextView");
+  field = await driver.$("//*[@content-desc='home.text']");
   text = await field.getText();
   expect(text).toBe("Home Screen");
 });

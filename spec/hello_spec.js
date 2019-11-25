@@ -1,11 +1,12 @@
 import React from "react";
-import renderer from "react-test-renderer";
+import { render } from "react-native-testing-library";
 
 import App from "../App";
 
 describe("<App />", () => {
   it("has 1 child", () => {
-    const tree = renderer.create(<App />).toJSON();
-    expect(tree.children.length).toBe(1);
+    const app = render(<App />);
+
+    expect(app.getByTestId("home.text").props.children).toBe("Home Screen");
   });
 });
