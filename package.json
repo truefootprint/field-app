@@ -1,7 +1,9 @@
 {
   "private": true,
   "main": "node_modules/expo/AppEntry.js",
-  "jest": { "preset": "jest-expo" },
+  "jest": {
+    "preset": "jest-expo"
+  },
   "dependencies": {
     "expo": "^35.0.0",
     "react": "16.8.3",
@@ -18,6 +20,7 @@
     "appium": "^1.16.0-beta.1",
     "babel-preset-expo": "^7.1.0",
     "jest-expo": "^35.0.0",
+    "react-native-testing-library": "^1.11.1",
     "react-test-renderer": "16.8",
     "webdriverio": "^5.16.7"
   }
