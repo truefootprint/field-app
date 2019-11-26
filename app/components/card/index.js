@@ -1,18 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import { Text, View, Button } from "react-native";
 import testId from "../../helpers/test_id";
-import stylesheet from "./styles.js";
+import styles from "./styles.js";
 
-const Card = () => {
-  const [counter, setCounter] = useState(0);
-  const styles = stylesheet("green");
+const Card = ({ color="blue", heading, number, outOf, children }) => {
+  const s = styles(color);
 
   return (
-    <View style={styles.card}>
-      <View style={styles.colored_bar} />
+    <View style={s.card}>
+      <View style={s.top}>
+        <Text {...testId("heading")} style={s.heading} >{heading}</Text>
+        <Text {...testId("ordinal")} style={s.ordinal} >{number} of {outOf}</Text>
+      </View>
 
-      <Text {...testId("card.text")}>counter: {counter}</Text>
-      <Button {...testId("card.button")} title="increment" onPress={() => setCounter(c => c + 1)} />
+      {children}
     </View>
   );
 };

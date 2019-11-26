@@ -1,18 +1,36 @@
 import { StyleSheet } from "react-native";
 import palette from "../layout/palette";
 
-export default (theme) => StyleSheet.create({
+const styles = (theme) => StyleSheet.create({
   card: {
-    flex: 1,
     width: "95%",
-    borderColor: palette.black.primary,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderRadius: 4,
-    overflow: "hidden",
+    marginTop: 15,
+    marginBottom: 15,
+    borderTopColor: theme.primary,
+    borderTopWidth: 10,
+    borderRadius: 7,
+    elevation: 2,
+    padding: "4%",
   },
 
-  colored_bar: {
-    height: 6,
-    backgroundColor: palette[theme].primary,
-  }
+  top: {
+    flexDirection: "row",
+    marginBottom: 15,
+  },
+
+  heading: {
+    flex: 1,
+    fontSize: 20,
+    fontWeight: "bold",
+    color: theme.primary,
+    letterSpacing: 0.5,
+  },
+
+  ordinal: {
+    marginTop: 6.5,
+    paddingLeft: 10,
+    letterSpacing: 0.5,
+  },
 });
+
+export default (color) => styles(palette[color]);
