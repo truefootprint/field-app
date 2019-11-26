@@ -1,4 +1,3 @@
-import React from "react";
 import Card from "../../app/components/card";
 
 describe("<Card />", () => {
@@ -10,10 +9,10 @@ describe("<Card />", () => {
     const card = render(<Card color="green" />);
     const expected = palette.green.primary;
 
-    expect(props(card).style.borderTopColor).toBe(expected);
+    expect(style(card).borderTopColor).toBe(expected);
 
     const heading = card.getByTestId("heading");
-    expect(props(heading).style.color).toBe(expected);
+    expect(style(heading).color).toBe(expected);
   });
 
   it("sets the heading", () => {

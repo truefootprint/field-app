@@ -1,12 +1,14 @@
-let styles;
+let styles = {};
 
-const className = (name, s) => {
+const className = (names, s) => {
   if (s) styles = s;
+  names = [names].flat().filter(n => n);
 
-  const props = { testID: name, accessibilityLabel: name };
+  const props = { testID: names[0], accessibilityLabel: names[0] };
+  const style = names.map(n => styles[n]).filter(s => s);
 
-  if (styles && styles[name]) {
-    props.style = styles[name];
+  if (style.length > 0) {
+    props.style = style;
   }
 
   return props;
