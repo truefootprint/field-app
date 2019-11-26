@@ -1,3 +1,3 @@
 #!/bin/bash
 
-npx expo start --clear --localhost --android
+npx expo start --localhost --android
