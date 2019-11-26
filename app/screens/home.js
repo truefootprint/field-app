@@ -1,4 +1,5 @@
 import Card from "../components/card";
+import Submit from "../components/submit";
 
 const Home = ({ navigation }) => (
   <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
@@ -6,6 +7,8 @@ const Home = ({ navigation }) => (
 
     <Card color="blue" heading="Cement" number={1} outOf={3}>
       <Text>Does the cement float in water?</Text>
+
+      <Submit />
     </Card>
 
     <Card color="green" heading="Sizes and position" number={2} outOf={3}>
