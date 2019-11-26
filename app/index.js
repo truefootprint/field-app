@@ -1,8 +1,6 @@
-import React from "react";
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
-import { View } from "react-native";
-import className from "./helpers/class_name";
+import "./globals";
 
 import Home from "./screens/home";
 

@@ -1,6 +1,3 @@
-import { StyleSheet } from "react-native";
-import palette from "../layout/palette";
-
 const styles = (theme) => StyleSheet.create({
   card: {
     width: "95%",
