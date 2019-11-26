@@ -1,6 +1,5 @@
 import React from "react";
 import { View, Text, Button } from "react-native";
-import testId from "../helpers/test_id";
 import Card from "../components/card";
 
 const Home = ({ navigation }) => (
