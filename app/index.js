@@ -5,9 +5,8 @@ import { View } from "react-native";
 import testId from "./helpers/test_id";
 
 import Home from "./screens/home";
-import Another from "./screens/another";
 
-const routes = { Home, Another };
+const routes = { Home };
 const options = { headerMode: "none" };
 
 const RootStack = createStackNavigator(routes, options);
