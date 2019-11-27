@@ -1,4 +1,5 @@
 import RadioGroup, { Radio } from "../../app/components/radio_group";
+import Checkbox from "../../app/components/checkbox";
 
 describe("<Checkbox />", () => {
   it("renders", () => {
@@ -135,6 +136,24 @@ describe("<Checkbox />", () => {
 
       fireEvent.press(group.getAllByTestId("touchable")[0]);
       expect(callback).toHaveBeenCalled();
+    });
+
+    it("also works with checkboxes for convenience", () => {
+      const group = render(
+        <RadioGroup color="green">
+          <Checkbox>Hello</Checkbox>
+          <Radio>Yes</Radio>
+          <Radio>No</Radio>
+          <Checkbox checked>Goodbye</Checkbox>
+        </RadioGroup>
+      );
+
+      const text = group.getAllByTestId("text")[0];
+      expect(style(text).color).toBe(palette.green.primary);
+
+      expect(props(group).data.index).toBe(-1);
+      fireEvent.press(group.getAllByTestId("touchable")[3]);
+      expect(props(group).data.index).toBe(-1);
     });
   });
 

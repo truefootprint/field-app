@@ -1,11 +1,12 @@
 import Radio from "../radio";
+import Checkbox from "../checkbox";
 
 const RadioGroup = ({ children=[], defaultIndex, index, onChange=()=>{}, ...rest }) => {
   children = [children].flat();
 
   const hasDefault = typeof defaultIndex !== "undefined";
   const controlled = typeof index !== "undefined";
-  const childIndex = children.findIndex(c => c.props.checked);
+  const childIndex = children.findIndex(c => c.type === Radio && c.props.checked);
 
   const [current, setCurrent] = useState(hasDefault ? defaultIndex : childIndex);
 
@@ -25,11 +26,13 @@ const RadioGroup = ({ children=[], defaultIndex, index, onChange=()=>{}, ...rest
   };
 
   const propsFor = (child, i) => (
-    { ...rest, ...child.props, checked: i === current, onCheck: handleCheck(child, i) }
+    child.type === Radio
+      ? { ...rest, ...child.props, checked: i === current, onCheck: handleCheck(child, i) }
+      : { ...rest, ...child.props } // Inherit props for checkboxes (e.g. color)
   );
 
-  const cloneChild = (child, i) => (
-    child.type === Radio ? cloneElement(child, propsFor(child, i)) : child
+  const cloneChild = (c, i) => (
+    (c.type === Radio || c.type === Checkbox) ? cloneElement(c, propsFor(c, i)) : c
   );
 
   const withKeys = (array) => (

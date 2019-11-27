@@ -17,17 +17,16 @@ const Home = ({ navigation }) => (
     <Card color="green" heading="Sizes and position" number={2} outOf={3}>
       <Text>Is the foundation going from gate to doorstep?</Text>
 
-      <Checkbox color="green">Yes</Checkbox>
-      <Checkbox color="green" defaultChecked>No</Checkbox>
+      <RadioGroup color="green">
+        <Radio>Yes</Radio>
+        <Radio checked>No</Radio>
+        <Radio>Not sure</Radio>
+        <Checkbox>Report an issue</Checkbox>
+      </RadioGroup>
     </Card>
 
     <Card color="red" heading="Tiles" number={3} outOf={3}>
       <Text>Are the tiles black and white?</Text>
-
-      <RadioGroup color="red">
-        <Radio>Yes</Radio>
-        <Radio checked>No</Radio>
-      </RadioGroup>
     </Card>
   </View>
 );
