@@ -2,7 +2,7 @@ const styles = (theme) => StyleSheet.create({
   button_like: {
     height: 40,
     borderColor: theme.primary,
-    borderWidth: StyleSheet.hairlineWidth * 2,
+    borderWidth: thin,
     borderRadius: 5,
     backgroundColor: "white",
     elevation: 3,

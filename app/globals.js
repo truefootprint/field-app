@@ -12,3 +12,5 @@ global.Text = Text;
 
 global.className = className;
 global.palette = palette;
+global.verythin = StyleSheet.hairlineWidth;
+global.thin = verythin * 2.5;
