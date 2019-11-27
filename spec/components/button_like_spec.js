@@ -23,9 +23,9 @@ describe("<ButtonLike />", () => {
 
   it("can horizontally center content", () => {
     const leftAligned = render(<ButtonLike />);
-    expect(style(leftAligned).alignItems).toBeUndefined();
+    expect(style(leftAligned).justifyContent).toBeUndefined();
 
     const centered = render(<ButtonLike center={true} />);
-    expect(style(centered).alignItems).toBe("center");
+    expect(style(centered).justifyContent).toBe("center");
   });
 });

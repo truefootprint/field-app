@@ -6,9 +6,10 @@ const styles = (theme) => StyleSheet.create({
     borderRadius: 5,
     backgroundColor: "white",
     elevation: 3,
-    justifyContent: "center",
     paddingLeft: 15,
     paddingRight: 15,
+    flexDirection: "row",
+    alignItems: "center",
   },
 
   fill: {
@@ -16,7 +17,7 @@ const styles = (theme) => StyleSheet.create({
   },
 
   center: {
-    alignItems: "center",
+    justifyContent: "center",
   }
 });
 
