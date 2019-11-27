@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Button, TouchableOpacity, Text } from "react-native";
 import className from "./helpers/class_name";
 import palette from "./helpers/palette";
 
 global.React = React;
 global.useState = useState;
+global.useEffect = useEffect;
 
 global.View = View;
 global.StyleSheet = StyleSheet;

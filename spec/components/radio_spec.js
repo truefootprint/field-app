@@ -29,8 +29,29 @@ describe("<Radio />", () => {
     expect(style(circle).backgroundColor).toBe("white");
   });
 
+  it("is an uncontrolled component by default", () => {
+    const radio = render(<Radio />);
+    expect(props(radio).data.checked).toBe(false);
+
+    fireEvent.press(radio.getByTestId("touchable"));
+    expect(props(radio).data.checked).toBe(true);
+  });
+
+  it("can set its default checked state", () => {
+    const radio = render(<Radio defaultChecked />);
+    expect(props(radio).data.checked).toBe(true);
+  });
+
+  it("can be controlled by setting 'checked'", () => {
+    const radio = render(<Radio checked />);
+    expect(props(radio).data.checked).toBe(true);
+
+    fireEvent.press(radio.getByTestId("touchable"));
+    expect(props(radio).data.checked).toBe(true);
+  });
+
   describe("when checked", () => {
-    const radio = render(<Radio defaultChecked>Yes</Radio>);
+    const radio = render(<Radio checked>Yes</Radio>);
 
     it("makes the text white", () => {
       const text = radio.getByTestId("text");
@@ -40,6 +61,41 @@ describe("<Radio />", () => {
     it("makes the circle black", () => {
       const circle = radio.getByTestId("circle");
       expect(style(circle).backgroundColor).toBe(palette.black.primary);
+    });
+  });
+
+  describe("onCheck", () => {
+    it("can set an 'onCheck' callback", () => {
+      const callback = jest.fn();
+      const radio = render(<Radio onCheck={callback} />);
+
+      fireEvent.press(radio.getByTestId("touchable"));
+      expect(callback).toHaveBeenCalled();
+    });
+
+    it("can use 'onCheck's return value to set checked", () => {
+      let calls = 0;
+      const callback = () => (calls += 1) === 2;
+
+      const radio = render(<Radio onCheck={callback} />);
+      expect(props(radio).data.checked).toBe(false);
+
+      fireEvent.press(radio.getByTestId("touchable"));
+      expect(props(radio).data.checked).toBe(false);
+
+      fireEvent.press(radio.getByTestId("touchable"));
+      expect(props(radio).data.checked).toBe(true);
+    });
+
+    it("passes the checked state to the callback", () => {
+      const callback = jest.fn();
+      const radio = render(<Radio onCheck={callback} />);
+
+      fireEvent.press(radio.getByTestId("touchable"));
+      expect(callback).lastCalledWith(false);
+
+      fireEvent.press(radio.getByTestId("touchable"));
+      expect(callback).lastCalledWith(true);
     });
   });
 });
