@@ -22,9 +22,9 @@ describe("<Checkbox />", () => {
     expect(text).toHaveText("Yes");
   });
 
-  it("has a white box", () => {
+  it("has a white square", () => {
     const checkbox = render(<Checkbox />);
-    const box = checkbox.getByTestId("box");
+    const box = checkbox.getByTestId("square");
 
     expect(style(box).backgroundColor).toBe("white");
   });
@@ -53,14 +53,14 @@ describe("<Checkbox />", () => {
   describe("when checked", () => {
     const checkbox = render(<Checkbox checked>Yes</Checkbox>);
 
+    it("makes the square black", () => {
+      const box = checkbox.getByTestId("square");
+      expect(style(box).backgroundColor).toBe(palette.black.primary);
+    });
+
     it("makes the text white", () => {
       const text = checkbox.getByTestId("text");
       expect(style(text).color).toBe("white");
-    });
-
-    it("makes the box black", () => {
-      const box = checkbox.getByTestId("box");
-      expect(style(box).backgroundColor).toBe(palette.black.primary);
     });
   });
 

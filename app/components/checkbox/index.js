@@ -1,7 +1,7 @@
 import ButtonLike from "../button_like";
 import styles from "./styles.js";
 
-const Checkbox = ({ color="blue", defaultChecked=false, checked, onCheck=()=>{}, children }) => {
+const Checkbox = ({ color="blue", defaultChecked=false, checked, onCheck=()=>{}, Box=Square, children }) => {
   const [active, setActive] = useState(defaultChecked);
   const controlled = typeof checked !== "undefined";
 
@@ -23,7 +23,8 @@ const Checkbox = ({ color="blue", defaultChecked=false, checked, onCheck=()=>{},
     <View {...className("checkbox", styles(color))} data={{ checked: active }}>
       <TouchableOpacity {...className("touchable")} onPress={handlePress} activeOpacity={0.8}>
         <ButtonLike color={color} fill={active}>
-          <View {...className(["box", active && "filled"])} />
+          <Box color={color} active={active} />
+
           <Text {...className(["text", active && "white"])}>
             {children}
           </Text>
@@ -32,5 +33,10 @@ const Checkbox = ({ color="blue", defaultChecked=false, checked, onCheck=()=>{},
     </View>
   );
 };
+
+const Square = ({ color, active }) => (
+  // TODO: add tick mark
+  <View {...className(["square", active && "filled"], styles(color))} />
+);
 
 export default Checkbox;
