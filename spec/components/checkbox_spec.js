@@ -73,29 +73,15 @@ describe("<Checkbox />", () => {
       expect(callback).toHaveBeenCalled();
     });
 
-    it("can use 'onCheck's return value to set checked", () => {
-      let calls = 0;
-      const callback = () => (calls += 1) === 2;
-
-      const checkbox = render(<Checkbox onCheck={callback} />);
-      expect(props(checkbox).data.checked).toBe(false);
-
-      fireEvent.press(checkbox.getByTestId("touchable"));
-      expect(props(checkbox).data.checked).toBe(false);
-
-      fireEvent.press(checkbox.getByTestId("touchable"));
-      expect(props(checkbox).data.checked).toBe(true);
-    });
-
-    it("passes the checked state to the callback", () => {
+    it("passes the new state to the callback", () => {
       const callback = jest.fn();
       const checkbox = render(<Checkbox onCheck={callback} />);
 
       fireEvent.press(checkbox.getByTestId("touchable"));
-      expect(callback).lastCalledWith(false);
+      expect(callback).lastCalledWith(true);
 
       fireEvent.press(checkbox.getByTestId("touchable"));
-      expect(callback).lastCalledWith(true);
+      expect(callback).lastCalledWith(false);
     });
   });
 });

@@ -8,15 +8,10 @@ const Checkbox = ({ color="blue", defaultChecked=false, checked, onCheck=()=>{},
   useEffect(() => { controlled && setActive(checked); }, [checked]);
 
   const handlePress = () => {
-    const returnValue = onCheck(active);
+    onCheck(!active);
 
-    if (controlled) {
-      return;
-    } else if (typeof returnValue === "boolean") {
-      setActive(returnValue);
-    } else {
-      setActive(c => !c);
-    }
+    if (controlled) return;
+    setActive(!active);
   };
 
   return (
