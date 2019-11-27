@@ -2,6 +2,7 @@ import Card from "../components/card";
 import Submit from "../components/submit";
 import Checkbox from "../components/checkbox";
 import Radio from "../components/radio";
+import RadioGroup from "../components/radio_group";
 
 const Home = ({ navigation }) => (
   <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
@@ -23,8 +24,10 @@ const Home = ({ navigation }) => (
     <Card color="red" heading="Tiles" number={3} outOf={3}>
       <Text>Are the tiles black and white?</Text>
 
-      <Radio color="red" defaultChecked>Yes</Radio>
-      <Radio color="red">No</Radio>
+      <RadioGroup color="red">
+        <Radio>Yes</Radio>
+        <Radio checked>No</Radio>
+      </RadioGroup>
     </Card>
   </View>
 );
