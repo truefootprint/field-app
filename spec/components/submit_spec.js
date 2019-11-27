@@ -20,4 +20,12 @@ describe("<Submit />", () => {
     const save = render(<Submit text="Save" />);
     expect(save.getByTestId("text")).toHaveText("Save");
   });
+
+  it("can set an 'onSubmit' callback", () => {
+    const callback = jest.fn();
+    const submit = render(<Submit onSubmit={callback} />);
+
+    fireEvent.press(submit.getByTestId("touchable"));
+    expect(callback).toHaveBeenCalled();
+  });
 });
