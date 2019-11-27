@@ -1,8 +1,8 @@
 const styles = (theme) => StyleSheet.create({
-  circle: {
+  box: {
     width: 20,
     height: 20,
-    borderRadius: 10,
+    //borderRadius: 10,
     backgroundColor: "white",
     borderColor: theme.primary,
     borderWidth: thin,

@@ -1,7 +1,7 @@
 import ButtonLike from "../button_like";
 import styles from "./styles.js";
 
-const Radio = ({ color="blue", defaultChecked=false, checked, onCheck=()=>{}, children }) => {
+const Checkbox = ({ color="blue", defaultChecked=false, checked, onCheck=()=>{}, children }) => {
   const [active, setActive] = useState(defaultChecked);
   const controlled = typeof checked !== "undefined";
 
@@ -20,10 +20,10 @@ const Radio = ({ color="blue", defaultChecked=false, checked, onCheck=()=>{}, ch
   };
 
   return (
-    <View {...className("radio", styles(color))} data={{ checked: active }}>
+    <View {...className("checkbox", styles(color))} data={{ checked: active }}>
       <TouchableOpacity {...className("touchable")} onPress={handlePress} activeOpacity={0.8}>
         <ButtonLike color={color} fill={active}>
-          <View {...className(["circle", active && "filled"])} />
+          <View {...className(["box", active && "filled"])} />
           <Text {...className(["text", active && "white"])}>
             {children}
           </Text>
@@ -33,4 +33,4 @@ const Radio = ({ color="blue", defaultChecked=false, checked, onCheck=()=>{}, ch
   );
 };
 
-export default Radio;
+export default Checkbox;

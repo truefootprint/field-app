@@ -1,6 +1,6 @@
 import Card from "../components/card";
 import Submit from "../components/submit";
-import Radio from "../components/radio";
+import Checkbox from "../components/checkbox";
 
 const Home = ({ navigation }) => (
   <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
@@ -15,9 +15,9 @@ const Home = ({ navigation }) => (
     <Card color="green" heading="Sizes and position" number={2} outOf={3}>
       <Text>Is the foundation going from gate to doorstep?</Text>
 
-      <Radio color="green">Yes</Radio>
-      <Radio color="green" defaultChecked>No</Radio>
-      <Radio color="green">Not sure</Radio>
+      <Checkbox color="green">Yes</Checkbox>
+      <Checkbox color="green" defaultChecked>No</Checkbox>
+      <Checkbox color="green">Not sure</Checkbox>
     </Card>
 
     <Card color="red" heading="Tiles" number={3} outOf={3}>
