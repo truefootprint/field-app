@@ -16,7 +16,8 @@ const Home = ({ navigation }) => {
       <Card color="blue" heading="Cement" number={1} outOf={3}>
         <Text>Does the cement float in water?</Text>
 
-        <TextInput placeholder="Add a value" />
+        <View style={{ width: 10, height: 10 }} />
+        <TextInput placeholder="Add a value" units="metres" />
         <View style={{ width: 10, height: 10 }} />
 
         <Button text="Submit" color="blue" />
@@ -25,7 +26,8 @@ const Home = ({ navigation }) => {
       <Card color="green" heading="Sizes and position" number={2} outOf={3}>
         <Text>Is the foundation going from gate to doorstep?</Text>
 
-        <TextInput placeholder="Add a value" color="green" />
+        <View style={{ width: 10, height: 10 }} />
+        <TextInput placeholder="Add a comment" color="green" />
         <View style={{ width: 10, height: 10 }} />
 
         <RadioGroup color="green" onChange={i => setIndex(i)}>

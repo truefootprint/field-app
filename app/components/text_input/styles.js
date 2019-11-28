@@ -7,6 +7,7 @@ const styles = (theme) => StyleSheet.create({
     lineHeight: 24,
     fontStyle: "normal",
     fontSize: 16,
+    flex: 1,
   },
 
   focussed: {
@@ -25,7 +26,22 @@ const styles = (theme) => StyleSheet.create({
 
   alternative: {
     color: "#aaa",
-  }
+  },
+
+  side_by_side: {
+    flexDirection: "row",
+  },
+
+  units: {
+    textAlignVertical: "bottom",
+    paddingBottom: 8,
+    paddingLeft: 8,
+    borderBottomColor: "#ddd",
+    borderBottomWidth: 1,
+    color: theme.primary,
+    fontFamily: "Roboto-Medium",
+    letterSpacing: 0.5,
+  },
 });
 
 export default (color) => styles(palette[color]);

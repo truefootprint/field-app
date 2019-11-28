@@ -44,6 +44,35 @@ describe("<TextInput />", () => {
     expect(input.queryByTestId("alternative")).toBeNull();
   });
 
+  it("can set units", () => {
+    const withUnits = render(<TextInput units="metres" />);
+    expect(withUnits.queryByTestId("units")).toHaveText("metres");
+
+    const withoutUnits = render(<TextInput />);
+    expect(withoutUnits.queryByTestId("units")).toBeNull();
+  });
+
+  it("uses the 'numeric' keyboard if units are provided", () => {
+    const input = render(<TextInput units="metres" />);
+    const nativeInput = input.getByTestId("native_input");
+
+    expect(props(nativeInput).keyboardType).toBe("numeric");
+  });
+
+  it("uses the 'default' keyboard if units are not provided", () => {
+    const input = render(<TextInput />);
+    const nativeInput = input.getByTestId("native_input");
+
+    expect(props(nativeInput).keyboardType).toBe("default");
+  });
+
+  it("can override 'keyboardType' to something else", () => {
+    const input = render(<TextInput units="home" keyboardType="phone-pad" />);
+    const nativeInput = input.getByTestId("native_input");
+
+    expect(props(nativeInput).keyboardType).toBe("phone-pad");
+  });
+
   it("can set an 'onChangeText' callback", () => {
     const callback = jest.fn();
     const input = render(<TextInput onChangeText={callback} />);
