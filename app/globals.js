@@ -1,5 +1,6 @@
 import React, { useState, useEffect, cloneElement } from "react";
 import { View, StyleSheet, Button, TouchableOpacity, Text } from "react-native";
+import Svg, { Path } from 'react-native-svg';
 import className from "./helpers/class_name";
 import palette from "./helpers/palette";
 
@@ -13,6 +14,8 @@ global.StyleSheet = StyleSheet;
 global.Button = Button;
 global.TouchableOpacity = TouchableOpacity;
 global.Text = Text;
+global.Svg = Svg;
+global.Path = Path;
 
 global.className = className;
 global.palette = palette;
