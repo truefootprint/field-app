@@ -5,12 +5,8 @@ const styles = (theme) => StyleSheet.create({
     backgroundColor: "white",
     borderColor: theme.primary,
     borderWidth: thin,
-  },
-
-  filled: {
-    backgroundColor: palette.black.primary,
-    borderColor: "white",
-    borderWidth: 4,
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   text: {

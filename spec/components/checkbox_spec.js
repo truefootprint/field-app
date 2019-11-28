@@ -22,11 +22,11 @@ describe("<Checkbox />", () => {
     expect(text).toHaveText("Yes");
   });
 
-  it("has a white square", () => {
+  it("has an empty square", () => {
     const checkbox = render(<Checkbox />);
-    const box = checkbox.getByTestId("square");
+    const square = checkbox.getByTestId("square");
 
-    expect(style(box).backgroundColor).toBe("white");
+    expect(props(square).children).toBe(false);
   });
 
   it("is an uncontrolled component by default", () => {
@@ -53,9 +53,10 @@ describe("<Checkbox />", () => {
   describe("when checked", () => {
     const checkbox = render(<Checkbox checked>Yes</Checkbox>);
 
-    it("makes the square black", () => {
-      const box = checkbox.getByTestId("square");
-      expect(style(box).backgroundColor).toBe(palette.black.primary);
+    it("adds a tick to the square", () => {
+      const square = checkbox.getByTestId("square");
+
+      expect(props(square).children.type.name).toBe("Tick");
     });
 
     it("makes the text white", () => {

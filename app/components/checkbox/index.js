@@ -1,4 +1,5 @@
 import ButtonLike from "../button_like";
+import { Tick } from "../svg_icon";
 import styles from "./styles.js";
 
 const Checkbox = ({ color="blue", defaultChecked=false, checked, onCheck=()=>{}, Box=Square, children }) => {
@@ -30,8 +31,9 @@ const Checkbox = ({ color="blue", defaultChecked=false, checked, onCheck=()=>{},
 };
 
 const Square = ({ color, active }) => (
-  // TODO: add tick mark
-  <View {...className(["square", active && "filled"], styles(color))} />
+  <View {...className("square", styles(color))}>
+    {active && <Tick size={12} />}
+  </View>
 );
 
 export default Checkbox;
