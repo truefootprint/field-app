@@ -2,7 +2,7 @@ const styles = (theme) => StyleSheet.create({
   text: {
     color: "white",
     textTransform: "uppercase",
-    fontWeight: "bold",
+    fontFamily: "Roboto-Medium",
     letterSpacing: 0.5,
   },
 });

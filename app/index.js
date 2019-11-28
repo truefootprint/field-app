@@ -1,6 +1,7 @@
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import "./globals";
+import FontLoader from "./components/font_loader";
 
 import Home from "./screens/home";
 
@@ -12,7 +13,9 @@ const AppContainer = createAppContainer(RootStack);
 
 const App = () => (
   <View style={{ flex: 1 }} {...className("root")}>
-    <AppContainer />
+    <FontLoader>
+      <AppContainer />
+    </FontLoader>
   </View>
 );
 

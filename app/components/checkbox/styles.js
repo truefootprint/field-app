@@ -15,8 +15,9 @@ const styles = (theme) => StyleSheet.create({
 
   text: {
     marginLeft: 20,
-    marginBottom: 2,
+    marginBottom: 1,
     color: theme.primary,
+    fontFamily: "Roboto-Medium",
   },
 
   white: {
