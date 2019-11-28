@@ -3,6 +3,7 @@ import Button from "../components/button";
 import Checkbox from "../components/checkbox";
 import Radio from "../components/radio";
 import RadioGroup from "../components/radio_group";
+import TextInput from "../components/text_input";
 
 const Home = ({ navigation }) => {
   const options = ["Yes", "No", "Not sure"];
@@ -15,11 +16,17 @@ const Home = ({ navigation }) => {
       <Card color="blue" heading="Cement" number={1} outOf={3}>
         <Text>Does the cement float in water?</Text>
 
+        <TextInput placeholder="Add a value" />
+        <View style={{ width: 10, height: 10 }} />
+
         <Button text="Submit" color="blue" />
       </Card>
 
       <Card color="green" heading="Sizes and position" number={2} outOf={3}>
         <Text>Is the foundation going from gate to doorstep?</Text>
+
+        <TextInput placeholder="Add a value" color="green" />
+        <View style={{ width: 10, height: 10 }} />
 
         <RadioGroup color="green" onChange={i => setIndex(i)}>
           <Radio>Yes</Radio>
