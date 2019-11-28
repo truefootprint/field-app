@@ -1,5 +1,5 @@
 import Card from "../components/card";
-import Submit from "../components/submit";
+import Button from "../components/button";
 import Checkbox from "../components/checkbox";
 import Radio from "../components/radio";
 import RadioGroup from "../components/radio_group";
@@ -15,7 +15,7 @@ const Home = ({ navigation }) => {
       <Card color="blue" heading="Cement" number={1} outOf={3}>
         <Text>Does the cement float in water?</Text>
 
-        <Submit color="blue" />
+        <Button text="Submit" color="blue" />
       </Card>
 
       <Card color="green" heading="Sizes and position" number={2} outOf={3}>

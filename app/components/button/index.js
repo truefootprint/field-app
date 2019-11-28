@@ -1,9 +1,9 @@
 import ButtonLike from "../button_like";
 import styles from "./styles.js";
 
-const Submit = ({ color="blue", text="Submit", onSubmit=()=>{} }) => (
+const Button = ({ color="blue", text, onPress=()=>{} }) => (
   <View>
-    <TouchableOpacity {...className("touchable")} onPress={onSubmit} activeOpacity={0.8}>
+    <TouchableOpacity {...className("touchable")} onPress={onPress} activeOpacity={0.8}>
       <ButtonLike color={color} fill={true} center={true}>
         <Text {...className("text", styles(color))}>{text}</Text>
       </ButtonLike>
@@ -11,4 +11,4 @@ const Submit = ({ color="blue", text="Submit", onSubmit=()=>{} }) => (
   </View>
 );
 
-export default Submit;
+export default Button;
