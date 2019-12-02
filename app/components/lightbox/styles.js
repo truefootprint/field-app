@@ -12,11 +12,14 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     backgroundColor: "black",
-    opacity: 0.5,
+    opacity: 0.6,
   },
 
   foreground: {
     backgroundColor: "white",
+    borderRadius: 2,
+    width: "87%",
+    elevation: 5,
   },
 });
 
