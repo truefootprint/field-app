@@ -5,6 +5,7 @@ import Radio from "../components/radio";
 import RadioGroup from "../components/radio_group";
 import TextInput from "../components/text_input";
 import AddFile from "../components/add_file";
+import ModalMenu from "../components/modal_menu";
 
 const Home = ({ navigation }) => {
   const options = ["Yes", "No", "Not sure"];
@@ -22,6 +23,11 @@ const Home = ({ navigation }) => {
         <View style={{ width: 10, height: 10 }} />
 
         <AddFile onAdd={() => alert("test")} />
+
+        <ModalMenu onSelect={i => alert(`selected ${i}`)} onDismiss={() => alert('dismiss')}>
+          <Text>hello</Text>
+          <Text>world</Text>
+        </ModalMenu>
 
         <Button text="Submit" color="blue" />
       </Card>
