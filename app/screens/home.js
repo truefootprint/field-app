@@ -4,6 +4,7 @@ import Checkbox from "../components/checkbox";
 import Radio from "../components/radio";
 import RadioGroup from "../components/radio_group";
 import TextInput from "../components/text_input";
+import AddFile from "../components/add_file";
 
 const Home = ({ navigation }) => {
   const options = ["Yes", "No", "Not sure"];
@@ -19,6 +20,8 @@ const Home = ({ navigation }) => {
         <View style={{ width: 10, height: 10 }} />
         <TextInput placeholder="Add a value" units="metres" />
         <View style={{ width: 10, height: 10 }} />
+
+        <AddFile onAdd={() => alert("test")} />
 
         <Button text="Submit" color="blue" />
       </Card>
