@@ -1,5 +1,5 @@
 const styles = (theme) => StyleSheet.create({
-  add_file: {
+  rectangle: {
     width: "35%",
     aspectRatio: 2 / 3,
     borderColor: theme.primary,
@@ -25,6 +25,11 @@ const styles = (theme) => StyleSheet.create({
     fontSize: 25,
     lineHeight: 30,
   },
+
+  menu_item: {
+    fontSize: 18,
+    padding: 20,
+  }
 });
 
 export default (color) => styles(palette[color]);
