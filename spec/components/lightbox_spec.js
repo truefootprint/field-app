@@ -16,7 +16,7 @@ describe("<Lightbox />", () => {
     const callback = jest.fn();
     const lightbox = render(<Lightbox onDismiss={callback} />);
 
-    fireEvent.press(lightbox.getByTestId("touchable"));
+    fireEvent.press(lightbox.getByTestId("background"));
     expect(callback).toHaveBeenCalled();
   });
 });
