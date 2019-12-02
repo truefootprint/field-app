@@ -1,23 +1,26 @@
+import * as Picker from "expo-image-picker";
 import Lightbox from "../lightbox";
 import Menu from "../menu";
 import styles from "./styles.js";
 
-const ImagePicker = ({ color="blue" }) => {
+const options = { exif: true };
+
+const ImagePicker = ({ color="blue", onPick=()=>{} }) => {
   const [visible, setVisible] = useState(false);
 
-  const takePhoto = () => {
-    alert("take photo");
+  const handlePick = (result) => {
+    const { cancelled, uri, width, height, exif } = result;
+
+    if (!cancelled) {
+      onPick({ uri, width, height, exif });
+    }
   };
 
-  const choosePhoto = () => {
-    alert("choose photo");
-  };
-
-  const handleMenu = (_, index) => {
+  const handleMenu = async (_, index) => {
     setVisible(false);
 
-    if (index === 0) takePhoto();
-    if (index === 1) choosePhoto();
+    if (index === 0) handlePick(await Picker.launchCameraAsync(options));
+    if (index === 1) handlePick(await Picker.launchImageLibraryAsync(options));
   };
 
   return (

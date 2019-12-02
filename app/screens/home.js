@@ -21,7 +21,7 @@ const Home = ({ navigation }) => {
         <TextInput placeholder="Add a value" units="metres" />
         <View style={{ width: 10, height: 10 }} />
 
-        <ImagePicker />
+        <ImagePicker onPick={result => alert(JSON.stringify(result))}/>
 
         <Button text="Submit" color="blue" />
       </Card>
