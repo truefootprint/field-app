@@ -12,6 +12,14 @@ describe("<ButtonLike />", () => {
     expect(style(buttonLike).borderColor).toBe(expected);
   });
 
+  it("can round the corners", () => {
+    const rounded = render(<ButtonLike />);
+    expect(style(rounded).borderRadius).toBeDefined();
+
+    const unrounded = render(<ButtonLike rounded={false} />);
+    expect(style(unrounded).borderRadius).toBeUndefined();
+  });
+
   it("can fill the background", () => {
     const unfilled = render(<ButtonLike />);
     expect(style(unfilled).backgroundColor).toBe("white");

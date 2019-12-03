@@ -2,7 +2,7 @@ import ButtonLike from "../button_like";
 import { Tick } from "../svg_icon";
 import styles from "./styles.js";
 
-const Checkbox = ({ color="blue", defaultChecked=false, checked, onCheck=()=>{}, Box=Square, children }) => {
+const Checkbox = ({ color="blue", defaultChecked=false, checked, onCheck=()=>{}, rounded=false, Box=Square, children }) => {
   const [active, setActive] = useState(defaultChecked);
   const controlled = typeof checked !== "undefined";
 
@@ -18,7 +18,7 @@ const Checkbox = ({ color="blue", defaultChecked=false, checked, onCheck=()=>{},
   return (
     <View {...className("checkbox", styles(color))} data={{ checked: active }}>
       <TouchableOpacity {...className("touchable")} onPress={handlePress} activeOpacity={0.8}>
-        <ButtonLike color={color} fill={active}>
+        <ButtonLike color={color} rounded={rounded} fill={active}>
           <Box color={color} active={active} />
 
           <Text {...className(["text", active && "white"])}>

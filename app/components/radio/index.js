@@ -2,7 +2,7 @@ import Checkbox from "../checkbox";
 import styles from "./styles.js";
 
 const Radio = (props) => (
-  <Checkbox {...props} Box={Circle} />
+  <Checkbox {...props} rounded={true} Box={Circle} />
 );
 
 const Circle = ({ color, active }) => (
