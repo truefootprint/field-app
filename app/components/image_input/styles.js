@@ -1,6 +1,10 @@
 const styles = StyleSheet.create({
+  container: {
+    marginBottom: 20,
+  },
+
   image: {
-    marginBottom: 30,
+    marginBottom: 20,
   },
 });
 
