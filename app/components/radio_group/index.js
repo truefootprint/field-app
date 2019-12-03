@@ -36,15 +36,17 @@ const RadioGroup = ({ children=[], defaultIndex, index, onChange=()=>{}, ...rest
     (c.type === Radio || c.type === Checkbox) ? cloneElement(c, propsFor(c, i)) : c
   );
 
-  const withKeys = (array) => (
-    array.map((element, i) => (
-      <View key={i} {...className("container", styles)}>{element}</View>
-    ))
+  const wrap = (array) => (
+    array.map((element, i) => {
+      const classes = ["wrapper", i === array.length - 1 && "last_child"];
+
+      return <View key={i} {...className(classes, styles)}>{element}</View>
+    })
   );
 
   return (
     <View data={{ index: current }}>
-      {withKeys(children.map(cloneChild))}
+      {wrap(children.map(cloneChild))}
     </View>
   )
 };

@@ -1,7 +1,11 @@
 const styles = StyleSheet.create({
-  container: {
+  wrapper: {
     marginBottom: 20,
   },
+
+  last_child: {
+    marginBottom: 0,
+  }
 });
 
 export default styles;
