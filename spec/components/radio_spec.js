@@ -16,8 +16,8 @@ describe("<Radio />", () => {
   });
 
   it("has a white circle", () => {
-    const checkbox = render(<Radio />);
-    const circle = checkbox.getByTestId("circle");
+    const radio = render(<Radio />);
+    const circle = radio.getByTestId("circle");
 
     expect(style(circle).backgroundColor).toBe("white");
   });
