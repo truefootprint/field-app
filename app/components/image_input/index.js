@@ -12,13 +12,15 @@ const ImageInput = ({ color, onChange=()=>{} }) => {
     onChange(newImages);
   };
 
+  const imageClasses = (i) => (
+    ["image", i === images.length - 1 && "last_child"]
+  );
+
   return (
     <View>
-      <View {...className("container", styles)}>
-        {images.map((image, i) => (
-          <Image source={image} key={i} {...className("image")} />
-        ))}
-      </View>
+      {images.map((image, i) => (
+        <Image source={image} key={i} {...className(imageClasses(i), styles)} />
+      ))}
 
       <ImagePicker onPick={handlePick} color={color} {...className("picker")} />
     </View>
