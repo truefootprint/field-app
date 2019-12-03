@@ -1,5 +1,6 @@
 import Radio from "../radio";
 import Checkbox from "../checkbox";
+import styles from "./styles.js";
 
 const RadioGroup = ({ children=[], defaultIndex, index, onChange=()=>{}, ...rest }) => {
   children = [children].flat();
@@ -36,7 +37,9 @@ const RadioGroup = ({ children=[], defaultIndex, index, onChange=()=>{}, ...rest
   );
 
   const withKeys = (array) => (
-    array.map((element, i) => <View key={i}>{element}</View>)
+    array.map((element, i) => (
+      <View key={i} {...className("container", styles)}>{element}</View>
+    ))
   );
 
   return (
