@@ -27,6 +27,7 @@ const styles = (theme) => StyleSheet.create({
   },
 
   menu_item: {
+    backgroundColor: "white",
     fontSize: 18,
     padding: 20,
   }

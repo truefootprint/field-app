@@ -4,9 +4,9 @@ const Menu = ({ onSelect=()=>{}, children=[] }) => {
   return (
     <View>
       {children.map((child, i) => (
-        <TouchableOpacity key={i} onPress={() => onSelect(child, i)} activeOpacity={0.8}>
+        <TouchableHighlight key={i} onPress={() => onSelect(child, i)}>
           {child}
-        </TouchableOpacity>
+        </TouchableHighlight>
       ))}
     </View>
   );
