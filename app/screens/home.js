@@ -4,13 +4,14 @@ import Checkbox from "../components/checkbox";
 import Radio from "../components/radio";
 import RadioGroup from "../components/radio_group";
 import TextInput from "../components/text_input";
-import ImagePicker from "../components/image_picker";
+import ImageInput from "../components/image_input";
 
 const Home = ({ navigation }) => {
   const options = ["Yes", "No", "Not sure"];
   const [index, setIndex] = useState();
 
   return (
+    <ScrollView>
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <View style={{ width: 50, height: 50 }} />
 
@@ -21,7 +22,7 @@ const Home = ({ navigation }) => {
         <TextInput placeholder="Add a value" units="metres" />
         <View style={{ width: 10, height: 10 }} />
 
-        <ImagePicker onPick={result => alert(JSON.stringify(result))}/>
+        <ImageInput />
 
         <Button text="Submit" color="blue" />
       </Card>
@@ -47,6 +48,7 @@ const Home = ({ navigation }) => {
         <Text>Are the tiles black and white?</Text>
       </Card>
     </View>
+    </ScrollView>
   );
 };
 
