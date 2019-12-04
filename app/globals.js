@@ -2,6 +2,7 @@ import React, { useState, useEffect, cloneElement } from "react";
 import { View, StyleSheet, Button, TouchableOpacity, TouchableHighlight, TouchableWithoutFeedback, Text, Modal, ScrollView } from "react-native";
 import Svg, { Path } from "react-native-svg";
 import className from "./helpers/class_name";
+import filterIndex from "./helpers/filter_index";
 import palette from "./helpers/palette";
 
 global.React = React;
@@ -22,6 +23,7 @@ global.Svg = Svg;
 global.Path = Path;
 
 global.className = className;
+global.filterIndex = filterIndex;
 global.palette = palette;
 global.verythin = StyleSheet.hairlineWidth;
 global.thin = verythin * 2.5;
