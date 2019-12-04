@@ -1,10 +1,6 @@
+import Layout from "../components/layout";
+import Sticky from "../components/sticky";
 import Card from "../components/card";
-import Button from "../components/button";
-import Checkbox from "../components/checkbox";
-import Radio from "../components/radio";
-import RadioGroup from "../components/radio_group";
-import TextInput from "../components/text_input";
-import ImageInput from "../components/image_input";
 import Question from "../components/question";
 
 const Home = ({ navigation }) => {
@@ -12,29 +8,29 @@ const Home = ({ navigation }) => {
   const [index, setIndex] = useState();
 
   return (
-    <ScrollView>
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <View style={{ width: 30, height: 30 }} />
+    <Layout>
+      <Sticky.Container>
+        <Sticky><Text>sticky header 1</Text></Sticky>
 
-      <Card color="blue" heading="Cement" number={1} outOf={4}>
-        <Question text="Does the cement float in water?" type="multi_choice" options={options} />
-      </Card>
+        <Card color="blue" heading="Cement" number={1} outOf={4}>
+          <Question text="Does the cement float in water?" type="multi_choice" options={options} />
+        </Card>
 
-      <Card color="blue" heading="Cement" number={2} outOf={4}>
-        <Question text="How wide is the path?" type="free_text" placeholder="Add a width" units="metres" />
-      </Card>
+        <Card color="blue" heading="Cement" number={2} outOf={4}>
+          <Question text="How wide is the path?" type="free_text" placeholder="Add a width" units="metres" />
+        </Card>
 
-      <Card color="blue" heading="Cement" number={3} outOf={4}>
-        <Question text="Add a photo" type="photo_upload" />
-      </Card>
+        <Sticky><Text>sticky header 2</Text></Sticky>
 
-      <Card color="blue" heading="Cement" number={4} outOf={4}>
-        <Question text="Do you have any other comments?" type="free_text" placeholder="Add a comment" />
-      </Card>
+        <Card color="blue" heading="Cement" number={3} outOf={4}>
+          <Question text="Add a photo" type="photo_upload" />
+        </Card>
 
-      <View style={{ width: 30, height: 100 }} />
-    </View>
-    </ScrollView>
+        <Card color="blue" heading="Cement" number={4} outOf={4}>
+          <Question text="Do you have any other comments?" type="free_text" placeholder="Add a comment" />
+        </Card>
+      </Sticky.Container>
+    </Layout>
   );
 };
 
