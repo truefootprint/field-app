@@ -9,7 +9,8 @@ describe("<Card />", () => {
     const card = render(<Card color="green" />);
     const expected = palette.green.primary;
 
-    expect(style(card).borderTopColor).toBe(expected);
+    const inner = card.getByTestId("inner");
+    expect(style(inner).borderTopColor).toBe(expected);
 
     const heading = card.getByTestId("heading");
     expect(style(heading).color).toBe(expected);

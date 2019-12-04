@@ -1,13 +1,16 @@
 const styles = (theme) => StyleSheet.create({
   card: {
-    width: "95%",
     marginTop: 20,
     marginBottom: 20,
+    width: "95%",
+  },
+
+  inner: {
     borderTopColor: theme.primary,
     borderTopWidth: 10,
     borderRadius: 7,
-    elevation: 2,
     padding: "4%",
+    elevation: 2,
   },
 
   top: {
