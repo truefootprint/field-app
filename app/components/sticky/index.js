@@ -1,7 +1,7 @@
 import styles from "./styles.js";
 
 const Container = ({ children=[] }) => {
-  children = [children].flat();
+  children = [children].flat().flat();
 
   const indices = filterIndex(children, c => c.type === Sticky);
 
