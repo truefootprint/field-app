@@ -3,7 +3,7 @@
 npx jest                                  \
   --testMatch="**/*_spec.js"              \
   --testTimeout=60000                     \
-  --testEnvironment ./spec/helpers/appium \
+  --testEnvironment ./spec/support/appium \
   --setupFiles ./spec/globals             \
   --runInBand                             \
   $@
