@@ -1,6 +1,7 @@
 import React, { useState, useEffect, cloneElement } from "react";
 import { View, StyleSheet, TouchableOpacity, TouchableHighlight, TouchableWithoutFeedback, Text, Modal, ScrollView } from "react-native";
 import Svg, { Path } from "react-native-svg";
+import { Sequelize, sequelize } from "./helpers/sequelize";
 import className from "./helpers/class_name";
 import filterIndex from "./helpers/filter_index";
 import palette from "./helpers/palette";
@@ -21,6 +22,8 @@ global.ScrollView = ScrollView;
 global.Svg = Svg;
 global.Path = Path;
 
+global.Sequelize = Sequelize;
+global.sequelize = sequelize;
 global.className = className;
 global.filterIndex = filterIndex;
 global.palette = palette;
