@@ -1,6 +1,8 @@
 import "../app/globals";
 import { render, fireEvent } from "react-native-testing-library";
 import expect from "expect";
+
+import sequelize from "./support/sequelize";
 import benchmark from "./support/benchmark";
 import innerText from "./support/inner_text";
 import toHaveText from "./support/have_text";
@@ -9,6 +11,7 @@ import style from "./support/style";
 
 global.render = render;
 global.fireEvent = fireEvent;
+global.sequelize = sequelize;
 global.benchmark = benchmark;
 global.innerText = innerText;
 global.props = props;
