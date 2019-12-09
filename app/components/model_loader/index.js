@@ -1,7 +1,7 @@
 import "../../models/question";
 
-const loadModels = async (callback) => {
-  await sequelize.sync();
+const loadModels = async (callback, options = {}) => {
+  await sequelize.sync(options);
 
   callback();
 };
@@ -17,3 +17,4 @@ const ModelLoader = ({ children }) => {
 };
 
 export default ModelLoader;
+export { loadModels };
