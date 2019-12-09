@@ -1,8 +1,8 @@
+import "./globals";
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
-import "./globals";
+import ModelLoader from "./components/model_loader";
 import FontLoader from "./components/font_loader";
-
 import Home from "./screens/home";
 
 const routes = { Home };
@@ -13,9 +13,11 @@ const AppContainer = createAppContainer(RootStack);
 
 const App = () => (
   <View style={{ flex: 1 }} {...className("root")}>
-    <FontLoader>
-      <AppContainer />
-    </FontLoader>
+    <ModelLoader>
+      <FontLoader>
+        <AppContainer />
+      </FontLoader>
+    </ModelLoader>
   </View>
 );
 
