@@ -1,23 +1,23 @@
 class ApplicationPresenter {
   static async present(object) {
     if (Array.isArray(object)) {
-      return await this.present_collection(object);
+      return await this.presentCollection(object);
     } else {
-      return await this.present_element(object);
+      return await this.presentElement(object);
     }
   }
 
-  static async present_collection(records) {
+  static async presentCollection(records) {
     const promises = records.map(r => this.present(r));
 
     return await Promise.all(promises);
   }
 
-  static async present_element(record) {
+  static async presentElement(record) {
     return record ? record.dataValues : null
   }
 
-  static async present_nested(key, presenter, fn) {
+  static async presentNested(key, presenter, fn) {
     const object = await fn();
     const presented = await presenter.present(object);
 
