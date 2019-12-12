@@ -1,37 +1,24 @@
 import Layout from "../components/layout";
-import Project from "../components/project";
+import seedDB from "../helpers/seed_db";
+
+import ProjectModel from "../models/project";
+import ProjectPresenter from "../presenters/project_presenter";
+import ProjectComponent from "../components/project";
 
 const Home = ({ navigation }) => {
-  const options = [{ key: "yes", value: "Yes" }, { key: "no", value: "No" }];
+  const [data, setData] = useState();
 
-  const topic1 = { name: "topic 1" };
-  const topic2 = { name: "topic 2" };
+  useEffect(() => {
+    seedDB().then(() => {
+      ProjectModel.findAll().then(records => (
+        ProjectPresenter.present(records[0]).then(presented => (
+          setData(presented)
+        ))
+      ))
+    })
+  }, []);
 
-  const project = {
-    name: "project name",
-    activities: [
-      {
-        name: "activity 1",
-        questions: [
-          { text: "question 1", type: "free_text", placeholder: "placeholder", units: "units", topic: topic1 },
-          { text: "question 2", type: "photo_upload", topic: topic1 },
-          { text: "question 3", type: "multi_choice", options, topic: topic2 },
-        ],
-      },
-      {
-        name: "activity 2",
-        questions: [
-          { text: "question 4", type: "free_text", placeholder: "placeholder", units: "units", topic: topic2 },
-        ],
-      },
-    ],
-  };
-
-  return (
-    <Layout>
-      <Project {...project} />
-    </Layout>
-  );
+  return data ? <ProjectComponent {...data} /> : null;
 };
 
 export default Home;
