@@ -1,16 +1,16 @@
-import BasePresenter from "./base_presenter";
+import ApplicationPresenter from "./application_presenter";
 import QuestionPresenter from "./question_presenter";
 
-const ActivityPresenter = {};
+class ActivityPresenter extends ApplicationPresenter {
+  static async present(record) {
+    const presented = super.present(record)
+    const questions = await record.getQuestions();
+    const promises = questions.map(q => QuestionPresenter.present(q));
 
-ActivityPresenter.present = async (record) => {
-  const presented = BasePresenter.present(record);
-  const questions = await record.getQuestions();
-  const promises = questions.map(q => QuestionPresenter.present(q));
+    presented.questions = await Promise.all(promises);
 
-  presented.questions = await Promise.all(promises);
-
-  return presented;
-};
+    return presented;
+  }
+}
 
 export default ActivityPresenter;

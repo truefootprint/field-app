@@ -1,15 +1,15 @@
-import BasePresenter from "./base_presenter";
+import ApplicationPresenter from "./application_presenter";
 import TopicPresenter from "./topic_presenter";
 
-const QuestionPresenter = {};
+class QuestionPresenter extends ApplicationPresenter {
+  static async present(record) {
+    const presented = super.present(record)
+    const topic = await record.getTopic();
 
-QuestionPresenter.present = async (record) => {
-  const presented = BasePresenter.present(record);
-  const topic = await record.getTopic();
+    presented.topic = TopicPresenter.present(topic);
 
-  presented.topic = TopicPresenter.present(topic);
-
-  return presented;
+    return presented;
+  }
 };
 
 export default QuestionPresenter;
