@@ -1,7 +1,7 @@
 import Activity from "../../app/models/activity";
 
 describe("Activity", () => {
-  it("can persist topics", async () => {
+  it("can persist activities", async () => {
     await Activity.create({ name: "Clear the land" });
     const activities = await Activity.findAll();
 
