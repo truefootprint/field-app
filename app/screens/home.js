@@ -3,6 +3,8 @@ import Sticky from "../components/sticky";
 import Card from "../components/card";
 import Question from "../components/question";
 import Expander from "../components/expander";
+import Topic from "../components/topic";
+import Activity from "../components/activity";
 
 const Home = ({ navigation }) => {
   const options = [{ key: "yes", value: "Yes" }, { key: "no", value: "No" }];
@@ -26,6 +28,10 @@ const Home = ({ navigation }) => {
     </Card>
   </>;
 
+  const questions = [
+    { text: "question text", type: "free_text", placeholder: "Add a value", units: "metres", topic: { name: "foo"} },
+  ];
+
   return (
     <Layout>
       <Sticky.Container>
@@ -34,6 +40,8 @@ const Home = ({ navigation }) => {
         {Expander({ color: "red", text: "Sticky header 2", children: content("red") })}
         {Expander({ color: "purple", text: "Sticky header 3", children: content("purple") })}
         {Expander({ color: "blue", text: "Sticky header 4", children: content("blue") })}
+
+        {Activity({ color: "purple", name: "activity name", questions })}
 
       </Sticky.Container>
     </Layout>
