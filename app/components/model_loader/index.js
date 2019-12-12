@@ -1,6 +1,10 @@
-import "../../models/question";
+import Topic from "../../models/topic";
+import Question from "../../models/question";
 
 const loadModels = async (callback, options = {}) => {
+  Topic.onLoad(sequelize.models);
+  Question.onLoad(sequelize.models);
+
   await sequelize.sync(options);
 
   callback();
