@@ -4,6 +4,7 @@ import Svg, { Path } from "react-native-svg";
 import { Sequelize, sequelize } from "./helpers/sequelize";
 import className from "./helpers/class_name";
 import filterIndex from "./helpers/filter_index";
+import chunk from "./helpers/chunk";
 import palette from "./helpers/palette";
 
 global.React = React;
@@ -26,6 +27,7 @@ global.Sequelize = Sequelize;
 global.sequelize = sequelize;
 global.className = className;
 global.filterIndex = filterIndex;
+global.chunk = chunk;
 global.palette = palette;
 global.verythin = StyleSheet.hairlineWidth;
 global.thin = verythin * 2.5;
