@@ -27,4 +27,9 @@ describe("ApplicationPresenter", () => {
     const presented = await ApplicationPresenter.present_collection([[record]]);
     expect(presented).toEqual([[{ id: 123, name: "name" }]]);
   });
+
+  it("can present objects as nested keys", async () => {
+    const presented = await ApplicationPresenter.present_nested("topic", TopicPresenter, () => record);
+    expect(presented).toEqual({ topic: { id: 123, name: "name" } });
+  });
 });

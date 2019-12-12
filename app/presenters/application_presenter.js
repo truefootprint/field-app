@@ -16,6 +16,13 @@ class ApplicationPresenter {
   static async present_element(record) {
     return record ? record.dataValues : null
   }
+
+  static async present_nested(key, presenter, fn) {
+    const object = await fn();
+    const presented = await presenter.present(object);
+
+    return { [key]: presented };
+  }
 }
 
 export default ApplicationPresenter;
