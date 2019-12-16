@@ -1,16 +1,28 @@
+// TODO: unit tests - probably need to use jest mocks
+
 import * as FileSystem from "expo-file-system";
+import * as Network from "expo-network";
+const wifi = Network.NetworkStateType.WIFI;
 
 const directory = FileSystem.documentDirectory;
 const filename = "my_data.json";
 const path = `${directory}${filename}`;
 
-const syncData = async (callback, options) => {
+const syncData = async (callback, options={}) => {
   const getData = () => new Client().myData();
 
   if (options.force) {
     callback(await getData());
   } else {
-    callback(await withCaching(getData));
+    callback(await withCaching(await wifiOnly(getData)));
+  }
+};
+
+const wifiOnly = async (callback) => {
+  const state = await Network.getNetworkStateAsync();
+
+  if (state.type === wifi && state.isInternetReachable) {
+    return await callback();
   }
 };
 
@@ -21,11 +33,13 @@ const withCaching = async (callback) => {
     return await readCache();
   }
 
-  try {
-    const content = await callback();
+  let content;
+  try { content = await callback(); } catch {}
+
+  if (content) {
     writeCache(content);
     return content;
-  } catch {}
+  }
 
   if (epochSeconds) {
     return await readCache();
