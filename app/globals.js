@@ -1,6 +1,11 @@
 import React, { useState, useEffect, cloneElement } from "react";
 import { View, StyleSheet, TouchableOpacity, TouchableHighlight, TouchableWithoutFeedback, Text, Modal, ScrollView } from "react-native";
 import Svg, { Path } from "react-native-svg";
+import camelCaseKeys from "camelcase-keys";
+import camelCase from "camelcase";
+import snakeCaseKeys from "snakecase-keys";
+import snakeCase from "to-snake-case";
+
 import { Sequelize, sequelize } from "./helpers/sequelize";
 import className from "./helpers/class_name";
 import filterIndex from "./helpers/filter_index";
@@ -22,6 +27,10 @@ global.Modal = Modal;
 global.ScrollView = ScrollView;
 global.Svg = Svg;
 global.Path = Path;
+global.camelCaseKeys = camelCaseKeys;
+global.camelCase = camelCase;
+global.snakeCaseKeys = snakeCaseKeys;
+global.snakeCase = snakeCase;
 
 global.Sequelize = Sequelize;
 global.sequelize = sequelize;
