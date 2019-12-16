@@ -1,12 +1,13 @@
 import Layout from "../components/layout";
 import Project from "../components/project";
+import syncData from "../helpers/sync_data";
 
 const Home = ({ navigation }) => {
   const [data, setData] = useState();
 
   useEffect(() => {
-    new Client().myData().then(setData)
-  }, []);
+    syncData(setData);
+  }, [])
 
   if (!data) return null
 
