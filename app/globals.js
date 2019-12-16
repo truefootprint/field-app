@@ -6,6 +6,7 @@ import camelCase from "camelcase";
 import snakeCaseKeys from "snakecase-keys";
 import snakeCase from "to-snake-case";
 
+import Client from "./helpers/client";
 import { Sequelize, sequelize } from "./helpers/sequelize";
 import className from "./helpers/class_name";
 import filterIndex from "./helpers/filter_index";
@@ -16,7 +17,6 @@ global.React = React;
 global.useState = useState;
 global.useEffect = useEffect;
 global.cloneElement = cloneElement;
-
 global.View = View;
 global.StyleSheet = StyleSheet;
 global.Touchable = TouchableWithoutFeedback;
@@ -32,6 +32,7 @@ global.camelCase = camelCase;
 global.snakeCaseKeys = snakeCaseKeys;
 global.snakeCase = snakeCase;
 
+global.Client = Client;
 global.Sequelize = Sequelize;
 global.sequelize = sequelize;
 global.className = className;
