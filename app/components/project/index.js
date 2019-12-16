@@ -1,9 +1,11 @@
 import Activity from "../activity";
 import Sticky from "../sticky";
 
-const Project = ({ name, activities=[] }) => (
+const Project = ({ name, projectActivities=[] }) => (
   <Sticky.Container>
-    {activities.map((props, i) => Activity({ color: palette.cycle(i), ...props }))}
+    {projectActivities.map((props, i) => (
+      Activity({ color: palette.cycle(i), ...props })
+    ))}
   </Sticky.Container>
 );
 

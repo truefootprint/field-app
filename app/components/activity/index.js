@@ -1,12 +1,11 @@
 import Topic from "../topic";
 import Expander from "../expander";
 
-const Activity = ({ color="blue", name, questions=[] }) => {
+const Activity = ({ color="blue", name, projectQuestions={ byTopic: [] } }) => {
   const counts = {};
-  const byTopic = chunk(questions, q => q.topic);
 
-  const topics = byTopic.map(([topic, questions], i) => (
-    <Topic key={i} color={color} name={topic.name} questions={questions} />
+  const topics = projectQuestions.byTopic.map(({ topic, projectQuestions }, i) => (
+    <Topic key={i} color={color} {...topic} questions={projectQuestions} />
   ));
 
   return Expander({ color, text: name, children: topics });

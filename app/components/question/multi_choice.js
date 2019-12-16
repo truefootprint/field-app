@@ -1,15 +1,15 @@
 import RadioGroup, { Radio } from "../radio_group";
 
-const MultiChoice = ({ color="blue", options=[] }) => {
-  const radio = ({ key, value }) => (
-    <Radio key={key}>
-      <Text>{value}</Text>
+const MultiChoice = ({ color="blue", multiChoiceOptions=[] }) => {
+  const radio = ({ id, text }) => (
+    <Radio key={id}>
+      <Text>{text}</Text>
     </Radio>
   );
 
   return (
     <RadioGroup color={color}>
-      {options.map(radio)}
+      {multiChoiceOptions.map(radio)}
     </RadioGroup>
   );
 };

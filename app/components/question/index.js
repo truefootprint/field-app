@@ -6,6 +6,8 @@ import FreeText from "./free_text";
 import styles from "./styles.js";
 
 const Question = ({ color="blue", type, text, ...rest }) => {
+  type = type && snakeCase(type).replace("_question", "");
+
   const inner = {
     multi_choice: <MultiChoice color={color} {...rest} />,
     photo_upload: <PhotoUpload color={color} {...rest} />,

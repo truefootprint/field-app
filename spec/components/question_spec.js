@@ -47,8 +47,8 @@ describe("<Question />", () => {
   });
 
   it("can render multi choice questions", () => {
-    const options = [{ key: "yes", value: "Yes" }, { key: "no", value: "No" }];
-    const question = render(<Question type="multi_choice" options={options} />);
+    const options = [{ id: 1, text: "Yes" }, { id: 2, text: "No" }];
+    const question = render(<Question type="multi_choice" multiChoiceOptions={options} />);
     const radios = question.getAllByTestId("checkbox"); // Radios are Checkboxes.
 
     expect(radios[0]).toHaveText("Yes");
