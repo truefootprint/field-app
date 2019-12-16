@@ -1,4 +1,4 @@
-import { loadModels } from "../../app/components/model_loader";
+import loadModels from "../../app/helpers/load_models";
 
 const resetDB = async () => {
   const callback = () => {};
