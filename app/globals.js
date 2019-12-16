@@ -6,6 +6,7 @@ import camelCase from "camelcase";
 import snakeCaseKeys from "snakecase-keys";
 import snakeCase from "to-snake-case";
 
+import File from "./helpers/file";
 import Client from "./helpers/client";
 import { Sequelize, sequelize } from "./helpers/sequelize";
 import className from "./helpers/class_name";
@@ -31,6 +32,7 @@ global.camelCase = camelCase;
 global.snakeCaseKeys = snakeCaseKeys;
 global.snakeCase = snakeCase;
 
+global.File = File;
 global.Client = Client;
 global.Sequelize = Sequelize;
 global.sequelize = sequelize;

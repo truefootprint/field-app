@@ -27,28 +27,23 @@ const wifiOnly = async (callback) => {
 };
 
 const withCaching = async (callback) => {
-  const epochSeconds = await lastModified();
+  const epochSeconds = await File.modified(filename);
 
   if (isSameDay(epochSeconds)) {
-    return await readCache();
+    return await File.readObject(filename);
   }
 
-  let content;
-  try { content = await callback(); } catch {}
+  let data;
+  try { data = await callback(); } catch {}
 
   if (content) {
-    writeCache(content);
-    return content;
+    File.writeObject(data);
+    return data;
   }
 
   if (epochSeconds) {
-    return await readCache();
+    return await File.readObject(filename);
   }
-};
-
-const cacheExists = async () => {
-  const { exists } = await FileSystem.getInfoAsync(path);
-  return exists;
 };
 
 const isSameDay = (epochSeconds) => {
@@ -58,21 +53,6 @@ const isSameDay = (epochSeconds) => {
   const currentDate = new Date();
 
   return dateUpdated.getDay() === currentDate.getDay();
-};
-
-const lastModified = async () => {
-  const { modificationTime } = await FileSystem.getInfoAsync(path);
-  return modificationTime;
-};
-
-const readCache = async () => {
-  const content = await FileSystem.readAsStringAsync(path);
-  return JSON.parse(content);
-};
-
-const writeCache = async (data) => {
-  const content = JSON.stringify(data);
-  await FileSystem.writeAsStringAsync(path, content);
 };
 
 export default syncData;
