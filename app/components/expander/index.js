@@ -9,7 +9,7 @@ import styles from "./styles.js";
 // </Sticky.Container>
 
 const Expander = ({ children, ...props } = {}) => {
-  const channel = { setActives: [] };
+  const channel = { setActives: {} };
   const key = (i) => `${props.text}-${i}`;
 
   return [
@@ -29,14 +29,18 @@ const Header = ({ channel, color="blue", text, sticky }) => {
   const [active, setActive] = useState(false);
   const classes = ["header", sticky && "sticky_header"];
 
-  useEffect(() => { channel.setActives.push(setActive) }, []);
+  // Remember setActive for the sticky and non-sticky header:
+  channel.setActives[sticky] = setActive;
 
   // Hide either the sticky or non-sticky header:
   if (active !== sticky) return null;
 
   const toggle = () => {
     channel.setVisible(!active);
-    channel.setActives.forEach(f => f(!active));
+
+    // Toggle the sticky and non-sticky headers:
+    channel.setActives[true](!active);
+    channel.setActives[false](!active);
   };
 
   return (
