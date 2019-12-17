@@ -5,6 +5,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "@react-native-community/netinfo": "~3.2.1",
     "camelcase-keys": "^6.1.1",
     "expo": "^35.0.0",
     "expo-file-system": "~7.0.0",
