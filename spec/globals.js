@@ -21,3 +21,4 @@ global.style = style;
 expect.extend({ toHaveText });
 
 beforeEach(() => benchmark(resetDB));
+beforeEach(jest.resetAllMocks);
