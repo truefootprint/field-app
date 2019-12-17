@@ -4,7 +4,7 @@ const wifi = Network.NetworkStateType.WIFI;
 
 // Calls the function when the internet becomes reachable via wifi.
 
-const useWifi = (onConnect) => {
+const useWifi = (onConnect=()=>{}) => {
   const [connected, setConnected] = useState(false);
 
   const handleChange = async (_net_info_state) => {
