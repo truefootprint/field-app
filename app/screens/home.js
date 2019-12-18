@@ -6,9 +6,13 @@ const Home = ({ navigation }) => {
   const myData = useMyData();
   if (!myData) return null;
 
+  const handleAnswer = ({ question, answer }) => {
+    console.log("answer:", answer);
+  };
+
   return (
     <Layout>
-      <Project {...myData.projects[0]} />
+      <Project {...myData.projects[0]} onAnswerQuestion={handleAnswer} />
     </Layout>
   );
 };
