@@ -99,4 +99,24 @@ describe("<TextInput />", () => {
     fireEvent(nativeInput, "blur");
     expect(callback).toHaveBeenCalled();
   });
+
+  it("passes the input text to all of the callbacks", () => {
+    const callback = jest.fn();
+    const input = render(
+      <TextInput onChangeText={callback} onFocus={callback} onBlur={callback} />
+    );
+    const nativeInput = input.getByTestId("native_input");
+
+    fireEvent(nativeInput, "changeText", "123");
+    expect(callback.mock.calls.length).toBe(1);
+    expect(callback).lastCalledWith("123");
+
+    fireEvent(nativeInput, "focus");
+    expect(callback.mock.calls.length).toBe(2);
+    expect(callback).lastCalledWith("123");
+
+    fireEvent(nativeInput, "blur");
+    expect(callback.mock.calls.length).toBe(3);
+    expect(callback).lastCalledWith("123");
+  });
 });

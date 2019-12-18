@@ -12,8 +12,8 @@ const TextInput = ({ color="blue", placeholder, defaultValue, units, onChangeTex
   const classes = ["native_input", focussed && "focussed", placeholderVisible && "placeholder"];
 
   const handleChange = (text) => { setText(text); onChangeText(text); };
-  const handleFocus = () => { setFocussed(true); onFocus(); };
-  const handleBlur = () => { setFocussed(false); onBlur(); };
+  const handleFocus = () => { setFocussed(true); onFocus(text); };
+  const handleBlur = () => { setFocussed(false); onBlur(text); };
 
   return (
     <View>
