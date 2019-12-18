@@ -5,30 +5,44 @@ import PhotoUpload from "./photo_upload";
 import FreeText from "./free_text";
 import styles from "./styles.js";
 
-const Question = ({ color="blue", type, text, ...rest }) => {
-  type = type && snakeCase(type).replace("_question", "");
+const Question = ({ color="blue", type, text, onAnswer=()=>{}, ...rest }) => {
+  const [canSubmit, setCanSubmit] = useState(false);
 
-  const inner = {
-    multi_choice: <MultiChoice color={color} {...rest} />,
-    photo_upload: <PhotoUpload color={color} {...rest} />,
-    free_text: <FreeText color={color} {...rest} />,
-  }[type];
+  const handleAnswer = (answer) => {
+    setCanSubmit(true);
+    onAnswer(answer);
+  };
+
+  const handleSubmit = () => {
+    // The submit button is to reassure the user, it doesn't actually send data.
+    setCanSubmit(false);
+  };
+
+  type = type && snakeCase(type).replace("_question", "");
 
   return (
     <View>
       <Text {...className("text", styles(color))}>{text}</Text>
 
       <View {...className(type)}>
-        {inner}
+        {questionFor({ type, color, onAnswer: handleAnswer, setCanSubmit, ...rest })}
       </View>
 
       <View {...className(`${type}_issue`)}>
         <Checkbox color={color}>Record an issue</Checkbox>
       </View>
 
-      <Button text="Submit" color={color} />
+      {<Button text="Submit" color={color} disabled={!canSubmit} onPress={handleSubmit} />}
     </View>
   );
+};
+
+const questionFor = ({ type, ...props }) => {
+  switch (type) {
+    case "multi_choice": return <MultiChoice {...props} />;
+    case "photo_upload": return <PhotoUpload {...props} />;
+    case "free_text": return <FreeText {...props} />;
+  };
 };
 
 export default Question;
