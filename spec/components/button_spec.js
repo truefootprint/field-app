@@ -25,4 +25,13 @@ describe("<Button />", () => {
     fireEvent.press(button.getByTestId("touchable"));
     expect(callback).toHaveBeenCalled();
   });
+
+  it("can be disabled", () => {
+    const button = render(<Button disabled={true} />);
+    const touchable = button.queryByTestId("touchable");
+    const disabled = button.getByTestId("disabled");
+
+    expect(touchable).toBeNull();
+    expect(style(disabled).opacity).toBe(0.6);
+  });
 });
