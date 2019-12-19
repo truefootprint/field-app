@@ -1,4 +1,5 @@
 import File from "./file";
+import SubmissionPeriod from "./submission_period";
 
 class FileCache {
   static async fetch(filename, { type, onMiss, maxAge } = {}) {
@@ -29,7 +30,7 @@ class FileCache {
 
   static async expired(filename, maxAge) {
     if (typeof maxAge === "undefined") {
-      maxAge = secondsSinceMidnight();
+      maxAge = SubmissionPeriod.secondsSinceStart();
     }
 
     const modifiedTime = await File.modified(filename);
@@ -38,19 +39,5 @@ class FileCache {
     return modifiedTime + maxAge < currentTime;
   }
 }
-
-const secondsSinceMidnight = () => {
-  const now = new Date().getTime() / 1000;
-  const midnight = getMidnight().getTime() / 1000;
-
-  return now - midnight;
-};
-
-const getMidnight = () => {
-  const date = new Date();
-  date.setHours(0, 0, 0, 0);
-
-  return date;
-};
 
 export default FileCache;
