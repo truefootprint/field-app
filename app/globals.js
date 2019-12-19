@@ -8,7 +8,7 @@ import snakeCase from "to-snake-case";
 
 import File from "./helpers/file";
 import Client from "./helpers/client";
-import { Sequelize, sequelize } from "./helpers/sequelize";
+import { Sequelize, Op, sequelize } from "./helpers/sequelize";
 import createOrUpdate from "./helpers/create_or_update";
 import className from "./helpers/class_name";
 import filterIndex from "./helpers/filter_index";
@@ -36,6 +36,7 @@ global.snakeCase = snakeCase;
 global.File = File;
 global.Client = Client;
 global.Sequelize = Sequelize;
+global.Op = Op;
 global.sequelize = sequelize;
 global.createOrUpdate = createOrUpdate;
 global.className = className;

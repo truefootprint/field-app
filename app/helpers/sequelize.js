@@ -1,6 +1,8 @@
 import * as SQLite from "expo-sqlite";
 import Sequelize from "rn-sequelize";
 
+const Op = Sequelize.Op;
+
 const sequelize = new Sequelize({
   dialectModule: SQLite,
   database: "field-app",
@@ -10,4 +12,4 @@ const sequelize = new Sequelize({
   }
 });
 
-export { Sequelize, sequelize };
+export { Sequelize, Op, sequelize };
