@@ -1,15 +1,9 @@
-import Project from "../models/project";
-import Activity from "../models/activity";
-import Question from "../models/question";
-import Topic from "../models/topic";
+import Response from "../models/response";
 
 const loadModels = async (callback, options = {}) => {
   const m = sequelize.models;
 
-  Project.onLoad(m);
-  Activity.onLoad(m);
-  Question.onLoad(m);
-  Topic.onLoad(m);
+  Response.onLoad(m);
 
   await sequelize.sync(options);
 

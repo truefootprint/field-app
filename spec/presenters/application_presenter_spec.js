@@ -1,35 +1,35 @@
 import ApplicationPresenter from "../../app/presenters/application_presenter";
-import Topic from "../../app/models/topic";
-import TopicPresenter from "../../app/presenters/topic_presenter";
+import Response from "../../app/models/response";
 
 describe("ApplicationPresenter", () => {
-  const record = Topic.build({ id: 123, name: "name" });
+  const attributes = { id: 1, questionId: 2, value: "answer" };
+  const record = Response.build(attributes);
 
   it("decides which presenter to use based on type", async () => {
     const element = await ApplicationPresenter.presentElement(record);
-    expect(element).toEqual({ id: 123, name: "name" });
+    expect(element).toEqual(attributes);
 
     const collection = await ApplicationPresenter.presentCollection([record]);
-    expect(collection).toEqual([{ id: 123, name: "name" }]);
+    expect(collection).toEqual([attributes]);
   });
 
   it("can present one record", async () => {
     const presented = await ApplicationPresenter.presentElement(record);
-    expect(presented).toEqual({ id: 123, name: "name" });
+    expect(presented).toEqual(attributes);
   });
 
   it("can present a collection of records", async () => {
     const presented = await ApplicationPresenter.presentCollection([record]);
-    expect(presented).toEqual([{ id: 123, name: "name" }]);
+    expect(presented).toEqual([attributes]);
   });
 
   it("can present a nested collection", async () => {
     const presented = await ApplicationPresenter.presentCollection([[record]]);
-    expect(presented).toEqual([[{ id: 123, name: "name" }]]);
+    expect(presented).toEqual([[attributes]]);
   });
 
   it("can present objects as nested keys", async () => {
-    const presented = await ApplicationPresenter.presentNested("topic", TopicPresenter, () => record);
-    expect(presented).toEqual({ topic: { id: 123, name: "name" } });
+    const presented = await ApplicationPresenter.presentNested("response", ApplicationPresenter, () => record);
+    expect(presented).toEqual({ response: attributes });
   });
 });
