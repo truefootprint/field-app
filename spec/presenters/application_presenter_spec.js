@@ -32,4 +32,23 @@ describe("ApplicationPresenter", () => {
     const presented = await ApplicationPresenter.presentNested("response", ApplicationPresenter, () => record);
     expect(presented).toEqual({ response: attributes });
   });
+
+  it("can present records fetched with the 'raw' option", async () => {
+    await record.save();
+
+    const response = await Response.findOne({ raw: true });
+    const presented = await ApplicationPresenter.presentElement(response);
+
+    expect(presented).toMatchObject(attributes);
+  });
+
+  it("parses date strings into date objects", async () => {
+    const date = new Date();
+    const record = await Response.create({ ...attributes, createdAt: date });
+
+    const response = await Response.findOne({ raw: true });
+    const presented = await ApplicationPresenter.presentElement(response);
+
+    expect(presented.createdAt).toEqual(date);
+  });
 });

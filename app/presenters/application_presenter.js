@@ -14,7 +14,17 @@ class ApplicationPresenter {
   }
 
   static async presentElement(record) {
-    return record ? record.dataValues : null
+    if (!record) return null;
+
+    if (record.dataValues) {
+      return record.dataValues;
+    }
+
+    return {
+      ...record,
+      createdAt: parseDate(record.createdAt),
+      updatedAt: parseDate(record.updatedAt),
+    };
   }
 
   static async presentNested(key, presenter, fn) {
@@ -24,5 +34,9 @@ class ApplicationPresenter {
     return { [key]: presented };
   }
 }
+
+const parseDate = (string) => (
+  new Date(string.replace(" ","T").replace(" +00:00","Z"))
+);
 
 export default ApplicationPresenter;
