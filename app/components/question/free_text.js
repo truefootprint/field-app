@@ -1,7 +1,8 @@
 import TextInput from "../text_input";
 
-const FreeText = ({ color="blue", placeholder, units, onAnswer=()=>{}, setCanSubmit=()=>{}, ...rest }) => {
+const FreeText = ({ color="blue", placeholder, units, response, onAnswer=()=>{}, setCanSubmit=()=>{}, ...rest }) => {
   const [previous, setPrevious] = useState("");
+  const defaultValue = response && response.value;
 
   const handleBlur = (text) => {
     if (text === previous) return;
@@ -20,6 +21,7 @@ const FreeText = ({ color="blue", placeholder, units, onAnswer=()=>{}, setCanSub
       color={color}
       placeholder={placeholder}
       units={units}
+      defaultValue={defaultValue}
       onBlur={handleBlur}
       onChangeText={handleChange} />
   );

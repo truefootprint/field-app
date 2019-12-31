@@ -1,3 +1,4 @@
+import SubmissionPeriod from "../../helpers/submission_period";
 import Checkbox from "../checkbox";
 import Button from "../button";
 import MultiChoice from "./multi_choice";
@@ -5,8 +6,9 @@ import PhotoUpload from "./photo_upload";
 import FreeText from "./free_text";
 import styles from "./styles.js";
 
-const Question = ({ color="blue", type, text, onAnswer=()=>{}, ...rest }) => {
+const Question = ({ color="blue", type, text, responses=[], onAnswer=()=>{}, ...rest }) => {
   const [canSubmit, setCanSubmit] = useState(false);
+  const response = SubmissionPeriod.last(responses);
 
   const handleAnswer = (answer) => {
     setCanSubmit(true);
@@ -25,7 +27,7 @@ const Question = ({ color="blue", type, text, onAnswer=()=>{}, ...rest }) => {
       <Text {...className("text", styles(color))}>{text}</Text>
 
       <View {...className(type)}>
-        {questionFor({ type, color, onAnswer: handleAnswer, setCanSubmit, ...rest })}
+        {questionFor({ type, color, response, onAnswer: handleAnswer, setCanSubmit, ...rest })}
       </View>
 
       <View {...className(`${type}_issue`)}>

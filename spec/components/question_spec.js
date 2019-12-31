@@ -46,6 +46,14 @@ describe("<Question />", () => {
     expect(question.queryByTestId("disabled")).toBeNull();
   });
 
+  it("filters responses to the submission period", () => {
+    const response = { value: "old answer", createdAt: new Date(0).toString() };
+    const question = render(<Question type="free_text" responses={[response]} />);
+    const input = question.getByTestId("native_input");
+
+    expect(props(input).value).toBe("");
+  });
+
   describe("free text questions", () => {
     it("renders", () => {
       const question = render(
@@ -68,6 +76,14 @@ describe("<Question />", () => {
       fireEvent(input, "blur");
 
       expect(callback).lastCalledWith("answer");
+    });
+
+    it("populates the input from the response", () => {
+      const response = { value: "answer", createdAt: new Date().toString() };
+      const question = render(<Question type="free_text" responses={[response]} />);
+      const input = question.getByTestId("native_input");
+
+      expect(props(input).value).toBe("answer");
     });
 
     describe("when the answer hasn't changed", () => {
