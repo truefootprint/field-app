@@ -7,6 +7,8 @@ const Response = sequelize.define("response", {
     type: Sequelize.TEXT,
     allowNull: false,
   },
+  createdAt: timestampField("createdAt"),
+  updatedAt: timestampField("updatedAt"),
 });
 
 Response.onLoad = () => {
