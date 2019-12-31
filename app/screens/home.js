@@ -4,7 +4,7 @@ import useCombinedData from "../hooks/use_combined_data";
 import answerQuestion from "../actions/answer_question";
 
 const Home = ({ navigation }) => {
-  const data = useCombinedData();
+  const data = useCombinedData({ force: true });
 
   return (
     <Layout>
