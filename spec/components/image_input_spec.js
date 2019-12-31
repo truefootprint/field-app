@@ -27,6 +27,16 @@ describe("<ImageInput />", () => {
     expect(props(images[1]).source.uri).toBe("second");
   });
 
+  it("can set its default images array", () => {
+    const image = { uri: "http://placekitten.com/800/500" };
+    const input = render(<ImageInput defaultImages={[image]} />);
+
+    const images = input.getAllByType("Image");
+    expect(images.length).toBe(1);
+
+    expect(props(images[0]).source.uri).toBe("http://placekitten.com/800/500");
+  });
+
   it("can set an 'onChange' callback", () => {
     const callback = jest.fn();
     const input = render(<ImageInput onChange={callback} />);

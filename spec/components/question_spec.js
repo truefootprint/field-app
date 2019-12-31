@@ -177,7 +177,20 @@ describe("<Question />", () => {
       const picker = question.getByTestId("picker");
 
       fireEvent(picker, "pick", { uri: "uri" });
-      expect(callback).lastCalledWith("uri");
+      expect(callback).lastCalledWith(JSON.stringify([{ uri: "uri" }]));
+    });
+
+    it("populates the input from the response", () => {
+      const response = {
+        value: JSON.stringify([{ uri: "http://placekitten.com/800/500" }]),
+        createdAt: new Date().toString(),
+      };
+
+      const question = render(<Question type="photo_upload" responses={[response]} />);
+      const images = question.getAllByType("Image");
+
+      expect(images.length).toBe(1);
+      expect(props(images[0]).source.uri).toBe("http://placekitten.com/800/500");
     });
   });
 });
