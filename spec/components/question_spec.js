@@ -148,6 +148,19 @@ describe("<Question />", () => {
       fireEvent(question.getByText("No"), "check");
       expect(callback).lastCalledWith(2);
     });
+
+    it("populates the input from the response", () => {
+      const options = [{ id: 1, text: "Yes" }, { id: 2, text: "No" }];
+      const response = { value: "2", createdAt: new Date().toString() };
+      const question = render(
+        <Question type="multi_choice" multiChoiceOptions={options} responses={[response]} />
+      );
+
+      const radios = question.getAllByTestId("checkbox"); // Radios are Checkboxes.
+
+      expect(props(radios[0]).data.checked).toBe(false);
+      expect(props(radios[1]).data.checked).toBe(true);
+    });
   });
 
   describe("photo upload questions", () => {

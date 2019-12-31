@@ -1,6 +1,11 @@
 import RadioGroup, { Radio } from "../radio_group";
 
-const MultiChoice = ({ color="blue", multiChoiceOptions=[], onAnswer=()=>{} }) => {
+const MultiChoice = ({ color="blue", multiChoiceOptions=[], response, onAnswer=()=>{} }) => {
+  const defaultId = response && parseInt(response.value, 10);
+
+  // TODO: add support for multiple selections
+  const defaultIndex = filterIndex(multiChoiceOptions, o => o.id === defaultId)[0];
+
   const radio = ({ text }, i) => (
     <Radio key={i}>
       <Text>{text}</Text>
@@ -14,7 +19,7 @@ const MultiChoice = ({ color="blue", multiChoiceOptions=[], onAnswer=()=>{} }) =
   };
 
   return (
-    <RadioGroup color={color} onChange={handleChange}>
+    <RadioGroup color={color} onChange={handleChange} defaultIndex={defaultIndex}>
       {multiChoiceOptions.map(radio)}
     </RadioGroup>
   );
