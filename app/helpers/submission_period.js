@@ -14,4 +14,18 @@ SubmissionPeriod.secondsSinceStart = () => {
   return now - midnight;
 };
 
+SubmissionPeriod.filter = (collection) => {
+  const startedAt = SubmissionPeriod.startedAt();
+
+  return collection.filter(o => (
+    new Date(o.createdAt) >= startedAt
+  ));
+};
+
+SubmissionPeriod.last = (collection) => {
+  const objects = SubmissionPeriod.filter(collection);
+
+  return maxBy(objects, o => new Date(o.createdAt));
+};
+
 export default SubmissionPeriod;

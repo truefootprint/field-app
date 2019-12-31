@@ -15,4 +15,24 @@ describe("SubmissionPeriod", () => {
 
     expect(SubmissionPeriod.secondsSinceStart()).toEqual(delta);
   });
+
+  it("can filter objects created within the submission period", () => {
+    const rightNow = { createdAt: new Date().toString() };
+    const agesAgo = { createdAt: new Date(0).toString() };
+
+    const result = SubmissionPeriod.filter([rightNow, agesAgo]);
+    expect(result).toEqual([rightNow]);
+  });
+
+  it("can find the last object created within the submission period", () => {
+    const rightNow = { createdAt: new Date().toString() };
+    const earlier = { createdAt: midnight().toString() };
+    const agesAgo = { createdAt: new Date(0).toString() };
+
+    const result = SubmissionPeriod.last([rightNow, earlier, agesAgo]);
+    expect(result).toEqual(rightNow);
+
+    const noResult = SubmissionPeriod.last([agesAgo]);
+    expect(noResult).toBeUndefined();
+  });
 });
