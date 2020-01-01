@@ -1,4 +1,4 @@
-import loadModels from "../../app/helpers/load_models";
+import { loadModels } from "../../app/workflows/load_app";
 
 const resetDB = async () => {
   const callback = () => {};

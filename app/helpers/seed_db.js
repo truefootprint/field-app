@@ -1,4 +1,4 @@
-import { loadModels } from "../components/model_loader";
+import { loadModels } from "../workflows/load_app";
 
 const seedDB = async (callback=()=>{}) => {
   await loadModels(() => {}, { force: true });
