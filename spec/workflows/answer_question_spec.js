@@ -1,4 +1,4 @@
-import answerQuestion from "../../app/actions/answer_question";
+import answerQuestion from "../../app/workflows/answer_question";
 import Response from "../../app/models/response";
 import SubmissionPeriod from "../../app/helpers/submission_period";
 
