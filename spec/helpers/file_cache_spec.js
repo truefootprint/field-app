@@ -24,6 +24,18 @@ describe("FileCache", () => {
     expect(object).toEqual({ some: "data" });
   });
 
+  it("defaults to a JavaScript object if the extension is json", async () => {
+    File.exists.mockResolvedValue(true);
+    File.readObject.mockResolvedValue({ some: "data" });
+    File.read.mockResolvedValue("some data");
+
+    const object = await FileCache.fetch("data.json");
+    expect(object).toEqual({ some: "data" });
+
+    const string = await FileCache.fetch("data.json", { type: "string" });
+    expect(string).toEqual("some data");
+  });
+
   it("calls 'onMiss' to populate the cache when its empty", async () => {
     File.exists.mockResolvedValue(false);
 

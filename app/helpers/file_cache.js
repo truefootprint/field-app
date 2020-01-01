@@ -3,6 +3,8 @@ import SubmissionPeriod from "./submission_period";
 
 class FileCache {
   static async fetch(filename, { type, onMiss, maxAge } = {}) {
+    if (filename.endsWith(".json")) type = type || "object";
+
     const readMethod = type === "object" ? File.readObject : File.read;
     const writeMethod = type === "object" ? File.writeObject : File.write;
 
