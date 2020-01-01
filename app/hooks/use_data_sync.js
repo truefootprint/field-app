@@ -10,7 +10,7 @@ const useDataSync = (onSync) => {
 
   const sync = async () => {
     if (foreground) {
-      await onSync(connected);
+      await onSync({ connected });
     }
   };
 
