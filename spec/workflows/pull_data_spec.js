@@ -1,4 +1,4 @@
-import pullData from "../../app/workflows/pull_data";
+import pullData, { combineData } from "../../app/workflows/pull_data";
 import File from "../../app/helpers/file";
 import Client from "../../app/helpers/client";
 import Response from "../../app/models/response";
@@ -62,5 +62,23 @@ describe("pullData", () => {
 
     expect(result.responses.length).toBe(1);
     expect(result.responses[0]).toMatchObject({ questionId: 1, value: "answer" });
+  });
+});
+
+describe("combineData", () => {
+  it("combines myData with additional responses from the user", () => {
+    const myData = { questionId: 123, responses: [] };
+    const responses = [{ questionId: 123, value: "answer" }];
+
+    const result = combineData(myData, responses);
+    expect(result).toEqual({ questionId: 123, responses });
+  });
+
+  it("handles arbitrary levels of nesting", () => {
+    const myData = { a: { b: [{ c: { questionId: 123, responses: [] } }] } };
+    const responses = [{ questionId: 123, value: "answer" }];
+
+    const result = combineData(myData, responses);
+    expect(result).toEqual({ a: { b: [{ c: { questionId: 123, responses } }] } });
   });
 });
