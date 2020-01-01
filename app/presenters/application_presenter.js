@@ -33,6 +33,16 @@ class ApplicationPresenter {
 
     return { [key]: presented };
   }
+
+  static async presentAll() {
+    const records = await this.model().findAll({ raw: true });
+
+    return await this.presentCollection(records);
+  }
+
+  static model() {
+    throw new Error("Implement me");
+  }
 }
 
 const parseDate = (string) => (

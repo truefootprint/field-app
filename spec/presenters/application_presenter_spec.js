@@ -51,4 +51,16 @@ describe("ApplicationPresenter", () => {
 
     expect(presented.createdAt).toEqual(date);
   });
+
+  it("can present all records of the model", async () => {
+    class TestPresenter extends ApplicationPresenter {
+      static model() { return Response; }
+    }
+
+    await Response.create(attributes);
+    const presented = await TestPresenter.presentAll();
+
+    expect(presented.length).toBe(1);
+    expect(presented[0]).toMatchObject(attributes);
+  });
 });
