@@ -27,7 +27,7 @@ class Client {
     data = snakeCaseKeys(data, { deep: true });
     data = JSON.stringify(data);
 
-    await fetch(`${host}${path}`, {
+    const response = await fetch(`${host}${path}`, {
       method: "POST",
       headers: {
         "Authorization": `Basic ${basicAuth.base64}`,
@@ -35,6 +35,12 @@ class Client {
       },
       body: data,
     });
+
+    const status = response.status;
+
+    if (status !== 201) {
+      throw new Error(`POST failed with ${response.status}: ${path}`);
+    }
   }
 }
 
