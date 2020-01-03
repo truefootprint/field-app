@@ -56,29 +56,29 @@ describe("pullData", () => {
     await Response.create({ questionId: 1, value: "answer" });
 
     File.exists.mockResolvedValue(true);
-    File.readObject.mockResolvedValue({ questionId: 1, responses: [] });
+    File.readObject.mockResolvedValue({ projectQuestionId: 1, responses: [] });
 
     const result = await pullData();
 
     expect(result.responses.length).toBe(1);
-    expect(result.responses[0]).toMatchObject({ questionId: 1, value: "answer" });
+    expect(result.responses[0]).toMatchObject({ projectQuestionId: 1, value: "answer" });
   });
 });
 
 describe("combineData", () => {
   it("combines myData with additional responses from the user", () => {
-    const myData = { questionId: 123, responses: [] };
-    const responses = [{ questionId: 123, value: "answer" }];
+    const myData = { projectQuestionId: 123, responses: [] };
+    const responses = [{ projectQuestionId: 123, value: "answer" }];
 
     const result = combineData(myData, responses);
-    expect(result).toEqual({ questionId: 123, responses });
+    expect(result).toEqual({ projectQuestionId: 123, responses });
   });
 
   it("handles arbitrary levels of nesting", () => {
-    const myData = { a: { b: [{ c: { questionId: 123, responses: [] } }] } };
-    const responses = [{ questionId: 123, value: "answer" }];
+    const myData = { a: { b: [{ c: { projectQuestionId: 123, responses: [] } }] } };
+    const responses = [{ projectQuestionId: 123, value: "answer" }];
 
     const result = combineData(myData, responses);
-    expect(result).toEqual({ a: { b: [{ c: { questionId: 123, responses } }] } });
+    expect(result).toEqual({ a: { b: [{ c: { projectQuestionId: 123, responses } }] } });
   });
 });
