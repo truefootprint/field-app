@@ -36,7 +36,7 @@ describe("pullData", () => {
     await Response.create({ questionId: 1, value: "answer" });
 
     File.exists.mockResolvedValue(true);
-    File.readObject.mockResolvedValue({ projectQuestionId: 1, responses: [] });
+    File.readObject.mockResolvedValue({ id: 1, responses: [] });
 
     const result = await pullData();
 
@@ -47,13 +47,13 @@ describe("pullData", () => {
   describe("when myData is not in the cache", () => {
     beforeEach(() => {
       Client.mockImplementation(() => ({
-        myData: () => ({ projectQuestionId: 1, responses: [] }),
+        myData: () => ({ id: 1, responses: [] }),
       }));
     });
 
     it("fetches myData from the backend", async () => {
       const result = await pullData();
-      expect(result).toEqual({ projectQuestionId: 1, responses: [] });
+      expect(result).toEqual({ id: 1, responses: [] });
     });
 
     it("does not fetch data from the backend when not on wifi", async () => {
@@ -93,18 +93,18 @@ describe("pullData", () => {
 
 describe("combineData", () => {
   it("combines myData with additional responses from the user", () => {
-    const myData = { projectQuestionId: 123, responses: [] };
+    const myData = { id: 123, responses: [] };
     const responses = [{ projectQuestionId: 123, value: "answer" }];
 
     const result = combineData(myData, responses);
-    expect(result).toEqual({ projectQuestionId: 123, responses });
+    expect(result).toEqual({ id: 123, responses });
   });
 
   it("handles arbitrary levels of nesting", () => {
-    const myData = { a: { b: [{ c: { projectQuestionId: 123, responses: [] } }] } };
+    const myData = { a: { b: [{ c: { id: 123, responses: [] } }] } };
     const responses = [{ projectQuestionId: 123, value: "answer" }];
 
     const result = combineData(myData, responses);
-    expect(result).toEqual({ a: { b: [{ c: { projectQuestionId: 123, responses } }] } });
+    expect(result).toEqual({ a: { b: [{ c: { id: 123, responses } }] } });
   });
 });

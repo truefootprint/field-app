@@ -30,17 +30,18 @@ const combineData = (myData, responses) => {
   const groups = groupBy(responses, r => r.projectQuestionId);
 
   return mapNested(myData, o => {
-    if (!o) return o;
-
-    if (typeof o.projectQuestionId === "undefined") return o;
-    if (typeof o.responses === "undefined") return o;
-
-    const responses = groups[o.projectQuestionId] || [];
-    o.responses = o.responses.concat(responses);
+    if (isProjectQuestion(o)) {
+      const responses = groups[o.id] || [];
+      o.responses = o.responses.concat(responses);
+    }
 
     return o;
   });
 };
+
+const isProjectQuestion = (o) => (
+  o && typeof o.id !== "undefined" && typeof o.responses !== "undefined"
+)
 
 export default pullData;
 export { combineData };
