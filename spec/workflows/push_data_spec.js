@@ -16,7 +16,7 @@ describe("pushData", () => {
     myUpdates = jest.fn();
     Client.mockImplementation(() => ({ myUpdates }));
 
-    Response.create({ questionId: 123, value: "answer" });
+    Response.create({ id: 1, questionId: 2, value: "answer" });
   });
 
   it("pushes responses to the backend, partitioned by period", async () => {
@@ -28,8 +28,10 @@ describe("pushData", () => {
         periodEnd: todayEnd,
         responses: [
           {
-            projectQuestionId: 123,
+            localId: 1,
+            projectQuestionId: 2,
             value: "answer",
+            pushed: false,
             createdAt: expect.anything(),
             updatedAt: expect.anything(),
           },

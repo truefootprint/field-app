@@ -9,13 +9,16 @@ class ResponsePresenter extends ApplicationPresenter {
   static async presentElement(record) {
     const attr = await super.presentElement(record);
 
-    return {
-      projectQuestionId: attr.questionId,
-      value: attr.value,
-      createdAt: attr.createdAt,
-      updatedAt: attr.updatedAt,
-    };
+    renameField(attr, "id", "localId");
+    renameField(attr, "questionId", "projectQuestionId");
+
+    return attr;
   }
 };
+
+const renameField = (attributes, oldName, newName) => {
+  attributes[newName] = attributes[oldName];
+  delete attributes[oldName];
+}
 
 export default ResponsePresenter;
