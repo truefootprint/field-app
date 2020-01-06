@@ -8,9 +8,11 @@ import answerQuestion from "../workflows/answer_question";
 const Home = ({ navigation }) => {
   const [data, setData] = useState();
 
-  useDataSync(HOF(pullData, { callback: setData }));
-
-  useEffect(() => { pushData(); }); // TODO: when should this workflow run?
+  useDataSync(options => {
+    pushData().then(() => {
+      pullData({ ...options, callback: setData, force: true });
+    });
+  });
 
   return (
     <Layout>
