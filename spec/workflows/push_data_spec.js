@@ -40,12 +40,14 @@ describe("pushData", () => {
     ]);
   });
 
-  it("deletes responses in the local database after pushing them", async () => {
-    expect(await Response.count()).toBe(1);
+  it("updates responses to 'pushed' in the database after pushing them", async () => {
+    let response = await Response.findOne();
+    expect(response.pushed).toBe(false);
 
     await pushData();
 
-    expect(await Response.count()).toBe(0);
+    response = await Response.findOne();
+    expect(response.pushed).toBe(true);
   });
 
   it("does not delete responses if the API request fails", async () => {

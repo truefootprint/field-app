@@ -4,13 +4,15 @@ import Response from "../models/response";
 import ResponsePresenter from "../presenters/response_presenter";
 
 const pushData = async () => {
-  const responses = await ResponsePresenter.presentAll();
+  const responses = await ResponsePresenter.presentAll({ pushed: false });
   if (responses.length === 0) return false;
 
   const partitions = SubmissionPeriod.partition(responses, "responses");
   await new Client().myUpdates(partitions);
 
-  Response.destroy({ where: {} });
+  const where = { id: { [Op.or]: responses.map(r => r.localId) } };
+  await Response.update({ pushed: true }, { where });
+
   return true;
 };
 
