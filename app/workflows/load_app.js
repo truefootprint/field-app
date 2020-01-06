@@ -1,8 +1,11 @@
 import * as Font from "expo-font";
 import Response from "../models/response";
 
-const loadApp = (callback=()=>{}) => {
-  Promise.all([loadModels(), loadFonts()]).then(() => callback(true));
+const loadApp = (callback=()=>{}, options={}) => {
+  const models = loadModels(() => {}, options);
+  const fonts = loadFonts();
+
+  Promise.all([models, fonts]).then(() => callback(true));
 };
 
 const loadFonts = async (callback=()=>{}) => {

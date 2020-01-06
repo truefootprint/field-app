@@ -13,7 +13,7 @@ const AppContainer = createAppContainer(RootStack);
 const App = () => {
   const [loaded, setLoaded] = useState();
 
-  useEffect(() => loadApp(setLoaded), []);
+  useEffect(() => loadApp(setLoaded, { force: false }), []);
 
   return (
     <View style={{ flex: 1 }} {...className("root")}>
