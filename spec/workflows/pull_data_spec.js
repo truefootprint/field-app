@@ -32,26 +32,6 @@ describe("pullData", () => {
     expect(File.exists).lastCalledWith("my_data.json");
   });
 
-  it("fetches myData from the backend on a cache miss", async () => {
-    Client.mockImplementation(() => ({
-      myData: () => ({ client: "data" })
-    }));
-
-    const result = await pullData();
-
-    expect(result).toEqual({ client: "data" });
-  });
-
-  it("does not fetch data from the backend when not on wifi", async () => {
-    Client.mockImplementation(() => ({
-      myData: () => ({ client: "data" })
-    }));
-
-    const result = await pullData({ connected: false });
-
-    expect(result).toBeUndefined();
-  });
-
   it("combines myData with responses from the local database", async () => {
     await Response.create({ questionId: 1, value: "answer" });
 
@@ -62,6 +42,52 @@ describe("pullData", () => {
 
     expect(result.responses.length).toBe(1);
     expect(result.responses[0]).toMatchObject({ projectQuestionId: 1, value: "answer" });
+  });
+
+  describe("when myData is not in the cache", () => {
+    beforeEach(() => {
+      Client.mockImplementation(() => ({
+        myData: () => ({ projectQuestionId: 1, responses: [] }),
+      }));
+    });
+
+    it("fetches myData from the backend", async () => {
+      const result = await pullData();
+      expect(result).toEqual({ projectQuestionId: 1, responses: [] });
+    });
+
+    it("does not fetch data from the backend when not on wifi", async () => {
+      const result = await pullData({ connected: false });
+      expect(result).toBeUndefined();
+    });
+
+    it("deletes pushed responses after fetching", async () => {
+      await Response.create({ questionId: 1, value: "answer", pushed: false });
+      await Response.create({ questionId: 2, value: "answer", pushed: true });
+
+      await pullData();
+      const responses = await Response.findAll();
+
+      expect(responses.length).toBe(1);
+      expect(responses[0].pushed).toBe(false);
+    });
+
+    it("does not delete pushed responses if no fetch occurs", async () => {
+      await Response.create({ questionId: 1, value: "answer", pushed: false });
+      await Response.create({ questionId: 2, value: "answer", pushed: true });
+
+      await pullData({ connected: false });
+      const responses = await Response.findAll();
+
+      expect(responses.length).toBe(2);
+    });
+
+    it("does not include deleted responses in the combined data", async () => {
+      await Response.create({ questionId: 1, value: "answer", pushed: true });
+
+      const result = await pullData();
+      expect(result.responses.length).toBe(0);
+    });
   });
 });
 

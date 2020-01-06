@@ -1,9 +1,10 @@
 import Client from "../helpers/client";
 import FileCache from "../helpers/file_cache";
+import Response from "../models/response";
 import ResponsePresenter from "../presenters/response_presenter";
 
 const pullData = async ({ connected=true, force, callback=()=>{} } = {}) => {
-  const onMiss = () => connected && new Client().myData();
+  const onMiss = () => connected && fetchThenCleanupResponses();
   const maxAge = force ? 0 : undefined;
   const myData = await FileCache.fetch("my_data.json", { onMiss, maxAge });
 
@@ -12,6 +13,17 @@ const pullData = async ({ connected=true, force, callback=()=>{} } = {}) => {
 
   await callback(combined);
   return combined;
+};
+
+// If the myData fetch succeeds, we can safely delete local responses that have
+// been pushed to the backend as these will now appear in the API response.
+const fetchThenCleanupResponses = async () => {
+  const myData = await new Client().myData();
+  await Response.destroy({ where: { pushed: true } });
+
+  // Idea: We could check responses definitely appear in myData before deleting?
+
+  return myData;
 };
 
 const combineData = (myData, responses) => {
