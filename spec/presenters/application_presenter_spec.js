@@ -63,4 +63,18 @@ describe("ApplicationPresenter", () => {
     expect(presented.length).toBe(1);
     expect(presented[0]).toMatchObject(attributes);
   });
+
+  it("can present all records filtered by some conditions", async () => {
+    class TestPresenter extends ApplicationPresenter {
+      static model() { return Response; }
+    }
+
+    await Response.create(attributes);
+
+    const presented = await TestPresenter.presentAll({ id: 1 });
+    expect(presented.length).toBe(1);
+
+    const noResults = await TestPresenter.presentAll({ id: 2 });
+    expect(noResults.length).toBe(0);
+  });
 });
