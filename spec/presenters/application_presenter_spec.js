@@ -2,7 +2,7 @@ import ApplicationPresenter from "../../app/presenters/application_presenter";
 import Response from "../../app/models/response";
 
 describe("ApplicationPresenter", () => {
-  const attributes = { id: 1, questionId: 2, value: "answer" };
+  const attributes = { id: 1, questionId: 2, value: "answer", pushed: false };
   const record = Response.build(attributes);
 
   it("decides which presenter to use based on type", async () => {

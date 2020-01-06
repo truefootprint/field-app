@@ -7,6 +7,11 @@ const Response = sequelize.define("response", {
     type: Sequelize.TEXT,
     allowNull: false,
   },
+  pushed: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
   createdAt: timestampField("createdAt"),
   updatedAt: timestampField("updatedAt"),
 });

@@ -22,6 +22,7 @@ class ApplicationPresenter {
 
     return {
       ...record,
+      pushed: parseBool(record.pushed),
       createdAt: parseDate(record.createdAt),
       updatedAt: parseDate(record.updatedAt),
     };
@@ -47,6 +48,10 @@ class ApplicationPresenter {
 
 const parseDate = (string) => (
   new Date(string.replace(" ","T").replace(" +00:00","Z"))
+);
+
+const parseBool = (number) => (
+  number === 1 ? true : false
 );
 
 export default ApplicationPresenter;
