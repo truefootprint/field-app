@@ -12,6 +12,7 @@ const answerQuestion = async ({ question, answer, callback=()=>{} }) => {
     attributes: {
       questionId: question.id,
       value: answer,
+      pushed: false,
     },
   });
 

@@ -42,6 +42,15 @@ describe("answerQuestion", () => {
     expect(responses[1].value).toBe("today's answer");
   });
 
+  it("resets pushed so that existing responses will be pushed again", async () => {
+    await Response.create({ questionId: 123, value: "answer", pushed: true });
+
+    await answerQuestion({ question: { id: 123 }, answer: "updated answer" });
+    const response = await Response.findOne();
+
+    expect(response.pushed).toBe(false);
+  });
+
   it("returns the response", async () => {
     const response = await answerQuestion({
       question: { id: 123 },
