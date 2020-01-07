@@ -1,6 +1,9 @@
 import answerQuestion from "../../app/workflows/answer_question";
+import pushData from "../../app/workflows/push_data";
 import Response from "../../app/models/response";
 import SubmissionPeriod from "../../app/helpers/submission_period";
+
+jest.mock("../../app/workflows/push_data");
 
 describe("answerQuestion", () => {
   it("creates a response", async () => {
@@ -49,6 +52,14 @@ describe("answerQuestion", () => {
     const response = await Response.findOne();
 
     expect(response.pushed).toBe(false);
+  });
+
+  it("calls the pushData workflow if there is a connection", async () => {
+    await answerQuestion({ question: { id: 123 }, answer: "answer", connected: false });
+    expect(pushData).not.toHaveBeenCalled();
+
+    await answerQuestion({ question: { id: 123 }, answer: "answer", connected: true });
+    expect(pushData).toHaveBeenCalled();
   });
 
   it("returns the response", async () => {

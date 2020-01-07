@@ -1,7 +1,8 @@
 import Response from "../models/response";
 import SubmissionPeriod from "../helpers/submission_period";
+import pushData from "./push_data";
 
-const answerQuestion = async ({ question, answer, callback=()=>{} }) => {
+const answerQuestion = async ({ question, answer, connected, callback=()=>{} }) => {
   const response = await createOrUpdate(Response, {
     where: {
       questionId: question.id,
@@ -15,6 +16,12 @@ const answerQuestion = async ({ question, answer, callback=()=>{} }) => {
       pushed: false,
     },
   });
+
+  if (connected) {
+    await pushData();
+  } else {
+    // TODO: schedule background task
+  }
 
   await callback(response);
   return response;
