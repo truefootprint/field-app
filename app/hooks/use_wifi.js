@@ -1,6 +1,5 @@
 import NetInfo from "@react-native-community/netinfo";
-import * as Network from "expo-network";
-const wifi = Network.NetworkStateType.WIFI;
+import hasWifi from "../helpers/has_wifi";
 
 // Calls the function when the internet becomes reachable via wifi.
 
@@ -8,15 +7,13 @@ const useWifi = (onConnect=()=>{}) => {
   const [connected, setConnected] = useState(false);
 
   const handleChange = async (_net_info_state) => {
-    // NetInfo's state doesn't include isInternetReachable so use Network:
-    let state = {};
-    try { state = await Network.getNetworkStateAsync(); } catch {};
+    // NetInfo's state doesn't include isInternetReachable so use hasWifi:
+    const connected = await hasWifi();
 
-    if (state.type === wifi && state.isInternetReachable) {
-      setConnected(true);
+    setConnected(connected);
+
+    if (connected) {
       onConnect();
-    } else {
-      setConnected(false);
     }
   };
 
