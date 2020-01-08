@@ -2,7 +2,7 @@ import Response from "../models/response";
 import SubmissionPeriod from "../helpers/submission_period";
 import pushData from "./push_data";
 
-const answerQuestion = async ({ question, answer, connected, callback=()=>{} }) => {
+const answerQuestion = async ({ connected, question, answer, callback=()=>{} }) => {
   const response = await createOrUpdate(Response, {
     where: {
       questionId: question.id,
@@ -17,11 +17,9 @@ const answerQuestion = async ({ question, answer, connected, callback=()=>{} }) 
     },
   });
 
-  if (connected) {
-    await pushData();
-  } else {
-    // TODO: schedule background task
-  }
+  // We could call SyncDataTask here but we don't want to pull myData after
+  // answering every question as that's a lot of unnecessary network traffic.
+  if (connected) await pushData();
 
   await callback(response);
   return response;
