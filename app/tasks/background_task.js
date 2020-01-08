@@ -3,6 +3,11 @@ import * as BackgroundFetch from "expo-background-fetch";
 
 const Result = BackgroundFetch.Result;
 
+// TODO: Currently, the background task doesn't run if the app has terminated
+// or after the phone reboots due to a bug in expo.
+//
+// Tracking issue: https://github.com/expo/expo/issues/3582
+
 class BackgroundTask {
   static name() {
     throw new Error("Implement me");
