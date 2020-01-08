@@ -16,7 +16,7 @@ const useDataSync = (onSync) => {
 
   useEffect(() => { sync(); }, [connected, foreground]);
 
-  return [connected, foreground];
+  return connected;
 };
 
 export default useDataSync;
