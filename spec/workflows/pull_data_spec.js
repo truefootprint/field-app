@@ -7,23 +7,22 @@ jest.mock("../../app/helpers/file");
 jest.mock("../../app/helpers/client");
 
 describe("pullData", () => {
-  it("pulls myData from the cache", async () => {
+  let data;
+
+  it("pulls myData from the cache and passes it to the callback", async () => {
     File.exists.mockResolvedValue(true);
     File.readObject.mockResolvedValue({ cached: "data" });
 
-    const result = await pullData();
+    await pullData({ callback: d => { data = d; } });
 
-    expect(result).toEqual({ cached: "data" });
+    expect(data).toEqual({ cached: "data" });
   });
 
-  it("calls the callback with the result", async () => {
+  it("returns false when using the cache to indicate no fetch occured", async () => {
     File.exists.mockResolvedValue(true);
     File.readObject.mockResolvedValue({ cached: "data" });
 
-    const callback = jest.fn();
-    await pullData({ callback });
-
-    expect(callback).lastCalledWith({ cached: "data" });
+    expect(await pullData()).toBe(false);
   });
 
   it("uses 'my_data.json' as the cache file", async () => {
@@ -38,10 +37,10 @@ describe("pullData", () => {
     File.exists.mockResolvedValue(true);
     File.readObject.mockResolvedValue({ id: 1, responses: [] });
 
-    const result = await pullData();
+    await pullData({ callback: d => { data = d; } });
 
-    expect(result.responses.length).toBe(1);
-    expect(result.responses[0]).toMatchObject({ projectQuestionId: 1, value: "answer" });
+    expect(data.responses.length).toBe(1);
+    expect(data.responses[0]).toMatchObject({ projectQuestionId: 1, value: "answer" });
   });
 
   describe("when myData is not in the cache", () => {
@@ -52,13 +51,21 @@ describe("pullData", () => {
     });
 
     it("fetches myData from the backend", async () => {
-      const result = await pullData();
-      expect(result).toEqual({ id: 1, responses: [] });
+      await pullData({ callback: d => { data = d; } });
+      expect(data).toEqual({ id: 1, responses: [] });
+    });
+
+    it("returns true to indicate that data was fetched", async () => {
+      expect(await pullData()).toBe(true);
     });
 
     it("does not fetch data from the backend when not on wifi", async () => {
-      const result = await pullData({ connected: false });
-      expect(result).toBeUndefined();
+      await pullData({ connected: false, callback: d => { data = d; } });
+      expect(data).toBeUndefined();
+    });
+
+    it("returns false when not on wifi to indicate no fetch occurred", async () => {
+      expect(await pullData({ connected: false })).toBe(false);
     });
 
     it("deletes pushed responses after fetching", async () => {
@@ -85,13 +92,15 @@ describe("pullData", () => {
     it("does not include deleted responses in the combined data", async () => {
       await Response.create({ questionId: 1, value: "answer", pushed: true });
 
-      const result = await pullData();
-      expect(result.responses.length).toBe(0);
+      await pullData({ callback: d => { data = d; } });
+      expect(data.responses.length).toBe(0);
     });
   });
 });
 
 describe("combineData", () => {
+  let data;
+
   it("combines myData with additional responses from the user", () => {
     const myData = { id: 123, responses: [] };
     const responses = [{ projectQuestionId: 123, value: "answer" }];
