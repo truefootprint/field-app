@@ -3,12 +3,12 @@ const sleep = (ms) => {
 };
 
 it("increments a counter", async () => {
+  return; // TODO
+
   const driver = await appiumDriver;
   await reloadApp();
 
   let field, text, button;
-
-  return; // TODO
 
   field = await driver.$("//*[@content-desc='card.text']");
   text = await field.getText();
