@@ -177,7 +177,7 @@ describe("<Question />", () => {
       const picker = question.getByTestId("picker");
 
       fireEvent(picker, "pick", { uri: "uri" });
-      expect(callback).lastCalledWith(JSON.stringify([{ uri: "uri" }]));
+      expect(callback).lastCalledWith([{ uri: "uri" }]);
     });
 
     it("populates the input from the response", () => {

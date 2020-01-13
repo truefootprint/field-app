@@ -1,9 +1,12 @@
 import answerQuestion from "../../app/workflows/answer_question";
+import { moveImagesToDocumentStorage } from "../../app/workflows/answer_question";
 import pushData from "../../app/workflows/push_data";
 import Response from "../../app/models/response";
 import SubmissionPeriod from "../../app/helpers/submission_period";
+import File from "../../app/helpers/file";
 
 jest.mock("../../app/workflows/push_data");
+jest.mock("../../app/helpers/file");
 
 describe("answerQuestion", () => {
   it("creates a response", async () => {
@@ -80,5 +83,70 @@ describe("answerQuestion", () => {
     });
 
     expect(callback).lastCalledWith(response);
+  });
+});
+
+describe("moveImagesToDocumentStorage", () => {
+  it("moves the image and names it after its fingerprint", async () => {
+    File.fingerprint.mockResolvedValue("md5-fingerprint");
+    File.extension.mockReturnValue("jpg");
+
+    const images = [{ uri: "image.jpg" }];
+    await moveImagesToDocumentStorage(images);
+
+    expect(File.extension).lastCalledWith("image.jpg");
+    expect(File.move).lastCalledWith("image.jpg", "md5-fingerprint.jpg");
+  });
+
+  it("does not move the image if it's already in documents", async () => {
+    File.hasDocumentsPath.mockReturnValue(true);
+
+    await moveImagesToDocumentStorage([{ uri: "image.jpg" }]);
+
+    expect(File.hasDocumentsPath).lastCalledWith("image.jpg");
+    expect(File.move).not.toHaveBeenCalled();
+  });
+
+  it("updates the uri to point to the moved file", async () => {
+    File.fingerprint.mockResolvedValue("md5-fingerprint");
+    File.extension.mockReturnValue("jpg");
+    File.path.mockReturnValue("documents/md5-fingerprint.jpg");
+
+    const images = [{ uri: "image.jpg" }];
+    await moveImagesToDocumentStorage(images);
+
+    expect(File.path).lastCalledWith("md5-fingerprint.jpg");
+    expect(images[0].uri).toBe("documents/md5-fingerprint.jpg");
+  });
+
+  it("removes the file if it's a duplicate of a moved image", async () => {
+    File.fingerprint.mockResolvedValue("md5-fingerprint");
+    File.extension.mockReturnValue("jpg");
+    File.exists.mockResolvedValue(true);
+
+    const images = [{ uri: "image.jpg" }];
+    await moveImagesToDocumentStorage(images);
+
+    expect(File.exists).lastCalledWith("md5-fingerprint.jpg");
+    expect(File.remove).lastCalledWith("image.jpg");
+  });
+
+  it("updates the uri to point to the duplicate image file", async () => {
+    File.exists.mockResolvedValue(true);
+    File.path.mockReturnValue("documents/md5-fingerprint.jpg");
+
+    const images = [{ uri: "image.jpg" }];
+    await moveImagesToDocumentStorage(images);
+
+    expect(images[0].uri).toBe("documents/md5-fingerprint.jpg");
+  });
+
+  it("returns an array of moved images", async () => {
+    File.path.mockReturnValue("documents/md5-fingerprint.jpg");
+
+    const images = [{ uri: "image.jpg" }];
+    const result = await moveImagesToDocumentStorage(images);
+
+    expect(result).toEqual([{ uri: "documents/md5-fingerprint.jpg" }]);
   });
 });

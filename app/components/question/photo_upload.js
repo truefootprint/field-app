@@ -5,7 +5,7 @@ const PhotoUpload = ({ color="blue", response, onAnswer=()=>{} }) => {
   const defaultImages = response ? JSON.parse(response.value) : [];
 
   const handleChange = (images) => {
-    onAnswer(JSON.stringify(images));
+    onAnswer(images);
   };
 
   return (
