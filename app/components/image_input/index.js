@@ -1,3 +1,4 @@
+import moveImageToDocumentStorage from "../../workflows/move_image";
 import Image from "react-native-fullwidth-image"
 import ImagePicker from "../image_picker";
 import styles from "./styles.js";
@@ -5,7 +6,8 @@ import styles from "./styles.js";
 const ImageInput = ({ color, defaultImages=[], onChange=()=>{} }) => {
   const [images, setImages] = useState(defaultImages);
 
-  const handlePick = (image) => {
+  const handlePick = async (image) => {
+    await moveImageToDocumentStorage(image);
     const newImages = [...images, image];
 
     setImages(newImages);

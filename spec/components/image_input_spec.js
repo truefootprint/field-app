@@ -1,6 +1,14 @@
 import ImageInput from "../../app/components/image_input";
+import moveImageToDocumentStorage from "../../app/workflows/move_image";
+
+jest.mock("../../app/workflows/move_image");
 
 describe("<ImageInput />", () => {
+  // Hide a Jest warning about 'act' that I couldn't work out how to fix:
+  const error = console.error;
+  beforeEach(() => console.error = () => {});
+  afterEach(() => console.error = error);
+
   it("renders", () => {
     render(<ImageInput />);
   });
@@ -13,12 +21,12 @@ describe("<ImageInput />", () => {
     expect(style(rectangle).borderColor).toBe(expected);
   });
 
-  it("shows picked images", () => {
+  it("shows picked images", async () => {
     const input = render(<ImageInput />);
     const picker = input.getByTestId("picker");
 
-    fireEvent(picker, "pick", { uri: "first" });
-    fireEvent(picker, "pick", { uri: "second" });
+    await fireEvent(picker, "pick", { uri: "first" });
+    await fireEvent(picker, "pick", { uri: "second" });
 
     const images = input.getAllByType("Image");
     expect(images.length).toBe(2);
@@ -37,15 +45,23 @@ describe("<ImageInput />", () => {
     expect(props(images[0]).source.uri).toBe("http://placekitten.com/800/500");
   });
 
-  it("can set an 'onChange' callback", () => {
+  it("can set an 'onChange' callback", async () => {
     const callback = jest.fn();
     const input = render(<ImageInput onChange={callback} />);
     const picker = input.getByTestId("picker");
 
-    fireEvent(picker, "pick", { uri: "first" });
+    await fireEvent(picker, "pick", { uri: "first" });
     expect(callback).lastCalledWith([{ uri: "first" }]);
 
-    fireEvent(picker, "pick", { uri: "second" });
+    await fireEvent(picker, "pick", { uri: "second" });
     expect(callback).lastCalledWith([{ uri: "first" }, { uri: "second" }]);
+  });
+
+  it("moves the picked image from the cache to document storage", async () => {
+    const input = render(<ImageInput />);
+    const picker = input.getByTestId("picker");
+
+    await fireEvent(picker, "pick", { uri: "uri" });
+    expect(moveImageToDocumentStorage).lastCalledWith({ uri: "uri" });
   });
 });

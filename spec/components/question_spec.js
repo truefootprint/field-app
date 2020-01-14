@@ -1,4 +1,7 @@
 import Question from "../../app/components/question";
+import moveImageToDocumentStorage from "../../app/workflows/move_image";
+
+jest.mock("../../app/workflows/move_image");
 
 describe("<Question />", () => {
   it("renders", () => {
@@ -164,6 +167,11 @@ describe("<Question />", () => {
   });
 
   describe("photo upload questions", () => {
+    // Hide a Jest warning about 'act' that I couldn't work out how to fix:
+    const error = console.error;
+    beforeEach(() => console.error = () => {});
+    afterEach(() => console.error = error);
+
     it("renders", () => {
       const question = render(<Question type="photo_upload" />);
       const picker = question.queryByTestId("picker");
@@ -171,12 +179,12 @@ describe("<Question />", () => {
       expect(picker).toBeDefined();
     });
 
-    it("can set an 'onAnswer' callback", () => {
+    it("can set an 'onAnswer' callback", async () => {
       const callback = jest.fn();
       const question = render(<Question type="photo_upload" onAnswer={callback} />);
       const picker = question.getByTestId("picker");
 
-      fireEvent(picker, "pick", { uri: "uri" });
+      await fireEvent(picker, "pick", { uri: "uri" });
       expect(callback).lastCalledWith([{ uri: "uri" }]);
     });
 
