@@ -1,9 +1,15 @@
 import Response from "../models/response";
+import Image from "../models/image";
 import SubmissionPeriod from "../helpers/submission_period";
 import pushData from "./push_data";
 
 const answerQuestion = async ({ connected, question, answer, callback=()=>{} }) => {
   if (question.type === "PhotoUploadQuestion") {
+    for (const image of answer) {
+      const filename = File.basename(image.uri);
+      await Image.findOrCreate({ where: { filename } });
+    }
+
     answer = JSON.stringify(answer);
   }
 

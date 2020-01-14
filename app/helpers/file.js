@@ -15,6 +15,10 @@ class File {
     return absolutePath.startsWith(this.documents);
   }
 
+  static basename = (filename) => {
+    return filename.split("/").slice(-1)[0];
+  };
+
   static extension = (filename) => {
     return filename.split(".").slice(-1)[0];
   }

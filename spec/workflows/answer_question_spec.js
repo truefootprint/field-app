@@ -1,6 +1,7 @@
 import answerQuestion from "../../app/workflows/answer_question";
 import pushData from "../../app/workflows/push_data";
 import Response from "../../app/models/response";
+import Image from "../../app/models/image";
 import SubmissionPeriod from "../../app/helpers/submission_period";
 
 jest.mock("../../app/workflows/push_data");
@@ -80,5 +81,59 @@ describe("answerQuestion", () => {
     });
 
     expect(callback).lastCalledWith(response);
+  });
+
+  describe("PhotoUploadQuestion", () => {
+    it("creates an image", async () => {
+      await answerQuestion({
+        question: {type: "PhotoUploadQuestion", id: 123 },
+        answer: [{ uri: "image.jpg" }]
+      });
+
+      const images = await Image.findAll();
+
+      expect(images.length).toBe(1);
+      expect(images[0].filename).toBe("image.jpg");
+    });
+
+    it("does not create an image if it already exists", async () => {
+      await Image.create({ filename: "image.jpg" });
+
+      await answerQuestion({
+        question: {type: "PhotoUploadQuestion", id: 123 },
+        answer: [{ uri: "image.jpg" }]
+      });
+
+      const images = await Image.findAll();
+
+      expect(images.length).toBe(1);
+      expect(images[0].filename).toBe("image.jpg");
+    });
+
+    // Images can't change because they're fingerprinted, whereas responses can.
+    it("does not reset pushed so the image will not be pushed again", async () => {
+      await Image.create({ filename: "image.jpg", pushed: true });
+
+      await answerQuestion({
+        question: {type: "PhotoUploadQuestion", id: 123 },
+        answer: [{ uri: "image.jpg" }]
+      });
+
+      const image = await Image.findOne();
+      expect(image.pushed).toBe(true);
+    });
+
+    // The backend stores all responses as text. The question type gives this meaning.
+    it("ensures the answer is JSON stringified when saving the response", async () => {
+      const images = [{ uri: "image.jpg" }];
+
+      await answerQuestion({
+        question: {type: "PhotoUploadQuestion", id: 123 },
+        answer: images,
+      });
+
+      const response = await Response.findOne();
+      expect(response.value).toEqual(JSON.stringify(images));
+    });
   });
 });
