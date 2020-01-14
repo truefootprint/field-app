@@ -3,9 +3,9 @@ import pushData from "../workflows/push_data";
 import pullData from "../workflows/pull_data";
 import hasWifi from "../helpers/has_wifi";
 
-class SyncDataTask extends BackgroundTask {
+class SyncMyDataTask extends BackgroundTask {
   static name() {
-    return "SyncDataTask";
+    return "SyncMyDataTask";
   }
 
   static async run() {
@@ -25,4 +25,4 @@ class SyncDataTask extends BackgroundTask {
   }
 };
 
-export default SyncDataTask;
+export default SyncMyDataTask;
