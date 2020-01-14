@@ -9,6 +9,7 @@ import toHaveText from "./support/have_text";
 import resetDB from "./support/reset_db";
 import props from "./support/props";
 import style from "./support/style";
+import sleep from "./support/sleep";
 
 global.render = render;
 global.fireEvent = fireEvent;
@@ -17,6 +18,7 @@ global.benchmark = benchmark;
 global.innerText = innerText;
 global.props = props;
 global.style = style;
+global.sleep = sleep;
 
 expect.extend({ toHaveText });
 

@@ -1,7 +1,3 @@
-const sleep = (ms) => {
-  return new Promise(resolve => setTimeout(resolve, ms));
-};
-
 it("increments a counter", async () => {
   return; // TODO
 
