@@ -15,6 +15,10 @@ class Client {
     return this.postJSON("/my_updates?user_name=Test&role_name=Test", { updates });
   }
 
+  myPhoto(image) {
+    return this.postFile("/my_photos?user_name=Test&role_name=Test", { image });
+  }
+
   async getJSON(path) {
     const headers = { Authorization: `Basic ${basicAuth.base64}` };
     const response = await fetch(`${host}${path}`, { headers });
@@ -27,13 +31,24 @@ class Client {
     data = snakeCaseKeys(data, { deep: true });
     data = JSON.stringify(data);
 
+    await this.post(path, "application/json", data);
+  }
+
+  async postFile(path, data) {
+    data = snakeCaseKeys(data, { deep: true });
+    data = this.toFormData(data);
+
+    await this.post(path, "multipart/form-data", data);
+  }
+
+  async post(path, contentType, body) {
     const response = await fetch(`${host}${path}`, {
       method: "POST",
       headers: {
         "Authorization": `Basic ${basicAuth.base64}`,
-        "Content-Type": "application/json",
+        "Content-Type": contentType,
       },
-      body: data,
+      body,
     });
 
     const status = response.status;
@@ -41,6 +56,16 @@ class Client {
     if (status !== 201) {
       throw new Error(`POST failed with ${response.status}: ${path}`);
     }
+  }
+
+  toFormData(data) {
+    const formData = new FormData();
+
+    Object.entries(data).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+
+    return formData;
   }
 }
 
