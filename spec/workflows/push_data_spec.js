@@ -50,14 +50,15 @@ describe("pushData", () => {
     expect(response.pushed).toBe(true);
   });
 
-  it("does not delete responses if the API request fails", async () => {
+  it("does not update 'pushed' if the API request fails", async () => {
     Client.mockImplementation(() => ({
       myUpdates: () => { throw new Error("API request failed"); }
     }));
 
     try { await pushData(); } catch {}
 
-    expect(await Response.count()).toBe(1);
+    const response = await Response.findOne();
+    expect(response.pushed).toBe(false);
   });
 
   it("does not make an API request if there are no responses to push", async () => {

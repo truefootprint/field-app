@@ -15,7 +15,7 @@ class Client {
     return this.postJSON("/my_updates?user_name=Test&role_name=Test", { updates });
   }
 
-  myPhoto(image) {
+  myPhotos(image) {
     return this.postFile("/my_photos?user_name=Test&role_name=Test", { image });
   }
 
