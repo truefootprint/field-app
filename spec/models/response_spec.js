@@ -9,5 +9,6 @@ describe("Response", () => {
 
     expect(responses[0].questionId).toBe(123);
     expect(responses[0].value).toBe("my answer");
+    expect(responses[0].pushed).toBe(false);
   });
 });
