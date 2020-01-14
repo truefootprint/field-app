@@ -20,7 +20,7 @@ const pullData = async ({ connected=true, force, callback=()=>{} } = {}) => {
 // If the myData fetch succeeds, we can safely delete local responses that have
 // been pushed to the backend as these will now appear in the API response.
 const fetchThenCleanupResponses = async (callback) => {
-  const myData = await new Client().myData();
+  const myData = await new Client().getMyData();
   await Response.destroy({ where: { pushed: true } });
 
   // Idea: We could check responses definitely appear in myData before deleting?

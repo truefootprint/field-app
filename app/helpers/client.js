@@ -7,15 +7,15 @@ class Client {
     // TODO credentials handshake
   }
 
-  myData() {
+  getMyData() {
     return this.getJSON("/my_data?user_name=Test&role_name=Test");
   }
 
-  myUpdates(updates) {
+  postMyUpdates(updates) {
     return this.postJSON("/my_updates?user_name=Test&role_name=Test", { updates });
   }
 
-  myPhotos(image) {
+  postMyPhotos(image) {
     return this.postFile("/my_photos?user_name=Test&role_name=Test", { image });
   }
 

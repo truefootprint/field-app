@@ -12,7 +12,7 @@ const Home = ({ navigation }) => {
   const connected = useDataSync(({ connected }) => {
     SyncDataTask.runWith({ connected, force: true, callback: setData });
 
-    (new Client()).myPhotos({
+    (new Client()).postMyPhotos({
       uri: File.path("3c7fdb89de39f29765d46221746a0714.jpg"),
       name: "foo.jpg",
       type: "image/jpeg",

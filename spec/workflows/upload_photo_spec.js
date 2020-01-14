@@ -7,11 +7,11 @@ jest.mock("../../app/helpers/client");
 jest.mock("../../app/helpers/file");
 
 describe("uploadPhoto", () => {
-  let myPhotos;
+  let postMyPhotos;
 
   beforeEach(() => {
-    myPhotos = jest.fn();
-    Client.mockImplementation(() => ({ myPhotos }));
+    postMyPhotos = jest.fn();
+    Client.mockImplementation(() => ({ postMyPhotos }));
 
     Image.create({ id: 1, filename: "image.jpg" });
 
@@ -22,7 +22,7 @@ describe("uploadPhoto", () => {
   it("uploads a photo to the backend", async () => {
     await uploadPhoto();
 
-    expect(myPhotos).lastCalledWith({
+    expect(postMyPhotos).lastCalledWith({
       localId: 1,
       uri: "/documents/image.jpg",
       name: "image.jpg",
@@ -45,7 +45,7 @@ describe("uploadPhoto", () => {
 
   it("does not update 'pushed' if the API request fails", async () => {
     Client.mockImplementation(() => ({
-      myPhotos: () => { throw new Error("API request failed"); }
+      postMyPhotos: () => { throw new Error("API request failed"); }
     }));
 
     try { await uploadPhoto(); } catch {}
@@ -55,13 +55,13 @@ describe("uploadPhoto", () => {
   });
 
   it("does not make an API request if there is no image to push", async () => {
-    expect(myPhotos.mock.calls.length).toBe(0);
+    expect(postMyPhotos.mock.calls.length).toBe(0);
 
     await uploadPhoto();
-    expect(myPhotos.mock.calls.length).toBe(1);
+    expect(postMyPhotos.mock.calls.length).toBe(1);
 
     await uploadPhoto();
-    expect(myPhotos.mock.calls.length).toBe(1);
+    expect(postMyPhotos.mock.calls.length).toBe(1);
   });
 
   it("returns whether the image was pushed to the backend", async () => {

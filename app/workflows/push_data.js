@@ -8,7 +8,7 @@ const pushData = async () => {
   if (responses.length === 0) return false;
 
   const partitions = SubmissionPeriod.partition(responses, "responses");
-  await new Client().myUpdates(partitions);
+  await new Client().postMyUpdates(partitions);
 
   const where = { id: { [Op.or]: responses.map(r => r.localId) } };
   await Response.update({ pushed: true }, { where });

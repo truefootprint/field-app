@@ -10,11 +10,11 @@ describe("pushData", () => {
   const todayStart = (() => { const d = new Date(); d.setHours(0, 0, 0, 0); return d; })();
   const todayEnd = new Date(todayStart.getTime() + oneDay - 1);
 
-  let myUpdates;
+  let postMyUpdates;
 
   beforeEach(() => {
-    myUpdates = jest.fn();
-    Client.mockImplementation(() => ({ myUpdates }));
+    postMyUpdates = jest.fn();
+    Client.mockImplementation(() => ({ postMyUpdates }));
 
     Response.create({ id: 1, questionId: 2, value: "answer" });
   });
@@ -22,7 +22,7 @@ describe("pushData", () => {
   it("pushes responses to the backend, partitioned by period", async () => {
     await pushData();
 
-    expect(myUpdates).lastCalledWith([
+    expect(postMyUpdates).lastCalledWith([
       {
         periodStart: todayStart,
         periodEnd: todayEnd,
@@ -52,7 +52,7 @@ describe("pushData", () => {
 
   it("does not update 'pushed' if the API request fails", async () => {
     Client.mockImplementation(() => ({
-      myUpdates: () => { throw new Error("API request failed"); }
+      postMyUpdates: () => { throw new Error("API request failed"); }
     }));
 
     try { await pushData(); } catch {}
@@ -62,13 +62,13 @@ describe("pushData", () => {
   });
 
   it("does not make an API request if there are no responses to push", async () => {
-    expect(myUpdates.mock.calls.length).toBe(0);
+    expect(postMyUpdates.mock.calls.length).toBe(0);
 
     await pushData();
-    expect(myUpdates.mock.calls.length).toBe(1);
+    expect(postMyUpdates.mock.calls.length).toBe(1);
 
     await pushData();
-    expect(myUpdates.mock.calls.length).toBe(1);
+    expect(postMyUpdates.mock.calls.length).toBe(1);
   });
 
   it("returns whether responses were pushed to the backend", async () => {

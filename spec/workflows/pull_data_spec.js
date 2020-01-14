@@ -46,7 +46,7 @@ describe("pullData", () => {
   describe("when myData is not in the cache", () => {
     beforeEach(() => {
       Client.mockImplementation(() => ({
-        myData: () => ({ id: 1, responses: [] }),
+        getMyData: () => ({ id: 1, responses: [] }),
       }));
     });
 
