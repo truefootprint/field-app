@@ -52,6 +52,31 @@ describe("ApplicationPresenter", () => {
     expect(presented.createdAt).toEqual(date);
   });
 
+  it("can present one record of the model", async () => {
+    class TestPresenter extends ApplicationPresenter {
+      static model() { return Response; }
+    }
+
+    await Response.create(attributes);
+    const presented = await TestPresenter.presentOne();
+
+    expect(presented).toMatchObject(attributes);
+  });
+
+  it("can present one record filtered by some conditions", async () => {
+    class TestPresenter extends ApplicationPresenter {
+      static model() { return Response; }
+    }
+
+    await Response.create(attributes);
+
+    const presented = await TestPresenter.presentOne({ id: 1 });
+    expect(presented).toBeDefined();
+
+    const noResults = await TestPresenter.presentOne({ id: 2 });
+    expect(noResults).toBeNull();
+  });
+
   it("can present all records of the model", async () => {
     class TestPresenter extends ApplicationPresenter {
       static model() { return Response; }

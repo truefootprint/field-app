@@ -35,9 +35,13 @@ class ApplicationPresenter {
     return { [key]: presented };
   }
 
+  static async presentOne(where: {}) {
+    const record = await this.model().findOne({ raw: true, where });
+    return record && await this.presentElement(record);
+  }
+
   static async presentAll(where: {}) {
     const records = await this.model().findAll({ raw: true, where });
-
     return await this.presentCollection(records);
   }
 
