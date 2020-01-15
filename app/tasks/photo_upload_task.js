@@ -1,5 +1,5 @@
 import BackgroundTask from "./background_task";
-import uploadPhoto from "../workflows/upload_photo";
+import { uploadRandomPhoto } from "../workflows/upload_photo";
 import hasWifi from "../helpers/has_wifi";
 
 // BackgroundFetch tasks are limited to 30 seconds or they're terminated.
@@ -25,7 +25,7 @@ class PhotoUploadTask extends BackgroundTask {
 
     while (!timeLimit || elapsedTime + slowestTime * safetyNet < timeLimit) {
       const timeBefore = new Date().getTime();
-      const photoWasUploaded = await catchError(uploadPhoto);
+      const photoWasUploaded = await catchError(uploadRandomPhoto);
 
       if (!photoWasUploaded) break; // There's nothing left to upload.
 

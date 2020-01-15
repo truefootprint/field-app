@@ -1,4 +1,4 @@
-import uploadPhoto from "../../app/workflows/upload_photo";
+import uploadPhoto, { uploadRandomPhoto } from "../../app/workflows/upload_photo";
 import Image from "../../app/models/image";
 import Client from "../../app/helpers/client";
 import File from "../../app/helpers/file";
@@ -7,23 +7,24 @@ jest.mock("../../app/helpers/client");
 jest.mock("../../app/helpers/file");
 
 describe("uploadPhoto", () => {
+  const imageId = 123;
   let postMyPhotos;
 
   beforeEach(() => {
     postMyPhotos = jest.fn();
     Client.mockImplementation(() => ({ postMyPhotos }));
 
-    Image.create({ id: 1, filename: "image.jpg" });
+    Image.create({ id: imageId, filename: "image.jpg" });
 
     File.path.mockReturnValue("/documents/image.jpg");
     File.extension.mockReturnValue("jpg");
   });
 
   it("uploads a photo to the backend", async () => {
-    await uploadPhoto();
+    await uploadPhoto(imageId);
 
     expect(postMyPhotos).lastCalledWith({
-      localId: 1,
+      localId: 123,
       uri: "/documents/image.jpg",
       name: "image.jpg",
       type: "image/jpeg",
@@ -37,7 +38,7 @@ describe("uploadPhoto", () => {
     let image = await Image.findOne();
     expect(image.pushed).toBe(false);
 
-    await uploadPhoto();
+    await uploadPhoto(imageId);
 
     image = await Image.findOne();
     expect(image.pushed).toBe(true);
@@ -48,30 +49,41 @@ describe("uploadPhoto", () => {
       postMyPhotos: () => { throw new Error("API request failed"); }
     }));
 
-    try { await uploadPhoto(); } catch {}
+    try { await uploadPhoto(imageId); } catch {}
 
     const image = await Image.findOne();
     expect(image.pushed).toBe(false);
   });
 
-  it("does not make an API request if there is no image to push", async () => {
+  it("does not make an API request if the image is already pushed", async () => {
     expect(postMyPhotos.mock.calls.length).toBe(0);
 
-    await uploadPhoto();
+    await uploadPhoto(imageId);
     expect(postMyPhotos.mock.calls.length).toBe(1);
 
-    await uploadPhoto();
+    await uploadPhoto(imageId);
     expect(postMyPhotos.mock.calls.length).toBe(1);
   });
 
   it("returns whether the image was pushed to the backend", async () => {
-    expect(await uploadPhoto()).toBe(true);
-    expect(await uploadPhoto()).toBe(false);
-    expect(await uploadPhoto()).toBe(false);
+    expect(await uploadPhoto(imageId)).toBe(true);
+    expect(await uploadPhoto(imageId)).toBe(false);
+    expect(await uploadPhoto(imageId)).toBe(false);
 
-    Image.create({ id: 2, filename: "another-image.jpg" });
+    Image.create({ id: 456, filename: "another-image.jpg" });
 
-    expect(await uploadPhoto()).toBe(true);
-    expect(await uploadPhoto()).toBe(false);
+    expect(await uploadPhoto(456)).toBe(true);
+    expect(await uploadPhoto(456)).toBe(false);
+  });
+
+  describe("uploadRandomPhoto", () => {
+    it("uploads a random photo that hasn't been pushed", async () => {
+      await Image.create({ id: 456, filename: "another-image.jpg", pushed: true });
+
+      expect(await uploadRandomPhoto()).toBe(true);
+      expect(postMyPhotos.mock.calls[0][0].localId).toBe(123);
+
+      expect(await uploadRandomPhoto()).toBe(false);
+    });
   });
 });
