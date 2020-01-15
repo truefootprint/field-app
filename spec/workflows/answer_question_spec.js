@@ -3,8 +3,10 @@ import pushData from "../../app/workflows/push_data";
 import Response from "../../app/models/response";
 import Image from "../../app/models/image";
 import SubmissionPeriod from "../../app/helpers/submission_period";
+import uploadPhoto from "../../app/workflows/upload_photo";
 
 jest.mock("../../app/workflows/push_data");
+jest.mock("../../app/workflows/upload_photo");
 
 describe("answerQuestion", () => {
   it("creates a response", async () => {
@@ -134,6 +136,27 @@ describe("answerQuestion", () => {
 
       const response = await Response.findOne();
       expect(response.value).toEqual(JSON.stringify(images));
+    });
+
+    it("calls the uploadPhoto workflow when connected", async () => {
+      await answerQuestion({
+        question: {type: "PhotoUploadQuestion", id: 123 },
+        answer: [{ uri: "image.jpg" }],
+        connected: true,
+      });
+
+      const image = await Image.findOne();
+      expect(uploadPhoto).lastCalledWith(image.id);
+    });
+
+    it("does not call uploadPhoto when not connected", async () => {
+      await answerQuestion({
+        question: {type: "PhotoUploadQuestion", id: 123 },
+        answer: [{ uri: "image.jpg" }],
+        connected: false,
+      });
+
+      expect(uploadPhoto).not.toHaveBeenCalled();
     });
   });
 });
