@@ -8,13 +8,14 @@ jest.mock("../../app/helpers/file");
 
 describe("uploadPhoto", () => {
   const imageId = 123;
-  let postMyPhotos;
+  let getPhotoExists, postMyPhotos;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     postMyPhotos = jest.fn();
-    Client.mockImplementation(() => ({ postMyPhotos }));
+    getPhotoExists = () => ({ exists: false });
+    Client.mockImplementation(() => ({ postMyPhotos, getPhotoExists }));
 
-    Image.create({ id: imageId, filename: "image.jpg" });
+    await Image.create({ id: imageId, filename: "image.jpg" });
 
     File.path.mockReturnValue("/documents/image.jpg");
     File.extension.mockReturnValue("jpg");
@@ -70,10 +71,23 @@ describe("uploadPhoto", () => {
     expect(await uploadPhoto(imageId)).toBe(false);
     expect(await uploadPhoto(imageId)).toBe(false);
 
-    Image.create({ id: 456, filename: "another-image.jpg" });
+    await Image.create({ id: 456, filename: "another-image.jpg" });
 
     expect(await uploadPhoto(456)).toBe(true);
     expect(await uploadPhoto(456)).toBe(false);
+  });
+
+  // This could happen if the user pushes the same image from another device or
+  // if they re-install the app and their local database is wiped.
+  it("does not push the image if it's already on the server", async () => {
+    getPhotoExists = () => ({ exists: true });
+    Client.mockImplementation(() => ({ postMyPhotos, getPhotoExists }));
+
+    expect(postMyPhotos.mock.calls.length).toBe(0);
+    expect(await uploadPhoto(imageId)).toBe(false);
+
+    const image = await Image.findOne();
+    expect(image.pushed).toBe(true);
   });
 
   describe("uploadRandomPhoto", () => {

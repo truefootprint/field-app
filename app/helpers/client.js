@@ -15,6 +15,13 @@ class Client {
     return this.postJSON("/my_updates?user_name=Test&role_name=Test", { updates });
   }
 
+  // Ideally, we'd issue a HEAD to /my_photos/filename and check for a 3xx but
+  // react-native always follows the redirect, even with { redirect: "manual" }
+  getPhotoExists(image) {
+    const id = image.name.replace(".", "%2E");
+    return this.getJSON(`/my_photos/${id}/exists?user_name=Test&role_name=Test`);
+  }
+
   postMyPhotos(image) {
     return this.postFile("/my_photos?user_name=Test&role_name=Test", { image });
   }

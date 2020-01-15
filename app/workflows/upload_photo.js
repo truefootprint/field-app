@@ -6,10 +6,12 @@ const uploadPhoto = async (imageId) => {
   const image = await ImagePresenter.presentOne({ id: imageId });
   if (!image || image.pushed) return false;
 
-  await new Client().postMyPhotos(image);
+  const { exists } = await new Client().getPhotoExists(image);
+
+  if (!exists) await new Client().postMyPhotos(image);
   await Image.update({ pushed: true }, { where: { id: image.localId } });
 
-  return true;
+  return !exists;
 };
 
 const uploadRandomPhoto = async () => {
