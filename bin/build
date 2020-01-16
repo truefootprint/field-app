@@ -1,0 +1,50 @@
+#!/usr/bin/env ruby
+
+require "json"
+require "fileutils"
+
+path_to_credentials = ARGV.first
+
+if path_to_credentials.nil?
+  puts "Usage: ./bin/build /path/to/expo-credentials.json"
+  exit(1)
+end
+
+path = File.expand_path(path_to_credentials)
+json = File.read(path)
+data = JSON.parse(json, symbolize_names: true)
+
+relative_path = data.fetch(:keystore_path)
+keystore_path = File.expand_path("#{path}/../#{relative_path}")
+
+success = system(<<~CMD)
+  turtle setup:android                                                      && \
+                                                                               \
+  EXPO_USERNAME=#{data.fetch(:username)}                                       \
+  EXPO_PASSWORD=#{data.fetch(:password)}                                       \
+  EXPO_ANDROID_KEYSTORE_PASSWORD=#{data.fetch(:keystore_password)}             \
+  EXPO_ANDROID_KEY_PASSWORD=#{data.fetch(:key_password)}                       \
+                                                                               \
+  turtle build:android                                                         \
+    --public-url https://field-app.truefootprint.com/android-index.json        \
+    --keystore-path #{keystore_path}                                           \
+    --keystore-alias #{data.fetch(:keystore_alias)}                            \
+    --output dist/field-app.aab                                             && \
+                                                                               \
+  (which bundletool || brew install bundletool)                             && \
+                                                                               \
+  bundletool build-apks                                                        \
+    --bundle=dist/field-app.aab                                                \
+    --output=tmp/field-app.apks                                                \
+    --ks #{keystore_path}                                                      \
+    --ks-key-alias #{data.fetch(:keystore_alias)}                              \
+    --ks-pass=pass:#{data.fetch(:keystore_password)}                           \
+    --key-pass=pass:#{data.fetch(:key_password)}                               \
+    --mode=universal                                                        && \
+                                                                               \
+  unzip tmp/field-app.apks -d tmp/                                          && \
+                                                                               \
+  mv tmp/universal.apk dist/field-app.apk
+CMD
+
+exit(success ? 0 : 1)
