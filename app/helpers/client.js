@@ -1,6 +1,7 @@
 import basicAuth from "../../config/basic-auth.json";
+import environments from "../../config/environments.json";
 
-const host = "https://UPDATE_ME.ngrok.io";
+const host = environments.production;
 
 class Client {
   constructor() {
@@ -18,7 +19,7 @@ class Client {
   // Ideally, we'd issue a HEAD to /my_photos/filename and check for a 3xx but
   // react-native always follows the redirect, even with { redirect: "manual" }
   getPhotoExists(image) {
-    const id = image.name.replace(".", "%2E");
+    const id = image.name.replace(".", "-");
     return this.getJSON(`/my_photos/${id}/exists?user_name=Test&role_name=Test`);
   }
 
