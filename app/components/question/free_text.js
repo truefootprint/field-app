@@ -1,6 +1,6 @@
 import TextInput from "../text_input";
 
-const FreeText = ({ color="blue", placeholder, units, response, onAnswer=()=>{}, setCanSubmit=()=>{}, ...rest }) => {
+const FreeText = ({ color="blue", placeholder, unit, response, onAnswer=()=>{}, setCanSubmit=()=>{}, ...rest }) => {
   const [previous, setPrevious] = useState("");
   const defaultValue = response && response.value;
 
@@ -20,7 +20,7 @@ const FreeText = ({ color="blue", placeholder, units, response, onAnswer=()=>{},
     <TextInput
       color={color}
       placeholder={placeholder}
-      units={units}
+      units={unit && unit.plural}
       defaultValue={defaultValue}
       onBlur={handleBlur}
       onChangeText={handleChange} />

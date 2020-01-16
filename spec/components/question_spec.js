@@ -60,7 +60,7 @@ describe("<Question />", () => {
   describe("free text questions", () => {
     it("renders", () => {
       const question = render(
-        <Question type="free_text" placeholder="Add a value" units="metres" />
+        <Question type="free_text" placeholder="Add a value" unit={{ plural: "metres" }} />
       );
 
       const input = question.getByTestId("native_input");
