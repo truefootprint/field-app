@@ -17,7 +17,7 @@ const TextInput = ({ color="blue", placeholder, defaultValue, units, onChangeTex
 
   return (
     <View>
-      {showAlternative && <Text {...className("alternative")}>{placeholder}</Text>}
+      {showAlternative && <Text {...className("alternative", styles)}>{placeholder}</Text>}
 
       <View {...className("side_by_side", styles)}>
         <NativeInput
