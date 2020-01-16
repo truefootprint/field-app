@@ -2,8 +2,8 @@ const styles = (theme) => StyleSheet.create({
   native_input: {
     borderBottomColor: "#ddd",
     borderBottomWidth: 1,
-    textAlignVertical: "bottom",
-    paddingBottom: 8,
+    paddingTop: 4,
+    paddingBottom: 4,
     lineHeight: 24,
     fontStyle: "normal",
     fontSize: 16,
