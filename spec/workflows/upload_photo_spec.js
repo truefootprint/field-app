@@ -19,6 +19,7 @@ describe("uploadPhoto", () => {
 
     File.path.mockReturnValue("/documents/image.jpg");
     File.extension.mockReturnValue("jpg");
+    File.exists.mockResolvedValue(true);
   });
 
   it("uploads a photo to the backend", async () => {
@@ -83,11 +84,32 @@ describe("uploadPhoto", () => {
     getPhotoExists = () => ({ exists: true });
     Client.mockImplementation(() => ({ postMyPhotos, getPhotoExists }));
 
-    expect(postMyPhotos.mock.calls.length).toBe(0);
     expect(await uploadPhoto(imageId)).toBe(false);
+    expect(postMyPhotos.mock.calls.length).toBe(0);
 
     const image = await Image.findOne();
     expect(image.pushed).toBe(true);
+  });
+
+  // This could happen if the user pushes an image from one device, then sync's
+  // the reference to that image on another device - or they re-install the app.
+  // If they modify the response to the photo upload question, it'll create
+  // image records for those references, even though there's no image on disk.
+  //
+  // We could check if the images exist earlier in answerQuestion, but that
+  // check would have to happen for all images, every time the question is
+  // answered which seems wasteful. This approach also means image records are
+  // more consistent across devices, regardless of what exists on disk.
+  it("does not push the image if it doesn't exist on the mobile device", async () => {
+    File.exists.mockResolvedValue(false);
+
+    expect(await uploadPhoto(imageId)).toBe(false);
+    expect(postMyPhotos.mock.calls.length).toBe(0);
+
+    const image = await Image.findOne();
+    expect(image.pushed).toBe(true);
+
+    expect(File.exists).lastCalledWith("image.jpg");
   });
 
   describe("uploadRandomPhoto", () => {
