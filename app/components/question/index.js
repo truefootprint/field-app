@@ -6,7 +6,7 @@ import PhotoUpload from "./photo_upload";
 import FreeText from "./free_text";
 import styles from "./styles.js";
 
-const Question = ({ color="blue", type, text, responses=[], onAnswer=()=>{}, ...rest }) => {
+const Question = ({ color="blue", type, text, expectedValue, responses=[], onAnswer=()=>{}, ...rest }) => {
   const [canSubmit, setCanSubmit] = useState(false);
   const response = SubmissionPeriod.last(responses);
 
@@ -25,6 +25,8 @@ const Question = ({ color="blue", type, text, responses=[], onAnswer=()=>{}, ...
   return (
     <View>
       <Text {...className("text", styles(color))}>{text}</Text>
+
+      {expectedValue && <Text {...className("expected_value")}>{expectedValue.text}</Text>}
 
       <View {...className(type)}>
         {questionFor({ type, color, response, onAnswer: handleAnswer, setCanSubmit, ...rest })}

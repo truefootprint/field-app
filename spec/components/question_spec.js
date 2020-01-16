@@ -19,8 +19,15 @@ describe("<Question />", () => {
   });
 
   it("sets the text", () => {
-    const question = render(<Question text="question text"/>);
+    const question = render(<Question text="question text" />);
     expect(question).toHaveText("question text");
+  });
+
+  it("can set the expected value", () => {
+    const expectedValue = { text: "It should be 5 meters" };
+    const question = render(<Question text="question text" expectedValue={expectedValue} />);
+
+    expect(question).toHaveText("It should be 5 meters");
   });
 
   it("has a 'Record an issue' checkbox", () => {

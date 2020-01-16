@@ -1,7 +1,16 @@
 const styles = (theme) => StyleSheet.create({
   text: {
     fontSize: 16,
+    lineHeight: 24,
     color: palette.black.primary,
+  },
+
+  expected_value: {
+    fontSize: 16,
+    fontStyle: "italic",
+    lineHeight: 24,
+    marginTop: 2,
+    color: theme.primary,
   },
 
   free_text: {
