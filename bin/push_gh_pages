@@ -3,6 +3,7 @@
 cd dist                                                         && \
 touch .nojekyll                                                 && \
 echo field-app.truefootprint.com > CNAME                        && \
+cp ../index.html .                                              && \
 git init                                                        && \
 git add -A                                                      && \
 git commit -m 'Deploy changes'                                  && \
