@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ "$#" -ne 1 ]; then
+  echo "Usage: ./bin/deploy /path/to/expo-credentials.json"
+  exit 1
+fi
+
+./bin/clean           && \
+./bin/export          && \
+./bin/build $@        && \
+./bin/push_gh_pages

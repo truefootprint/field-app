@@ -1,0 +1,11 @@
+#/bin/bash
+
+cd dist                                                         && \
+touch .nojekyll                                                 && \
+echo field-app.truefootprint.com > CNAME                        && \
+git init                                                        && \
+git add -A                                                      && \
+git commit -m 'Deploy changes'                                  && \
+git remote add origin git@github.com:truefootprint/field-app    && \
+git push -f origin head:gh-pages                                && \
+cd ..

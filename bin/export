@@ -1,0 +1,6 @@
+#!/bin/bash
+
+expo export --public-url https://field-app.truefootprint.com
+
+rm -f dist/ios-*
+rm -f dist/bundles/ios-*
