@@ -13,3 +13,4 @@ web-report/
 /tmp/
 /config/basic-auth.json
 /dist/
+/.expo-shared
