@@ -26,7 +26,12 @@ const uploadRandomPhoto = async () => {
     attributes: ["id"],
   });
 
-  return image ? await uploadPhoto(image.id) : false;
+  if (image) {
+    await uploadPhoto(image.id);
+    return true;
+  } else {
+    return false;
+  }
 };
 
 const setPushed = async (image) => {
