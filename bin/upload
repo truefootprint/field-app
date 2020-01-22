@@ -1,0 +1,31 @@
+#!/usr/bin/env ruby
+
+require "json"
+
+path_to_credentials = ARGV.first
+
+if path_to_credentials.nil?
+  puts "Usage: ./bin/upload /path/to/expo-credentials.json"
+  exit(1)
+end
+
+path = File.expand_path(path_to_credentials)
+json = File.read(path)
+data = JSON.parse(json, symbolize_names: true)
+
+relative_path = data.fetch(:upload_key_path)
+upload_key_path = File.expand_path("#{path}/../#{relative_path}")
+
+success = system(<<~CMD)
+  expo upload:android          \
+    --key #{upload_key_path}   \
+    --path dist/field-app.aab  \
+    --track internal
+CMD
+
+unless success
+  version = JSON.parse(File.read("app.json")).dig("expo", "version")
+  puts "Failed to publish app version #{version}. We may need to bump it."
+end
+
+exit(success ? 0 : 1)
