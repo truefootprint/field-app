@@ -1,6 +1,7 @@
 import ApplicationPresenter from "./application_presenter";
 import Image from "../models/image";
 import File from "../helpers/file";
+import * as mime from "react-native-mime-types";
 
 class ImagePresenter extends ApplicationPresenter {
   static model() {
@@ -11,7 +12,7 @@ class ImagePresenter extends ApplicationPresenter {
     const attr = await super.presentElement(record);
 
     attr.uri = File.path(record.filename);
-    attr.type = contentType(record.filename);
+    attr.type = mimeType(record.filename);
 
     renameField(attr, "id", "localId");
     renameField(attr, "filename", "name");
@@ -20,20 +21,13 @@ class ImagePresenter extends ApplicationPresenter {
   }
 };
 
+const mimeType = (filename) => (
+  mime.lookup(filename) || "application/octet-stream"
+)
+
 const renameField = (attributes, oldName, newName) => {
   attributes[newName] = attributes[oldName];
   delete attributes[oldName];
 }
-
-const contentType = (filename) => {
-  const extension = File.extension(filename);
-
-  switch (extension) {
-    case "jpg":
-      return "image/jpeg";
-    default:
-      throw new Error("Unknown extension");
-  }
-};
 
 export default ImagePresenter;
