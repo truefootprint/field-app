@@ -11,7 +11,7 @@
     "githubUrl": "https://github.com/truefootprint/field-app",
     "android": { "package": "com.truefootprint.field_app" },
     "icon": "app/assets/images/app-icon.png",
-    "assetBundlePatterns": ["**/*"],
     "updates": { "fallbackToCacheTimeout": 0 }
+    "assetBundlePatterns": ["app/assets/**/*"],
   }
 }
