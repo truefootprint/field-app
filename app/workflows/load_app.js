@@ -2,11 +2,13 @@ import * as Font from "expo-font";
 import Response from "../models/response";
 import Image from "../models/image";
 
-const loadApp = (callback=()=>{}, options={}) => {
+const loadApp = async (callback=()=>{}, options={}) => {
   const models = loadModels(() => {}, options);
   const fonts = loadFonts();
 
-  Promise.all([models, fonts]).then(() => callback(true));
+  await Promise.all([models, fonts]);
+
+  callback();
 };
 
 const loadFonts = async (callback=()=>{}) => {
