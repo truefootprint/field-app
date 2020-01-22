@@ -9,9 +9,18 @@
     "platforms": ["android"],
     "orientation": "portrait",
     "githubUrl": "https://github.com/truefootprint/field-app",
-    "android": { "package": "com.truefootprint.field_app" },
     "icon": "app/assets/images/app-icon.png",
-    "updates": { "fallbackToCacheTimeout": 0 }
     "assetBundlePatterns": ["app/assets/**/*"],
+    "updates": { "fallbackToCacheTimeout": 0 },
+    "android": {
+      "package": "com.truefootprint.field_app",
+      "permissions": [
+        "CAMERA",
+        "CAMERA_ROLL",
+        "LOCATION",
+        "NOTIFICATIONS",
+        "USER_FACING_NOTIFICATIONS"
+      ]
+    }
   }
 }
