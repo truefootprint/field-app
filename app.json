@@ -10,6 +10,7 @@
     "orientation": "portrait",
     "githubUrl": "https://github.com/truefootprint/field-app",
     "icon": "app/assets/images/app-icon.png",
+    "splash": { "image": "app/assets/images/splash-screen.png" },
     "assetBundlePatterns": ["app/assets/**/*"],
     "updates": { "fallbackToCacheTimeout": 0 },
     "android": {
