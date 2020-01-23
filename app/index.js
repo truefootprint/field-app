@@ -1,7 +1,6 @@
 import "./globals";
-import { createAppContainer } from "react-navigation";
-import { createStackNavigator } from "react-navigation-stack";
-import { AppLoading } from "expo";
+import SyncMyDataTask from "./tasks/sync_my_data_task";
+import PhotoUploadTask from "./tasks/photo_upload_task";
 import loadApp from "./workflows/load_app";
 import Home from "./screens/home";
 
@@ -11,14 +10,33 @@ const options = { headerMode: "none" };
 const RootStack = createStackNavigator(routes, options);
 const AppContainer = createAppContainer(RootStack);
 
-const App = () => {
-  const [loading, setLoading] = useState(true);
+// These tasks run every 15 minutes when the app is in the background.
+SyncMyDataTask.enable({ log: true });
+PhotoUploadTask.enable({ log: true });
 
-  if (loading) {
-    return <AppLoading startAsync={loadApp} onFinish={() => setLoading(false)} />;
-  } else {
-    return <View style={{ flex: 1 }} {...className("root")}><AppContainer /></View>
+const App = () => {
+  const [loaded, setLoaded] = useState();
+  const [data, setData] = useState();
+
+  const foreground = useForeground();
+  const connected = useWifi();
+
+  useWhen([loaded, foreground], () => {
+    SyncMyDataTask.runWith({ connected, force: true, callback: setData });
+    PhotoUploadTask.runWith({ connected });
+  }, [connected]);
+
+  if (!loaded || !data) {
+    return <AppLoading startAsync={loadApp} onFinish={() => setLoaded(true)} />;
   }
+
+  return (
+    <AppContext.Provider value={{ data, connected }}>
+      <View style={{ flex: 1 }} {...className("root")}>
+        <AppContainer />
+      </View>
+    </AppContext.Provider>
+  );
 };
 
 export default App;
