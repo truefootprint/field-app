@@ -12,6 +12,7 @@
     "expo-file-system": "~7.0.0",
     "expo-image-picker": "^7.0.0",
     "expo-network": "^2.0.0",
+    "expo-secure-store": "^8.0.0",
     "expo-task-manager": "~7.0.0",
     "react": "16.8.3",
     "react-dom": "16.8.3",
