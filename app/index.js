@@ -2,9 +2,10 @@ import "./globals";
 import SyncMyDataTask from "./tasks/sync_my_data_task";
 import PhotoUploadTask from "./tasks/photo_upload_task";
 import loadApp from "./workflows/load_app";
+import Login from "./screens/login";
 import Home from "./screens/home";
 
-const routes = { Home };
+const routes = { Login, Home };
 const options = { headerMode: "none" };
 
 const RootStack = createStackNavigator(routes, options);
@@ -17,11 +18,12 @@ PhotoUploadTask.enable({ log: true });
 const App = () => {
   const [loaded, setLoaded] = useState();
   const [data, setData] = useState();
+  const [token, setToken] = useSecret("token", () => setData({}));
 
   const foreground = useForeground();
   const connected = useWifi();
 
-  useWhen([loaded, foreground], () => {
+  useWhen([loaded, foreground, token], () => {
     SyncMyDataTask.runWith({ connected, force: true, callback: setData });
     PhotoUploadTask.runWith({ connected });
   }, [connected]);
@@ -31,7 +33,7 @@ const App = () => {
   }
 
   return (
-    <AppContext.Provider value={{ data, connected }}>
+    <AppContext.Provider value={{ data, token, setToken, connected }}>
       <View style={{ flex: 1 }} {...className("root")}>
         <AppContainer />
       </View>

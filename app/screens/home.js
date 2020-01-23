@@ -11,7 +11,7 @@ const Home = ({ navigation }) => {
 
   return (
     <Layout>
-      {data && <Project {...data.projects[0]} onAnswerQuestion={handleAnswer} />}
+      <Project {...data.projects[0]} onAnswerQuestion={handleAnswer} />
     </Layout>
   );
 };
