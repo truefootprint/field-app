@@ -10,6 +10,7 @@ import snakeCaseKeys from "snakecase-keys";
 import snakeCase from "to-snake-case";
 
 import File from "./helpers/file";
+import Secret from "./helpers/secret";
 import Client from "./helpers/client";
 import AppContext from "./helpers/app_context";
 import { Sequelize, Op, sequelize } from "./helpers/sequelize";
@@ -52,6 +53,7 @@ global.snakeCaseKeys = snakeCaseKeys;
 global.snakeCase = snakeCase;
 
 global.File = File;
+global.Secret = Secret;
 global.Client = Client;
 global.AppContext = AppContext;
 global.Sequelize = Sequelize;
