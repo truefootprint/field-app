@@ -5,11 +5,11 @@ import loadApp from "./workflows/load_app";
 import Login from "./screens/login";
 import Home from "./screens/home";
 
-const routes = { Login, Home };
+// Create the navigation stack so that you can't go back to the login screen.
 const options = { headerMode: "none" };
-
-const RootStack = createStackNavigator(routes, options);
-const AppContainer = createAppContainer(RootStack);
+const AppStack = createStackNavigator({ Home }, options);
+const AuthStack = createSwitchNavigator({ Login, App: AppStack }, options);
+const AppContainer = createAppContainer(AuthStack);
 
 // These tasks run every 15 minutes when the app is in the background.
 SyncMyDataTask.enable({ log: true });

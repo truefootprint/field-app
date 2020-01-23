@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext, cloneElement } from "react";
 import { View, StyleSheet, TouchableOpacity, TouchableHighlight, TouchableWithoutFeedback, Text, Modal, ScrollView } from "react-native";
 import Svg, { Path } from "react-native-svg";
-import { createAppContainer } from "react-navigation";
+import { createAppContainer, StackActions, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { AppLoading } from "expo";
 import camelCaseKeys from "camelcase-keys";
@@ -42,6 +42,8 @@ global.ScrollView = ScrollView;
 global.Svg = Svg;
 global.Path = Path;
 global.createAppContainer = createAppContainer;
+global.StackActions = StackActions;
+global.createSwitchNavigator = createSwitchNavigator;
 global.createStackNavigator = createStackNavigator;
 global.AppLoading = AppLoading;
 global.camelCaseKeys = camelCaseKeys;
