@@ -24,6 +24,7 @@ import palette from "./helpers/palette";
 import useForeground from "./hooks/use_foreground";
 import useWifi from "./hooks/use_wifi";
 import useWhen from "./hooks/use_when";
+import useSecret from "./hooks/use_secret";
 
 global.React = React;
 global.useState = useState;
@@ -68,3 +69,4 @@ global.thin = verythin * 2.5;
 global.useForeground = useForeground;
 global.useWifi = useWifi;
 global.useWhen = useWhen;
+global.useSecret = useSecret;
