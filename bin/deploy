@@ -8,4 +8,5 @@ fi
 ./bin/clean           && \
 ./bin/export          && \
 ./bin/build $@        && \
-./bin/push_gh_pages
+./bin/push_gh_pages   && \
+./bin/upload $@

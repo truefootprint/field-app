@@ -24,7 +24,7 @@ success = system(<<~CMD)
 CMD
 
 unless success
-  version = JSON.parse(File.read("app.json")).dig("expo", "version")
+  version = JSON.parse(File.read("app.json")).dig("expo", "android", "versionCode")
   puts "Failed to publish app version #{version}. We may need to bump it."
 end
 

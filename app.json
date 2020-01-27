@@ -2,7 +2,6 @@
   "expo": {
     "name": "field-app",
     "slug": "field-app",
-    "version": "0.1.0",
     "owner": "truefootprint",
     "privacy": "unlisted",
     "sdkVersion": "35.0.0",
@@ -13,7 +12,9 @@
     "splash": { "image": "app/assets/images/splash-screen.png" },
     "assetBundlePatterns": ["app/assets/**/*"],
     "updates": { "fallbackToCacheTimeout": 0 },
+    "version": "0.2.0",
     "android": {
+      "versionCode": 2,
       "package": "com.truefootprint.field_app",
       "permissions": [
         "CAMERA",
