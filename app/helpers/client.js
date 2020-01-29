@@ -64,8 +64,7 @@ class Client {
     });
 
     const status = response.status;
-
-    if (status !== 201) {
+    if (status !== 201 && status !== 401) {
       throw new Error(`POST failed with ${response.status}: ${path}`);
     }
 

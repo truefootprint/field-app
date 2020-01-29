@@ -2,7 +2,7 @@ import TextInput from "../../components/text_input";
 import Button from "../../components/button";
 import styles from "./styles.js";
 
-const LoginForm = ({ placeholder="Phone", submitText="Submit", onSubmit=()=>{} }) => {
+const LoginForm = ({ placeholder="Phone", submitText="Submit", error=false, onSubmit=()=>{} }) => {
   const [phone, setPhone] = useState();
 
   return (
@@ -10,6 +10,8 @@ const LoginForm = ({ placeholder="Phone", submitText="Submit", onSubmit=()=>{} }
       <TextInput placeholder={placeholder} onChangeText={setPhone} />
 
       <Button text={submitText} onPress={() => onSubmit(phone)} />
+
+      {error && <Text {...className("error")}>Login failed</Text>}
     </View>
   );
 };

@@ -5,6 +5,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignSelf: "center",
   },
+
+  error: {
+    color: "red",
+  },
 });
 
 export default styles;
