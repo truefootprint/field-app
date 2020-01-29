@@ -1,0 +1,3 @@
+#!/bin/bash
+
+cd ../reporter-backend && bundle exec rails server
