@@ -1,13 +1,16 @@
 import PhotoUploadTask from "../../app/tasks/photo_upload_task";
 import { uploadRandomPhoto } from "../../app/workflows/upload_photo";
+import Secret from "../../app/helpers/secret";
 import hasWifi from "../../app/helpers/has_wifi";
 
 jest.mock("../../app/workflows/upload_photo");
+jest.mock("../../app/helpers/secret");
 jest.mock("../../app/helpers/has_wifi");
 
 describe("PhotoUploadTask", () => {
   beforeEach(() => {
     hasWifi.mockResolvedValue(true);
+    Secret.read.mockResolvedValue("token");
   });
 
   // If one of the image uploads fails repeatedly for whatever reason, making

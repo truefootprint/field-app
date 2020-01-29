@@ -1,5 +1,6 @@
 import BackgroundTask from "./background_task";
 import { uploadRandomPhoto } from "../workflows/upload_photo";
+import Secret from "../helpers/secret";
 import hasWifi from "../helpers/has_wifi";
 
 // BackgroundFetch tasks are limited to 30 seconds or they're terminated.
@@ -13,6 +14,12 @@ class PhotoUploadTask extends BackgroundTask {
 
   static async run() {
     const connected = await hasWifi();
+
+    const token = await Secret.read("token");
+    if (!token) return false;
+
+    Client.setToken(token);
+
     return await this.runWith({ connected, timeLimit: 30 });
   }
 

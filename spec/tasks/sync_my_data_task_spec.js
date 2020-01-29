@@ -1,15 +1,18 @@
 import SyncMyDataTask from "../../app/tasks/sync_my_data_task";
 import pushData from "../../app/workflows/push_data";
 import pullData from "../../app/workflows/pull_data";
+import Secret from "../../app/helpers/secret";
 import hasWifi from "../../app/helpers/has_wifi";
 
 jest.mock("../../app/workflows/push_data");
 jest.mock("../../app/workflows/pull_data");
+jest.mock("../../app/helpers/secret");
 jest.mock("../../app/helpers/has_wifi");
 
 describe("SyncMyDataTask", () => {
   beforeEach(() => {
     hasWifi.mockResolvedValue(true);
+    Secret.read.mockResolvedValue("token");
   });
 
   it("pushes data", async () => {
