@@ -11,6 +11,6 @@ web-build/
 web-report/
 .DS_Store
 /tmp/
-/config/basic-auth.json
+/config/host.json
 /dist/
 /.expo-shared

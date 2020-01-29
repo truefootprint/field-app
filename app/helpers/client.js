@@ -1,7 +1,5 @@
 import Base64 from "Base64";
-import environments from "../../config/environments.json";
-
-const host = environments.production;
+import { host } from "../../config/host.json";
 
 class Client {
   static headers = {};

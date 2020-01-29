@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+
+require "net/http"
+require "json"
+
+env = ARGV.first
+
+unless %w[dev prod].include?(env)
+  puts "Usage: ./bin/switch_env [dev/prod]"
+  exit(1)
+end
+
+def set_host(host)
+  File.write("config/host.json", { host: host }.to_json)
+  puts "Set config/host.json to #{host}"
+end
+
+if env == "prod"
+  set_host("https://reporter-backend.truefootprint.com")
+  exit(0)
+end
+
+json = Net::HTTP.get(URI("http://127.0.0.1:4040/api/tunnels"))
+data = JSON.parse(json, symbolize_names: true)
+host = data.fetch(:tunnels).first.fetch(:public_url)
+
+set_host(host)
