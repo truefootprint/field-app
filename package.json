@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "@react-native-community/netinfo": "~3.2.1",
+    "Base64": "^1.1.0",
     "camelcase-keys": "^6.1.1",
     "expo": "^35.0.0",
     "expo-background-fetch": "~7.0.0",
