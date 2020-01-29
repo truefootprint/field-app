@@ -1,8 +1,20 @@
 import Base64 from "Base64";
+import Constants from "expo-constants";
 import { host } from "../../config/host.json";
 
+// Make sure this key exists so the test suite doesn't fail.
+Constants.manifest.android = Constants.manifest.android || {};
+
 class Client {
-  static headers = {};
+  static headers = {
+    "Field-App": JSON.stringify({
+      device_id: Constants.deviceId,
+      device_name: Constants.deviceName,
+      device_year_class: Constants.deviceYearClass,
+      app_version: Constants.manifest.version,
+      app_version_code: Constants.manifest.android.versionCode,
+    }),
+  };
 
   static setToken(token) {
     this.headers.Authorization = `Basic ${Base64.btoa(`:${token}`)}`;
