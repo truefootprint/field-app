@@ -3,13 +3,15 @@ import LoginForm from "../components/login_form";
 import NoWifi from "../components/no_wifi";
 
 const Login = ({ navigation }) => {
-  const { data, setToken, connected } = useContext(AppContext);
+  const { token, setToken, data, connected } = useContext(AppContext);
   const [error, setError] = useState(false);
 
-  const loggedIn = () => data && data.projects;
+  useWhen([token], () => {
+    Client.setToken(token);
 
-  useEffect(() => {
-    if (loggedIn()) navigation.navigate("App");
+    if (data.projects) {
+      navigation.navigate("App");
+    }
   }, [data]);
 
   const handleSubmit = async (phone) => {

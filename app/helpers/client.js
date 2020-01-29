@@ -1,30 +1,32 @@
-import basicAuth from "../../config/basic-auth.json";
+import Base64 from "Base64";
 import environments from "../../config/environments.json";
 
 const host = environments.production;
 
 class Client {
-  constructor() {
-    // TODO credentials handshake
+  static headers = {};
+
+  static setToken(token) {
+    this.headers.Authorization = `Basic ${Base64.btoa(`:${token}`)}`;
   }
 
   getMyData() {
-    return this.getJSON("/my_data?user_name=Test&role_name=Test");
+    return this.getJSON("/my_data");
   }
 
   postMyUpdates(updates) {
-    return this.postJSON("/my_updates?user_name=Test&role_name=Test", { updates });
+    return this.postJSON("/my_updates", { updates });
   }
 
   // Ideally, we'd issue a HEAD to /my_photos/filename and check for a 3xx but
   // react-native always follows the redirect, even with { redirect: "manual" }
   getPhotoExists(image) {
     const id = image.name.replace(".", "-");
-    return this.getJSON(`/my_photos/${id}/exists?user_name=Test&role_name=Test`);
+    return this.getJSON(`/my_photos/${id}/exists`);
   }
 
   postMyPhotos(image) {
-    return this.postFile("/my_photos?user_name=Test&role_name=Test", { image });
+    return this.postFile("/my_photos", { image });
   }
 
   postTokens(phoneNumber) {
@@ -32,8 +34,7 @@ class Client {
   }
 
   async getJSON(path) {
-    const headers = { Authorization: `Basic ${basicAuth.base64}` };
-    const response = await fetch(`${host}${path}`, { headers });
+    const response = await fetch(`${host}${path}`, { headers: Client.headers });
     const data = await response.json();
 
     return camelCaseKeys(data, { deep: true });
@@ -56,10 +57,7 @@ class Client {
   async post(path, contentType, body) {
     const response = await fetch(`${host}${path}`, {
       method: "POST",
-      headers: {
-        "Authorization": `Basic ${basicAuth.base64}`,
-        "Content-Type": contentType,
-      },
+      headers: { ...Client.headers, "Content-Type": contentType },
       body,
     });
 
