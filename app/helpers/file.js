@@ -47,6 +47,10 @@ class File {
     await FileSystem.deleteAsync(this.path(filename), { idempotent: force });
   }
 
+  static listing = async () => {
+    return await FileSystem.readDirectoryAsync(this.documents);
+  }
+
   static info = async (filename, options = {}) => {
     return await FileSystem.getInfoAsync(this.path(filename), options);
   }

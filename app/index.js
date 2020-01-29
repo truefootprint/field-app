@@ -24,7 +24,7 @@ const App = () => {
   const connected = useWifi();
 
   useWhen([loaded, foreground, token], () => {
-    SyncMyDataTask.runWith({ connected, force: true, callback: setData });
+    SyncMyDataTask.runWith({ connected, callback: setData });
     PhotoUploadTask.runWith({ connected });
   }, [connected]);
 

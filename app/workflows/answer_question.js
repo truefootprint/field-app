@@ -5,6 +5,8 @@ import pushData from "./push_data";
 import uploadPhoto from "./upload_photo";
 
 const answerQuestion = async ({ connected, question, answer, callback=()=>{} }) => {
+  if (answer === "@@@reset") { await resetEverything(); return; }
+
   const imagesToUpload = [];
 
   if (question.type === "PhotoUploadQuestion") {

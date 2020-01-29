@@ -12,6 +12,11 @@ class Secret {
     await callback(value);
     return value;
   };
+
+  static remove = async (key, callback=()=>{}) => {
+    await SecureStore.deleteItemAsync(key);
+    await callback();
+  }
 }
 
 export default Secret;
