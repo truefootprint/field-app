@@ -3,8 +3,8 @@
 cd dist                                                         && \
 touch .nojekyll                                                 && \
 echo field-app.truefootprint.com > CNAME                        && \
-cp ../index.html .                                              && \
-cp ../privacy-policy.html .                                     && \
+cp ../app/assets/html/redirect.html index.html                  && \
+cp ../app/assets/html/privacy-policy.html .                     && \
 git init                                                        && \
 git add -A                                                      && \
 git commit -m 'Deploy changes'                                  && \
