@@ -1,11 +1,11 @@
 import ButtonLike from "../button_like";
 import styles from "./styles.js";
 
-const Button = ({ color="blue", text, disabled=false, onPress=()=>{} }) => {
+const Button = ({ color="blue", text, caps=true, fill=true, disabled=false, onPress=()=>{} }) => {
   const buttonLike = (
     <View {...className([disabled && "disabled"], styles(color))}>
-      <ButtonLike color={color} fill={true} center={true}>
-        <Text {...className("text")}>{text}</Text>
+      <ButtonLike color={color} fill={fill} center={true}>
+        <Text {...className(["text", fill && "white", caps && "caps"])}>{text}</Text>
       </ButtonLike>
     </View>
   );

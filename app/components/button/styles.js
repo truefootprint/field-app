@@ -1,9 +1,16 @@
 const styles = (theme) => StyleSheet.create({
   text: {
-    color: "white",
-    textTransform: "uppercase",
+    color: theme.primary,
     fontFamily: "Roboto-Medium",
     letterSpacing: 0.5,
+  },
+
+  white: {
+    color: "white",
+  },
+
+  caps: {
+    textTransform: "uppercase",
   },
 
   disabled: {
