@@ -4,10 +4,11 @@ import PhotoUploadTask from "./tasks/photo_upload_task";
 import loadApp from "./workflows/load_app";
 import Login from "./screens/login";
 import Home from "./screens/home";
+import Project from "./screens/project";
 
 // Create the navigation stack so that you can't go back to the login screen.
 const options = { headerMode: "none" };
-const AppStack = createStackNavigator({ Home }, options);
+const AppStack = createStackNavigator({ Home, Project }, options);
 const AuthStack = createSwitchNavigator({ Login, App: AppStack }, options);
 const AppContainer = createAppContainer(AuthStack);
 
