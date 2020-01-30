@@ -18,17 +18,18 @@ describe("<Sticky />", () => {
     expect(props(container).stickyHeaderIndices).toEqual([0, 2]);
   });
 
-  it("flattens one level of arrays in the container", () => {
+  it("flattens nested arrays in the container", () => {
     const container = render(
       <Sticky.Container>
         {[
           <Sticky key="0" />,
           <Text key="1">not sticky</Text>,
+          [<Sticky key="2" />],
         ]}
         <Sticky />
       </Sticky.Container>
     );
 
-    expect(props(container).stickyHeaderIndices).toEqual([0, 2]);
+    expect(props(container).stickyHeaderIndices).toEqual([0, 2, 3]);
   });
 });
