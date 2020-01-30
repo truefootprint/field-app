@@ -18,15 +18,15 @@ const Expander = ({ children, ...props } = {}) => {
     </Sticky>,
 
     <Header key={key(1)} channel={channel} sticky={false} {...props} />,
-    <Content key={key(2)} channel={channel}>{children}</Content>,
+    <Content key={key(2)} channel={channel} {...props}>{children}</Content>,
 
     // Clear the sticky header after the content has finished:
     <Sticky key={key(3)} />
   ];
 };
 
-const Header = ({ channel, color="blue", text, sticky }) => {
-  const [active, setActive] = useState(false);
+const Header = ({ channel, color="blue", text, sticky, expanded=false }) => {
+  const [active, setActive] = useState(expanded);
   const classes = ["header", sticky && "sticky_header"];
 
   // Remember setActive for the sticky and non-sticky header:
@@ -60,8 +60,8 @@ const Header = ({ channel, color="blue", text, sticky }) => {
   );
 };
 
-const Content = ({ channel, children }) => {
-  const [visible, setVisible] = useState(false);
+const Content = ({ channel, children, expanded=false }) => {
+  const [visible, setVisible] = useState(expanded);
 
   channel.setVisible = setVisible;
 

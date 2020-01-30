@@ -29,6 +29,20 @@ describe("<Expander />", () => {
     expect(props(active).data.active).toBe(true);
   });
 
+  it("can render in an expanded state", () => {
+    const expander = render(<Expander expanded={true} />);
+
+    const active = expander.getByTestId("header");
+    expect(props(active).data.active).toBe(true);
+    expect(props(active).data.active).toBe(true);
+
+    fireEvent.press(active);
+
+    const inactive = expander.getByTestId("header");
+    expect(props(inactive).data.active).toBe(false);
+    expect(props(inactive).data.active).toBe(false);
+  });
+
   it("it shows the content when the expander is active", () => {
     const expander = render(<Expander />);
     const header = expander.getByTestId("header");
