@@ -2,14 +2,23 @@ import Activity from "../activity";
 import Sticky from "../sticky";
 import Summary from "../summary";
 
-const Project = ({ index, name, projectSummary={}, projectActivities=[], currentProjectActivity={}, onAnswerQuestion=()=>{} }) => (
-  <Sticky.Container>
-    <Summary color={palette.cycle(index)} name={name} text={projectSummary.text} activityCount={projectActivities.length} />
+const Project = ({ index, name, projectSummary={}, projectActivities=[], currentProjectActivity={}, onAnswerQuestion=()=>{} }) => {
+  const projectColor = palette.cycle(index);
+  const summaryText = (projectSummary || {}).text;
+  const activityCount = projectActivities.length;
 
-    {projectActivities.map(({ id, ...props }, i) => (
-      Activity({ color: palette.cycle(index + i), onAnswerQuestion, isCurrent: id === currentProjectActivity.id, ...props })
-    ))}
-  </Sticky.Container>
-);
+  const isCurrent = (id) => id === currentProjectActivity.id;
+  const activityColor = (i) => palette.cycle(index + i);
+
+  return (
+    <Sticky.Container>
+      <Summary color={projectColor} name={name} text={summaryText} activityCount={activityCount} />
+
+      {projectActivities.map(({ id, ...props }, i) => (
+        Activity({ color: activityColor(i), onAnswerQuestion, isCurrent: isCurrent(id), ...props })
+      ))}
+    </Sticky.Container>
+  );
+};
 
 export default Project;

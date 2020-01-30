@@ -23,9 +23,9 @@ const Home = ({ navigation }) => {
 
   return (
     <Layout>
-      <View style={{ alignItems: "center" }}>
+      <ScrollView contentContainerStyle={{ alignItems: "center" }}>
         {projects.map(projectCard)}
-      </View>
+      </ScrollView>
     </Layout>
   );
 };

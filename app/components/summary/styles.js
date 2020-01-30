@@ -5,7 +5,7 @@ const styles = (theme) => StyleSheet.create({
     paddingRight: "6.5%",
     paddingTop: 33,
     paddingBottom: 33,
-    marginBottom: 33,
+    marginBottom: 40,
   },
 
   title: {

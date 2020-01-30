@@ -6,7 +6,7 @@ const Container = ({ children=[] }) => {
   const indices = filterIndex(children, c => c.type === Sticky);
 
   return (
-    <ScrollView stickyHeaderIndices={indices} contentContainerStyle={styles.content}>
+    <ScrollView stickyHeaderIndices={indices}>
       {children}
     </ScrollView>
   );

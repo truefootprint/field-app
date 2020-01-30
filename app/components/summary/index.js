@@ -7,8 +7,11 @@ const Summary = ({ color="blue", name, text, activityCount }) => {
   return (
     <View {...className("summary", s)}>
       <Text {...className("title")}>{name}</Text>
-      <Text {...className("heading")}>Project summary</Text>
-      <Text {...className("text")}>{text}</Text>
+
+      {text && <>
+        <Text {...className("heading")}>Project summary</Text>
+        <Text {...className("text")}>{text}</Text>
+      </>}
 
       <Button color={color} text="Project contract" caps={false} fill={false} />
 

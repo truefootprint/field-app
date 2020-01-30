@@ -1,8 +1,4 @@
 const styles = StyleSheet.create({
-  content: {
-    alignItems: "center",
-  },
-
   sticky: {
     width: "100%",
     flexDirection: "row",
