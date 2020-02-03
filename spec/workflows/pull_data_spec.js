@@ -1,7 +1,8 @@
-import pullData, { combineData } from "../../app/workflows/pull_data";
+import pullData, { combineData, createAttachments } from "../../app/workflows/pull_data";
 import File from "../../app/helpers/file";
 import Client from "../../app/helpers/client";
 import Response from "../../app/models/response";
+import Attachment from "../../app/models/attachment";
 
 jest.mock("../../app/helpers/file");
 jest.mock("../../app/helpers/client");
@@ -79,6 +80,18 @@ describe("pullData", () => {
       expect(responses[0].pushed).toBe(false);
     });
 
+    it("creates attachments after fetching", async () => {
+      Client.mockImplementation(() => ({
+        getMyData: () => ({ md5: "md5-fingerprint", url: "file-server-location" }),
+      }));
+
+      await pullData();
+      const attachments = await Attachment.findAll();
+
+      expect(attachments.length).toBe(1);
+      expect(attachments[0].pulled).toBe(false);
+    });
+
     it("does not delete pushed responses if no fetch occurs", async () => {
       await Response.create({ questionId: 1, value: "answer", pushed: false });
       await Response.create({ questionId: 2, value: "answer", pushed: true });
@@ -99,8 +112,6 @@ describe("pullData", () => {
 });
 
 describe("combineData", () => {
-  let data;
-
   it("combines myData with additional responses from the user", () => {
     const myData = { id: 123, responses: [] };
     const responses = [{ projectQuestionId: 123, value: "answer" }];
@@ -115,5 +126,31 @@ describe("combineData", () => {
 
     const result = combineData(myData, responses);
     expect(result).toEqual({ a: { b: [{ c: { id: 123, responses } }] } });
+  });
+});
+
+describe("createAttachments", () => {
+  it("creates attachment records for files referenced in the data", async () => {
+    const myData = { md5: "md5-fingerprint", url: "file-server-location" };
+    await createAttachments(myData);
+
+    const attachments = await Attachment.findAll();
+    expect(attachments.length).toBe(1);
+
+    expect(attachments[0].md5).toBe("md5-fingerprint");
+    expect(attachments[0].url).toBe("file-server-location");
+    expect(attachments[0].pulled).toBe(false);
+  });
+
+  it("updates the record's url if it has changed in the data", async () => {
+    await Attachment.create({ md5: "md5-fingerprint", url: "old-url" });
+
+    const myData = { md5: "md5-fingerprint", url: "new-url" };
+    await createAttachments(myData);
+
+    const attachments = await Attachment.findAll();
+    expect(attachments.length).toBe(1);
+
+    expect(attachments[0].url).toBe("new-url");
   });
 });
