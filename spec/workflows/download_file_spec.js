@@ -1,4 +1,4 @@
-import downloadFile from "../../app/workflows/download_file";
+import downloadFile, { downloadRandomFile } from "../../app/workflows/download_file";
 import Attachment from "../../app/models/attachment";
 import Download from "../../app/helpers/download";
 
@@ -58,5 +58,19 @@ describe("downloadFile", () => {
 
     const failedResult = await downloadFile(attachment.id);
     expect(failedResult).toBe(false); // The attachment is already downloaded.
+  });
+
+  describe("downloadRandomFile", () => {
+    it("downloads a random file that hasn't been pulled", async () => {
+      Download.start.mockResolvedValue(true);
+
+      const pulled = await Attachment.create({ url, md5: "first", pulled: true });
+      const notPulled = await Attachment.create({ url, md5: "second" });
+
+      expect(await downloadRandomFile()).toBe(true);
+      expect(Download.start).lastCalledWith(url, "second.pdf");
+
+      expect(await downloadRandomFile()).toBe(false);
+    });
   });
 });

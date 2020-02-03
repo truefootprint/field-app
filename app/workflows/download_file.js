@@ -16,4 +16,19 @@ const downloadFile = async (attachmentId) => {
   return success;
 };
 
+const downloadRandomFile = async () => {
+  const attachment = await Attachment.findOne({
+    where: { pulled: false },
+    order: sequelize.random(),
+    attributes: ["id"],
+  });
+
+  if (attachment) {
+    return await downloadFile(attachment.id);
+  } else {
+    return false;
+  }
+}
+
 export default downloadFile;
+export { downloadRandomFile };
