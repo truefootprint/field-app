@@ -10,6 +10,7 @@ import snakeCaseKeys from "snakecase-keys";
 import snakeCase from "to-snake-case";
 
 import File from "./helpers/file";
+import Download from "./helpers/download";
 import Secret from "./helpers/secret";
 import Client from "./helpers/client";
 import AppContext from "./helpers/app_context";
@@ -56,6 +57,7 @@ global.snakeCaseKeys = snakeCaseKeys;
 global.snakeCase = snakeCase;
 
 global.File = File;
+global.Download = Download;
 global.Secret = Secret;
 global.Client = Client;
 global.AppContext = AppContext;

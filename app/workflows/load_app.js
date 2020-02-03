@@ -6,8 +6,9 @@ import Attachment from "../models/attachment";
 const loadApp = async (callback=()=>{}, options={}) => {
   const models = loadModels(() => {}, options);
   const fonts = loadFonts();
+  const download = loadDownloadSnapshot();
 
-  await Promise.all([models, fonts]);
+  await Promise.all([models, fonts, download]);
 
   callback();
 };
@@ -32,6 +33,12 @@ const loadModels = async (callback=()=>{}, options={}) => {
 
   callback();
 };
+
+const loadDownloadSnapshot = async (callback=()=>{}, options={}) => {
+  await Download.restoreSnapshot();
+
+  callback();
+}
 
 export default loadApp;
 export { loadFonts, loadModels };

@@ -12,6 +12,12 @@ const resetEverything = async () => {
   // Delete the API token.
   await Secret.remove("token");
 
+  // Abandon in-progress downloads.
+  if (Download.inProgress()) {
+    await Download.pause();
+    await Download.reset();
+  }
+
   // Restart the app.
   Updates.reload();
 };
