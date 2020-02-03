@@ -12,13 +12,14 @@ import * as FileSystem from "expo-file-system";
 
 class Download {
   static snapshotFile = "paused_download.json";
+  static onBytes = () => {};
 
-  static async start(remoteUrl, filename) {
-    remoteUrl = replaceLocalhost(remoteUrl);
+  static async start(url, filename) {
+    url = replaceLocalhost(url);
 
     const path = File.path(filename);
     const options = { md5: true };
-    const resumable = FileSystem.createDownloadResumable(remoteUrl, path, options);
+    const resumable = FileSystem.createDownloadResumable(url, path, options, this.onBytes);
 
     await this.setHandle(resumable);
 
@@ -59,7 +60,7 @@ class Download {
     if (!s) return;
 
     const resumable = new FileSystem.DownloadResumable(
-      s.url, s.fileUri, s.options, ()=>{}, s.resumeData,
+      s.url, s.fileUri, s.options, this.onBytes, s.resumeData,
     );
 
     await this.setHandle(resumable);

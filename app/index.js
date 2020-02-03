@@ -1,6 +1,7 @@
 import "./globals";
 import SyncMyDataTask from "./tasks/sync_my_data_task";
 import PhotoUploadTask from "./tasks/photo_upload_task";
+import FileDownloadTask from "./tasks/file_download_task";
 import loadApp from "./workflows/load_app";
 import Login from "./screens/login";
 import Home from "./screens/home";
@@ -15,6 +16,7 @@ const AppContainer = createAppContainer(AuthStack);
 // These tasks run every 15 minutes when the app is in the background.
 SyncMyDataTask.enable({ log: true });
 PhotoUploadTask.enable({ log: true });
+FileDownloadTask.enable({ log: true });
 
 const App = () => {
   const [loaded, setLoaded] = useState();
@@ -24,9 +26,10 @@ const App = () => {
   const foreground = useForeground();
   const connected = useWifi();
 
-  useWhen([loaded, foreground, token], () => {
-    SyncMyDataTask.runWith({ connected, callback: setData });
-    PhotoUploadTask.runWith({ connected });
+  useWhen([loaded, foreground, token], async () => {
+    await SyncMyDataTask.runWith({ connected, callback: setData });
+    await PhotoUploadTask.runWith({ connected });
+    await FileDownloadTask.runWith({ connected });
   }, [connected]);
 
   if (!loaded || !data) {
