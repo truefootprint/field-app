@@ -1,6 +1,7 @@
 import * as Font from "expo-font";
 import Response from "../models/response";
 import Image from "../models/image";
+import Attachment from "../models/attachment";
 
 const loadApp = async (callback=()=>{}, options={}) => {
   const models = loadModels(() => {}, options);
@@ -25,6 +26,7 @@ const loadModels = async (callback=()=>{}, options={}) => {
 
   Response.onLoad(m);
   Image.onLoad(m);
+  Attachment.onLoad(m);
 
   await sequelize.sync(options);
 
