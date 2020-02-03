@@ -1,0 +1,62 @@
+import downloadFile from "../../app/workflows/download_file";
+import Attachment from "../../app/models/attachment";
+import Download from "../../app/helpers/download";
+
+jest.mock("../../app/helpers/download");
+
+describe("downloadFile", () => {
+  const url = "http://example.com/contract.pdf";
+
+  it("downloads a file attachment from the backend", async () => {
+    const attachment = await Attachment.create({ url, md5: "md5" });
+    await downloadFile(attachment.id);
+
+    expect(Download.start).lastCalledWith(url, "md5.pdf");
+  });
+
+  it("updates attachments to 'pulled' if the download succeeds", async () => {
+    Download.start.mockResolvedValue(true);
+
+    let attachment = await Attachment.create({ url, md5: "md5" });
+    await downloadFile(attachment.id);
+
+    attachment = await Attachment.findOne();
+    expect(attachment.pulled).toBe(true);
+  });
+
+  it("does not update 'pulled' if the download failed or was paused", async () => {
+    Download.start.mockResolvedValue(false);
+
+    let attachment = await Attachment.create({ url, md5: "md5" });
+    await downloadFile(attachment.id);
+
+    attachment = await Attachment.findOne();
+    expect(attachment.pulled).toBe(false);
+  });
+
+  it("does not try to download a file if there's a download in progress", async () => {
+    Download.inProgress.mockReturnValue(true);
+
+    const attachment = await Attachment.create({ url, md5: "md5" });
+    await downloadFile(attachment.id);
+
+    expect(Download.start).not.toHaveBeenCalled();
+  });
+
+  it("does not try to download a file that is already downloaded", async () => {
+    const attachment = await Attachment.create({ url, md5: "md5", pulled: true });
+    await downloadFile(attachment.id);
+
+    expect(Download.start).not.toHaveBeenCalled();
+  });
+
+  it("returns whether the download was successful", async () => {
+    Download.start.mockResolvedValue(true);
+    const attachment = await Attachment.create({ url, md5: "md5" });
+    const result = await downloadFile(attachment.id);
+    expect(result).toBe(true);
+
+    const failedResult = await downloadFile(attachment.id);
+    expect(failedResult).toBe(false); // The attachment is already downloaded.
+  });
+});
