@@ -20,8 +20,14 @@ if env == "prod"
   exit(0)
 end
 
-json = Net::HTTP.get(URI("http://127.0.0.1:4040/api/tunnels"))
-data = JSON.parse(json, symbolize_names: true)
-host = data.fetch(:tunnels).first.fetch(:public_url)
+def get_host(port)
+  json = Net::HTTP.get(URI("http://127.0.0.1:#{port}/api/tunnels"))
+  data = JSON.parse(json, symbolize_names: true)
+
+  data.fetch(:tunnels).first.fetch(:public_url)
+end
+
+host = get_host(4040)
+host = get_host(4041) unless host.include?("ngrok")
 
 set_host(host)
