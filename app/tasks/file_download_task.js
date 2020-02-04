@@ -23,7 +23,7 @@ class FileDownloadTask extends BackgroundTask {
     return await this.runWith({ connected, timeLimit: 30 });
   }
 
-  static async runWith({ connected, timeLimit } = {}) {
+  static async runWith({ connected, timeLimit, foreground } = {}) {
     if (!connected) return false;
 
     const startTime = new Date().getTime();
@@ -58,8 +58,7 @@ class FileDownloadTask extends BackgroundTask {
       }
 
       // Do something asynchronous to give control back to the main thread.
-      // Unfortunately, setTimeout doesn't seem to work in background tasks.
-      await File.listing();
+      await this.sleep(foreground);
     }
 
     // Use the safetyNet time to save a snapshot of the partial file donwload.
@@ -75,6 +74,15 @@ class FileDownloadTask extends BackgroundTask {
       Download.resume().then(onFinish);
     } else {
       downloadRandomFile().then(onFinish);
+    }
+  }
+
+  // Unfortunately, setTimeout doesn't seem to work in background tasks.
+  static async sleep(foreground) {
+    if (foreground) {
+      await new Promise(r => setTimeout(r, 500));
+    } else {
+      await File.listing();
     }
   }
 }
