@@ -1,5 +1,6 @@
 import Client from "../helpers/client";
 import FileCache from "../helpers/file_cache";
+import File from "../helpers/file";
 import Response from "../models/response";
 import Attachment from "../models/attachment";
 import ResponsePresenter from "../presenters/response_presenter";
@@ -48,8 +49,15 @@ const combineData = (myData, responses) => {
 const createAttachments = async (myData) => {
   await eachNested(myData, async o => {
     if (isFileAttachment(o)) {
+      const where = { md5: o.md5 };
       const attributes = { md5: o.md5, url: o.url };
-      await createOrUpdate(Attachment, { where: { md5: o.md5 }, attributes });
+
+      const attachment = await createOrUpdate(Attachment, { where, attributes });
+      const fileExists = await File.exists(attachment.filename);
+
+      if (fileExists && !attachment.pulled) {
+        await attachment.update({ pulled: true });
+      }
     }
   });
 };

@@ -1,5 +1,6 @@
 import Attachment from "../models/attachment";
 import Download from "../helpers/download";
+import File from "../helpers/file";
 
 const downloadFile = async (attachmentId) => {
   if (Download.inProgress()) return false;
@@ -7,8 +8,11 @@ const downloadFile = async (attachmentId) => {
   const attachment = await Attachment.findOne({ where: { id: attachmentId } });
   if (!attachment || attachment.pulled) return false;
 
+  const existsOnDevice = await File.exists(attachment.filename);
+  if (existsOnDevice) { await setPulled(attachment); return false; }
+
   const success = await Download.start(attachment.url, attachment.filename);
-  if (success) await attachment.update({ pulled: true });
+  if (success) await setPulled(attachment);
 
   return success;
 };
@@ -26,6 +30,10 @@ const downloadRandomFile = async () => {
     return false;
   }
 }
+
+const setPulled = async (attachment) => {
+  await attachment.update({ pulled: true });
+};
 
 export default downloadFile;
 export { downloadRandomFile };

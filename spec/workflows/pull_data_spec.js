@@ -153,4 +153,19 @@ describe("createAttachments", () => {
 
     expect(attachments[0].url).toBe("new-url");
   });
+
+  // This could happen if myData references an image that was uploaded by the
+  // user, e.g. an issue or a resolution.
+  it("sets 'pulled' to true if the file already exists on the device", async () => {
+    File.exists.mockResolvedValue(true);
+
+    const myData = { md5: "md5-fingerprint", url: "url.pdf" };
+    await createAttachments(myData);
+
+    const attachments = await Attachment.findAll();
+    expect(attachments.length).toBe(1);
+
+    expect(attachments[0].pulled).toBe(true);
+    expect(File.exists).lastCalledWith("md5-fingerprint.pdf");
+  });
 });

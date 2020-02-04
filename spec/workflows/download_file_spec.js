@@ -1,8 +1,10 @@
 import downloadFile, { downloadRandomFile } from "../../app/workflows/download_file";
 import Attachment from "../../app/models/attachment";
 import Download from "../../app/helpers/download";
+import File from "../../app/helpers/file";
 
 jest.mock("../../app/helpers/download");
+jest.mock("../../app/helpers/file");
 
 describe("downloadFile", () => {
   const url = "http://example.com/contract.pdf";
@@ -48,6 +50,21 @@ describe("downloadFile", () => {
     await downloadFile(attachment.id);
 
     expect(Download.start).not.toHaveBeenCalled();
+  });
+
+  // This could happen if myData references an image that was uploaded by the
+  // user, e.g. an issue or a resolution.
+  it("does not download the file if it's already on the device", async () => {
+    File.exists.mockResolvedValue(true);
+
+    const attachment = await Attachment.create({ url, md5: "md5" });
+    await downloadFile(attachment.id);
+
+    expect(Download.start).not.toHaveBeenCalled();
+    expect(File.exists).lastCalledWith("md5.pdf");
+
+    await attachment.reload();
+    expect(attachment.pulled).toBe(true);
   });
 
   it("returns whether the download was successful", async () => {
