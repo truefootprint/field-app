@@ -7,6 +7,12 @@ const Attachment = sequelize.define("attachment", {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  filename: {
+    type: Sequelize.VIRTUAL,
+    get() {
+      return `${this.md5}.${File.extension(this.url)}`;
+    },
+  },
   pulled: {
     type: Sequelize.BOOLEAN,
     allowNull: false,

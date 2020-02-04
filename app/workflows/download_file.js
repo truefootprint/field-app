@@ -7,10 +7,7 @@ const downloadFile = async (attachmentId) => {
   const attachment = await Attachment.findOne({ where: { id: attachmentId } });
   if (!attachment || attachment.pulled) return false;
 
-  const extension = File.extension(attachment.url);
-  const filename = `${attachment.md5}.${extension}`;
-
-  const success = await Download.start(attachment.url, filename);
+  const success = await Download.start(attachment.url, attachment.filename);
   if (success) await attachment.update({ pulled: true });
 
   return success;
