@@ -1,5 +1,6 @@
 import BackgroundTask from "./background_task";
 import { downloadRandomFile } from "../workflows/download_file";
+import Download from "../helpers/download";
 import hasWifi from "../helpers/has_wifi";
 
 // BackgroundFetch tasks are limited to 30 seconds or they're terminated.

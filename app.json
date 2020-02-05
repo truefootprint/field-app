@@ -12,9 +12,9 @@
     "splash": { "image": "app/assets/images/splash-screen.png" },
     "assetBundlePatterns": ["app/assets/**/*"],
     "updates": { "fallbackToCacheTimeout": 0 },
-    "version": "0.6.0",
+    "version": "0.8.0",
     "android": {
-      "versionCode": 6,
+      "versionCode": 8,
       "package": "com.truefootprint.field_app",
       "permissions": [
         "CAMERA",
