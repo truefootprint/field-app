@@ -4,11 +4,9 @@ import Attachment from "../models/attachment";
 
 const Source = ({ navigation }) => {
   const { file } = navigation.getParam("document");
-  const page = navigation.getParam("page");
+  const page = navigation.getParam("page"); // TODO
 
-  const uri = File.path(`${file.md5}.${File.extension(file.url)}`);
-
-  return <PDF uri={uri} />;
+  return <PDF uri={Fingerprint.path(file.md5, file.url)} />;
 };
 
 export default Source;

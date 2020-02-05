@@ -10,7 +10,7 @@ const Attachment = sequelize.define("attachment", {
   filename: {
     type: Sequelize.VIRTUAL,
     get() {
-      return `${this.md5}.${File.extension(this.url)}`;
+      return Fingerprint.filename(this.md5, this.url);
     },
   },
   pulled: {

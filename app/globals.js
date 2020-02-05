@@ -11,6 +11,7 @@ import snakeCase from "to-snake-case";
 
 import File from "./helpers/file";
 import Download from "./helpers/download";
+import Fingerprint from "./helpers/fingerprint";
 import Secret from "./helpers/secret";
 import Client from "./helpers/client";
 import AppContext from "./helpers/app_context";
@@ -58,6 +59,7 @@ global.snakeCase = snakeCase;
 
 global.File = File;
 global.Download = Download;
+global.Fingerprint = Fingerprint;
 global.Secret = Secret;
 global.Client = Client;
 global.AppContext = AppContext;
