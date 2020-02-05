@@ -1,7 +1,7 @@
 import Button from "../button";
 import styles from "./styles.js";
 
-const Summary = ({ color="blue", name, text, activityCount }) => {
+const Summary = ({ color="blue", name, text, activityCount, hasContract, onViewContract=()=>{} }) => {
   const s = styles(color);
 
   return (
@@ -13,7 +13,9 @@ const Summary = ({ color="blue", name, text, activityCount }) => {
         <Text {...className("text")}>{text}</Text>
       </>}
 
-      <Button color={color} text="Project contract" caps={false} fill={false} />
+      {hasContract &&
+        <Button color={color} text="Project contract" caps={false} fill={false} onPress={onViewContract} />
+      }
 
       <Text {...className("activity_count")}>
         This project has {activityCount} activities to monitor:

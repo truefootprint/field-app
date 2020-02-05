@@ -12,9 +12,13 @@ const Project = ({ navigation }) => {
     answerQuestion({ connected, question, answer });
   };
 
+  const handleSource = (sourceMaterial) => {
+    navigation.navigate("Source", sourceMaterial);
+  };
+
   return (
     <Layout>
-      <ProjectComponent index={index} {...project} onAnswerQuestion={handleAnswer} />
+      <ProjectComponent index={index} {...project} onAnswerQuestion={handleAnswer} onViewSource={handleSource} />
     </Layout>
   );
 };

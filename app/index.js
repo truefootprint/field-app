@@ -6,10 +6,11 @@ import loadApp from "./workflows/load_app";
 import Login from "./screens/login";
 import Home from "./screens/home";
 import Project from "./screens/project";
+import Source from "./screens/source";
 
 // Create the navigation stack so that you can't go back to the login screen.
 const options = { headerMode: "none" };
-const AppStack = createStackNavigator({ Home, Project }, options);
+const AppStack = createStackNavigator({ Home, Project, Source }, options);
 const AuthStack = createSwitchNavigator({ Login, App: AppStack }, options);
 const AppContainer = createAppContainer(AuthStack);
 

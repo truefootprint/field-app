@@ -18,4 +18,20 @@ describe("<Sticky />", () => {
     const withoutHeading = render(<Summary color="green" />);
     expect(withoutHeading).not.toHaveText("Project summary");
   });
+
+  it("hides the 'Project contract' button if hasContract is false", () => {
+    const withContract = render(<Summary hasContract={true} />);
+    expect(withContract).toHaveText("Project contract");
+
+    const withoutContract = render(<Summary />);
+    expect(withoutContract).not.toHaveText("Project contract");
+  });
+
+  it("calls 'onViewContract' when the button is pressed", () => {
+    const callback = jest.fn();
+    const summary = render(<Summary hasContract={true} onViewContract={callback} />);
+
+    fireEvent.press(summary.getByTestId("touchable"));
+    expect(callback).toHaveBeenCalled();
+  });
 });
