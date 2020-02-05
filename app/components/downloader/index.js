@@ -27,7 +27,7 @@ const Downloader = ({ md5, children }) => {
     setFailed(true);
   };
 
-  useEffect(() => { loadFile().then(() => setFirstRun(false)); }, []);
+  useEffect(() => { loadFile(); }, []);
 
   const retryText = (
     <View {...className("downloader", styles)}>

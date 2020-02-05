@@ -1,12 +1,19 @@
 import Layout from "../components/layout";
+import Downloader from "../components/downloader";
 import PDF from "../components/pdf";
-import Attachment from "../models/attachment";
 
 const Source = ({ navigation }) => {
-  const { file } = navigation.getParam("document");
-  const page = navigation.getParam("page"); // TODO
+  const page = navigation.getParam("page"); // TODO: go to page number
+  const document = navigation.getParam("document");
 
-  return <PDF uri={Fingerprint.path(file.md5, file.url)} />;
+  const file = document.file;
+  const path = Fingerprint.path(file.md5, file.url);
+
+  return (
+    <Downloader md5={file.md5}>
+      <PDF uri={path} />
+    </Downloader>
+  );
 };
 
 export default Source;
