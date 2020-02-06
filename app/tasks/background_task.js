@@ -23,24 +23,24 @@ class BackgroundTask {
     const options = { stopOnTerminate: false, startOnBoot: true };
     const interval = 15; // minutes;
 
-    log && console.log(`Defining ${name} background task...`);
+    log && Logger.log(`Defining ${name} background task...`);
     TaskManager.defineTask(name, () => this.runSafely(name, log));
 
     return BackgroundFetch.registerTaskAsync(name, options).then(() => {
       BackgroundFetch.setMinimumIntervalAsync(interval);
-      log && console.log(`Successfully registered ${name} background task`);
+      log && Logger.log(`Successfully registered ${name} background task`);
     });
   }
 
   static async runSafely (name, log) {
-    log && console.log(`Running ${name} background task...`);
+    log && Logger.log(`Running ${name} background task...`);
 
     try {
       const bool = await this.run();
       return bool ? Result.NewData : Result.NoData;
 
     } catch (error) {
-      log && console.error(`Error running ${name} background task:`, error);
+      log && Logger.error(`Error running ${name} background task:`, error);
       return Result.Failed;
     }
   }

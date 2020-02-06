@@ -5,7 +5,7 @@ const benchmark = async (callback, limit = 250) => {
   const duration = after - before;
 
   if (duration > limit) {
-    console.warn(`Benchmark took ${duration}ms which exceeds ${limit}ms`);
+    Logger.warn(`Benchmark took ${duration}ms which exceeds ${limit}ms`);
   }
 
   return duration;

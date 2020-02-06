@@ -99,7 +99,7 @@ class Download {
   }
 
   static async writeSnapshot(resumable) {
-    console.log(resumable.savable());
+    Logger.log(resumable.savable());
     await File.writeObject(this.snapshotFile, resumable.savable());
   }
 
