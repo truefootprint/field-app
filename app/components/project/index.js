@@ -7,7 +7,7 @@ const Project = ({ index, name, projectSummary={}, projectActivities=[], sourceM
   const summaryText = (projectSummary || {}).text;
   const activityCount = projectActivities.length;
 
-  const isCurrent = (id) => id === currentProjectActivity.id;
+  const isCurrent = (id) => id === (currentProjectActivity || {}).id;
   const activityColor = (i) => palette.cycle(index + i);
 
   const hasContract = sourceMaterials.length > 0;
