@@ -1,4 +1,5 @@
 import "./globals";
+import DevConsole from "./components/dev_console";
 import SyncMyDataTask from "./tasks/sync_my_data_task";
 import PhotoUploadTask from "./tasks/photo_upload_task";
 import FileDownloadTask from "./tasks/file_download_task";
@@ -41,6 +42,7 @@ const App = () => {
     <AppContext.Provider value={{ data, token, setToken, connected }}>
       <View style={{ flex: 1 }} {...className("root")}>
         <AppContainer />
+        <DevConsole />
       </View>
     </AppContext.Provider>
   );
