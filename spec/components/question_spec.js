@@ -4,12 +4,14 @@ import moveImageToDocumentStorage from "../../app/workflows/move_image";
 jest.mock("../../app/workflows/move_image");
 
 describe("<Question />", () => {
+  const nav = { navigation: {} };
+
   it("renders", () => {
-    render(<Question />);
+    render(<Question {...nav } />);
   });
 
   it("applies the theme", () => {
-    const question = render(<Question color="green" />);
+    const question = render(<Question {...nav} color="green" />);
     const buttons = question.getAllByTestId("button_like");
     const expected = palette.green.primary;
 
@@ -19,33 +21,33 @@ describe("<Question />", () => {
   });
 
   it("sets the text", () => {
-    const question = render(<Question text="question text" />);
+    const question = render(<Question {...nav} text="question text" />);
     expect(question).toHaveText("question text");
   });
 
   it("can set the expected value", () => {
     const expectedValue = { text: "It should be 5 meters" };
-    const question = render(<Question text="question text" expectedValue={expectedValue} />);
+    const question = render(<Question {...nav} text="question text" expectedValue={expectedValue} />);
 
     expect(question).toHaveText("It should be 5 meters");
   });
 
   it("has a 'Record an issue' checkbox", () => {
-    const question = render(<Question />);
+    const question = render(<Question {...nav} />);
     const checkbox = question.getByTestId("checkbox");
 
     expect(checkbox).toHaveText("Record an issue");
   });
 
   it("has a submit button", () => {
-    const question = render(<Question />);
+    const question = render(<Question {...nav} />);
     const submit = question.getAllByTestId("button_like")[1];
 
     expect(submit).toHaveText("Submit");
   });
 
   it("enables the submit button after answering the question", () => {
-    const question = render(<Question type="free_text" />);
+    const question = render(<Question {...nav} type="free_text" />);
     const input = question.getByTestId("native_input");
 
     expect(question.queryByTestId("disabled")).not.toBeNull();
@@ -58,7 +60,7 @@ describe("<Question />", () => {
 
   it("filters responses to the submission period", () => {
     const response = { value: "old answer", createdAt: new Date(0).toString() };
-    const question = render(<Question type="free_text" responses={[response]} />);
+    const question = render(<Question {...nav} type="free_text" responses={[response]} />);
     const input = question.getByTestId("native_input");
 
     expect(props(input).value).toBe("");
@@ -67,7 +69,7 @@ describe("<Question />", () => {
   describe("free text questions", () => {
     it("renders", () => {
       const question = render(
-        <Question type="free_text" placeholder="Add a value" unit={{ plural: "metres" }} />
+        <Question {...nav} type="free_text" placeholder="Add a value" unit={{ plural: "metres" }} />
       );
 
       const input = question.getByTestId("native_input");
@@ -79,7 +81,7 @@ describe("<Question />", () => {
 
     it("can set an 'onAnswer' callback", () => {
       const callback = jest.fn();
-      const question = render(<Question type="free_text" onAnswer={callback} />);
+      const question = render(<Question {...nav} type="free_text" onAnswer={callback} />);
       const input = question.getByTestId("native_input");
 
       fireEvent(input, "changeText", "answer");
@@ -90,7 +92,7 @@ describe("<Question />", () => {
 
     it("populates the input from the response", () => {
       const response = { value: "answer", createdAt: new Date().toString() };
-      const question = render(<Question type="free_text" responses={[response]} />);
+      const question = render(<Question {...nav} type="free_text" responses={[response]} />);
       const input = question.getByTestId("native_input");
 
       expect(props(input).value).toBe("answer");
@@ -98,7 +100,7 @@ describe("<Question />", () => {
 
     describe("when the answer hasn't changed", () => {
       it("disables the submit button", () => {
-        const question = render(<Question type="free_text" />);
+        const question = render(<Question {...nav} type="free_text" />);
         const input = question.getByTestId("native_input");
 
         fireEvent(input, "changeText", "");
@@ -119,7 +121,7 @@ describe("<Question />", () => {
 
       it("does not call 'onAnswer' a second time", () => {
         const callback = jest.fn();
-        const question = render(<Question type="free_text" onAnswer={callback} />);
+        const question = render(<Question {...nav} type="free_text" onAnswer={callback} />);
         const input = question.getByTestId("native_input");
 
         fireEvent(input, "changeText", "answer");
@@ -138,7 +140,7 @@ describe("<Question />", () => {
   describe("multi choice questions", () => {
     it("renders", () => {
       const options = [{ id: 1, text: "Yes" }, { id: 2, text: "No" }];
-      const question = render(<Question type="multi_choice" multiChoiceOptions={options} />);
+      const question = render(<Question {...nav} type="multi_choice" multiChoiceOptions={options} />);
       const radios = question.getAllByTestId("checkbox"); // Radios are Checkboxes.
 
       expect(radios[0]).toHaveText("Yes");
@@ -149,7 +151,7 @@ describe("<Question />", () => {
       const callback = jest.fn();
       const options = [{ id: 1, text: "Yes" }, { id: 2, text: "No" }];
       const question = render(
-        <Question type="multi_choice" multiChoiceOptions={options} onAnswer={callback} />
+        <Question {...nav} type="multi_choice" multiChoiceOptions={options} onAnswer={callback} />
       );
 
       fireEvent(question.getByText("Yes"), "check");
@@ -163,7 +165,7 @@ describe("<Question />", () => {
       const options = [{ id: 1, text: "Yes" }, { id: 2, text: "No" }];
       const response = { value: "2", createdAt: new Date().toString() };
       const question = render(
-        <Question type="multi_choice" multiChoiceOptions={options} responses={[response]} />
+        <Question {...nav} type="multi_choice" multiChoiceOptions={options} responses={[response]} />
       );
 
       const radios = question.getAllByTestId("checkbox"); // Radios are Checkboxes.
@@ -180,7 +182,7 @@ describe("<Question />", () => {
     afterEach(() => console.error = error);
 
     it("renders", () => {
-      const question = render(<Question type="photo_upload" />);
+      const question = render(<Question {...nav} type="photo_upload" />);
       const picker = question.queryByTestId("picker");
 
       expect(picker).toBeDefined();
@@ -188,7 +190,7 @@ describe("<Question />", () => {
 
     it("can set an 'onAnswer' callback", async () => {
       const callback = jest.fn();
-      const question = render(<Question type="photo_upload" onAnswer={callback} />);
+      const question = render(<Question {...nav} type="photo_upload" onAnswer={callback} />);
       const picker = question.getByTestId("picker");
 
       await fireEvent(picker, "pick", { uri: "uri" });
@@ -201,7 +203,7 @@ describe("<Question />", () => {
         createdAt: new Date().toString(),
       };
 
-      const question = render(<Question type="photo_upload" responses={[response]} />);
+      const question = render(<Question {...nav} type="photo_upload" responses={[response]} />);
       const images = question.getAllByType("Image");
 
       expect(images.length).toBe(1);

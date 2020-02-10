@@ -6,7 +6,7 @@ import PhotoUpload from "./photo_upload";
 import FreeText from "./free_text";
 import styles from "./styles.js";
 
-const Question = ({ color="blue", type, text, expectedValue, responses=[], onAnswer=()=>{}, ...rest }) => {
+const Question = ({ navigation, color="blue", type, text, expectedValue, responses=[], onAnswer=()=>{}, onIssue=()=>{}, ...rest }) => {
   const [canSubmit, setCanSubmit] = useState(false);
   const response = SubmissionPeriod.last(responses);
 
@@ -14,6 +14,10 @@ const Question = ({ color="blue", type, text, expectedValue, responses=[], onAns
     setCanSubmit(true);
     onAnswer(answer);
   };
+
+  const handleIssue = () => {
+    onIssue({ color });
+  }
 
   const handleSubmit = () => {
     // The submit button is to reassure the user, it doesn't actually send data.
@@ -33,7 +37,7 @@ const Question = ({ color="blue", type, text, expectedValue, responses=[], onAns
       </View>
 
       <View {...className(`${type}_issue`)}>
-        <Checkbox color={color}>Record an issue</Checkbox>
+        <Checkbox color={color} checked={false} onCheck={handleIssue}>Record an issue</Checkbox>
       </View>
 
       {<Button text="Submit" color={color} disabled={!canSubmit} onPress={handleSubmit} />}
@@ -49,4 +53,4 @@ const questionFor = ({ type, ...props }) => {
   };
 };
 
-export default Question;
+export default withNavigation(Question);
