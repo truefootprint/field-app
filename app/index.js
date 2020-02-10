@@ -21,6 +21,8 @@ PhotoUploadTask.enable({ log: true });
 FileDownloadTask.enable({ log: true });
 
 const App = () => {
+  useScreens();
+
   const [loaded, setLoaded] = useState();
   const [data, setData] = useState();
   const [token, setToken] = useSecret("token", () => setData({}));

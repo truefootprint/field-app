@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext, useRef, cloneElement } from "react";
+import { useScreens } from "react-native-screens";
 import { View, StyleSheet, TouchableOpacity, TouchableHighlight, TouchableWithoutFeedback, Text, Modal, ScrollView } from "react-native";
 import Svg, { Path } from "react-native-svg";
 import { createAppContainer, StackActions, createSwitchNavigator } from "react-navigation";
@@ -38,6 +39,7 @@ global.useState = useState;
 global.useEffect = useEffect;
 global.useContext = useContext;
 global.useRef = useRef;
+global.useScreens = useScreens;
 global.cloneElement = cloneElement;
 global.View = View;
 global.StyleSheet = StyleSheet;
