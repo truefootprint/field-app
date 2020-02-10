@@ -8,10 +8,11 @@ import Login from "./screens/login";
 import Home from "./screens/home";
 import Project from "./screens/project";
 import Source from "./screens/source";
+import Issue from "./screens/issue";
 
 // Create the navigation stack so that you can't go back to the login screen.
 const options = { headerMode: "none" };
-const AppStack = createStackNavigator({ Home, Project, Source }, options);
+const AppStack = createStackNavigator({ Home, Project, Source, Issue }, options);
 const AuthStack = createSwitchNavigator({ Login, App: AppStack }, options);
 const AppContainer = createAppContainer(AuthStack);
 
