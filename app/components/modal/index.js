@@ -3,7 +3,7 @@ import { Times } from "../svg_icon";
 
 const Modal = ({ color="blue", title, onClose=()=>{}, children }) => (
   <View {...className("modal", styles(color))}>
-    <ScrollView {...className("inner")} contentContainerStyle={{ flex: 1 }}>
+    <View {...className("inner")} contentContainerStyle={{ flex: 1 }}>
       <View {...className("top")}>
         <Text {...className("heading")}>{title}</Text>
 
@@ -13,7 +13,7 @@ const Modal = ({ color="blue", title, onClose=()=>{}, children }) => (
       </View>
 
       {children}
-    </ScrollView>
+    </View>
   </View>
 );
 
