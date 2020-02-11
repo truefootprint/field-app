@@ -2,6 +2,8 @@ const styles = (theme) => StyleSheet.create({
   button_like: {
     height: 40,
     backgroundColor: "white",
+    borderColor: "white",
+    borderWidth: thin,
     paddingLeft: 15,
     paddingRight: 15,
     flexDirection: "row",
@@ -10,7 +12,6 @@ const styles = (theme) => StyleSheet.create({
 
   border: {
     borderColor: theme.primary,
-    borderWidth: thin,
     elevation: 3,
   },
 

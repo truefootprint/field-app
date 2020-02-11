@@ -45,8 +45,14 @@ const Downloader = ({ color="blue", md5, children }) => {
     </View>
   );
 
+  const noWifi = (
+    <View {...className("downloader", styles)}>
+      <NoWifi />
+    </View>
+  );
+
   if (downloaded) return children;
-  if (!connected) return <NoWifi />;
+  if (!connected) return noWifi;
   if (failed) return retryText;
 
   return loadingText;
