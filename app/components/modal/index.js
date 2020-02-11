@@ -8,7 +8,7 @@ const Modal = ({ color="blue", title, onClose=()=>{}, children }) => (
         <Text {...className("heading")}>{title}</Text>
 
         <TouchableOpacity {...className("touchable")} onPress={onClose} activeOpacity={0.8}>
-          <Times size={40} />
+          <Times size={30} />
         </TouchableOpacity>
       </View>
 

@@ -21,13 +21,17 @@ const styles = (theme) => StyleSheet.create({
 
   heading: {
     flex: 1,
-    fontSize: 28,
+    fontSize: 24,
     fontFamily: "Roboto-Medium",
     color: palette.black.primary,
-    letterSpacing: 0.5,
-    marginTop: 2,
-    marginBottom: 50,
+    letterSpacing: 0.9,
+    marginTop: 3,
+    marginBottom: 10,
   },
+
+  touchable: {
+    marginTop: 5,
+  }
 });
 
 export default (color) => styles(palette[color]);
