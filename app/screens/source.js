@@ -5,12 +5,13 @@ import PDF from "../components/pdf";
 const Source = ({ navigation }) => {
   const page = navigation.getParam("page"); // TODO: go to page number
   const document = navigation.getParam("document");
+  const color = navigation.getParam("color");
 
   const file = document.file;
   const path = Fingerprint.path(file.md5, file.url);
 
   return (
-    <Downloader md5={file.md5}>
+    <Downloader color={color} md5={file.md5}>
       <PDF uri={path} />
     </Downloader>
   );

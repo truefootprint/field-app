@@ -11,7 +11,7 @@ const Project = ({ index, name, projectSummary={}, projectActivities=[], sourceM
   const activityColor = (i) => palette.cycle(index + i);
 
   const hasContract = sourceMaterials.length > 0;
-  const viewContract = () => onViewSource(sourceMaterials[0]);
+  const viewContract = () => onViewSource({...sourceMaterials[0], color: projectColor });
 
   return (
     <Sticky.Container>
