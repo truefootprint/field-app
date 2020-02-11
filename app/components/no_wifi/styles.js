@@ -1,9 +1,9 @@
 const styles = StyleSheet.create({
   no_wifi: {
     flex: 1,
-    width: "95%",
+    alignItems: "center",
     justifyContent: "center",
-    alignSelf: "center",
+    minHeight: 200,
   },
 });
 

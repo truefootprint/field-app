@@ -4,7 +4,7 @@ import Button from "../button";
 import NoWifi from "../no_wifi";
 import styles from "./styles.js";
 
-const Downloader = ({ md5, children }) => {
+const Downloader = ({ color="blue", md5, children }) => {
   const { connected } = useContext(AppContext);
 
   const [downloaded, setDownloaded] = useState();
@@ -32,7 +32,10 @@ const Downloader = ({ md5, children }) => {
   const retryText = (
     <View {...className("downloader", styles)}>
       <Text>Download failed</Text>
-      <Button text="Retry" caps={false} fill={false} onPress={loadFile} />
+
+      <View {...className("retry")}>
+        <Button color={color} text="Retry" caps={false} fill={false} onPress={loadFile} />
+      </View>
     </View>
   );
 

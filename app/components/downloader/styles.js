@@ -3,6 +3,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    minHeight: 200,
+  },
+
+  retry: {
+    marginTop: 10,
   },
 });
 
