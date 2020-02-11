@@ -21,6 +21,11 @@ describe("<ImageInput />", () => {
     expect(style(rectangle).borderColor).toBe(expected);
   });
 
+  it("shows the placeholder", () => {
+    const input = render(<ImageInput placeholder="Add a photo" />);
+    expect(input).toHaveText("Add a photo");
+  });
+
   it("shows picked images", async () => {
     const input = render(<ImageInput />);
     const picker = input.getByTestId("picker");

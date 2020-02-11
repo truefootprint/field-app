@@ -5,7 +5,7 @@ import styles from "./styles.js";
 
 const options = { exif: true };
 
-const ImagePicker = ({ color="blue", onPick=()=>{} }) => {
+const ImagePicker = ({ color="blue", text, onPick=()=>{} }) => {
   const [visible, setVisible] = useState(false);
 
   const handlePick = (result) => {
@@ -25,6 +25,8 @@ const ImagePicker = ({ color="blue", onPick=()=>{} }) => {
 
   return (
     <View>
+      {text && <Text {...className("text", styles(color))}>{text}</Text>}
+
       <TouchableOpacity onPress={() => setVisible(true)} activeOpacity={0.8}>
         <View {...className("rectangle", styles(color))}>
           <View {...className("circle")}>

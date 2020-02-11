@@ -19,6 +19,11 @@ describe("<ImagePicker />", () => {
     expect(style(circle).backgroundColor).toBe(expected);
   });
 
+  it("shows the text", () => {
+    const picker = render(<ImagePicker text="Add a photo" />);
+    expect(picker).toHaveText("Add a photo");
+  });
+
   it("shows the menu when clicking the plus", () => {
     const picker = render(<ImagePicker />);
     const inner = picker.getByTestId("inner");

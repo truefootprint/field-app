@@ -1,4 +1,11 @@
 const styles = (theme) => StyleSheet.create({
+  text: {
+    fontSize: 16,
+    letterSpacing: 0.5,
+    color: palette.black.primary,
+    marginBottom: 15,
+  },
+
   rectangle: {
     width: "35%",
     aspectRatio: 2 / 3,

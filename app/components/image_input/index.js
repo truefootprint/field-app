@@ -3,7 +3,7 @@ import Image from "react-native-fullwidth-image"
 import ImagePicker from "../image_picker";
 import styles from "./styles.js";
 
-const ImageInput = ({ color, defaultImages=[], onChange=()=>{} }) => {
+const ImageInput = ({ color, placeholder, defaultImages=[], onChange=()=>{} }) => {
   const [images, setImages] = useState(defaultImages);
 
   const handlePick = async (image) => {
@@ -24,7 +24,7 @@ const ImageInput = ({ color, defaultImages=[], onChange=()=>{} }) => {
         <Image source={image} key={i} {...className(imageClasses(i), styles)} />
       ))}
 
-      <ImagePicker onPick={handlePick} color={color} {...className("picker")} />
+      <ImagePicker text={placeholder} onPick={handlePick} color={color} {...className("picker")} />
     </View>
   );
 };
