@@ -1,14 +1,17 @@
 const styles = (theme) => StyleSheet.create({
   button_like: {
     height: 40,
-    borderColor: theme.primary,
-    borderWidth: thin,
     backgroundColor: "white",
-    elevation: 3,
     paddingLeft: 15,
     paddingRight: 15,
     flexDirection: "row",
     alignItems: "center",
+  },
+
+  border: {
+    borderColor: theme.primary,
+    borderWidth: thin,
+    elevation: 3,
   },
 
   rounded: {
