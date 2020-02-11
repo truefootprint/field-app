@@ -30,23 +30,29 @@ describe("<Checkbox />", () => {
   });
 
   it("is an uncontrolled component by default", () => {
-    const checkbox = render(<Checkbox />);
+    const container = render(<Checkbox />);
+    const checkbox = container.getByTestId("checkbox");
+
     expect(props(checkbox).data.checked).toBe(false);
 
-    fireEvent.press(checkbox.getByTestId("touchable"));
+    fireEvent.press(container.getByTestId("touchable"));
     expect(props(checkbox).data.checked).toBe(true);
   });
 
   it("can set its default checked state", () => {
-    const checkbox = render(<Checkbox defaultChecked />);
+    const container = render(<Checkbox defaultChecked />);
+    const checkbox = container.getByTestId("checkbox");
+
     expect(props(checkbox).data.checked).toBe(true);
   });
 
   it("can be controlled by setting 'checked'", () => {
-    const checkbox = render(<Checkbox checked />);
+    const container = render(<Checkbox checked />);
+    const checkbox = container.getByTestId("checkbox");
+
     expect(props(checkbox).data.checked).toBe(true);
 
-    fireEvent.press(checkbox.getByTestId("touchable"));
+    fireEvent.press(container.getByTestId("touchable"));
     expect(props(checkbox).data.checked).toBe(true);
   });
 
@@ -62,6 +68,45 @@ describe("<Checkbox />", () => {
     it("makes the text white", () => {
       const text = checkbox.getByTestId("text");
       expect(style(text).color).toBe("white");
+    });
+  });
+
+  describe("when disabled", () => {
+    it("removes the outer border", () => {
+      const checkbox = render(<Checkbox disabled>Yes</Checkbox>);
+      const buttonLike = checkbox.getByTestId("button_like");
+
+      expect(style(buttonLike).borderColor).toBeUndefined();
+    });
+
+    it("removes the background fill that would show when checked", () => {
+      const checkbox = render(<Checkbox disabled checked>Yes</Checkbox>);
+      const buttonLike = checkbox.getByTestId("button_like");
+
+      expect(style(buttonLike).backgroundColor).toBe("white");
+    });
+
+    it("makes the text grey", () => {
+      const checkbox = render(<Checkbox disabled checked>Yes</Checkbox>);
+      const text = checkbox.getByTestId("text");
+      const expected = palette.grey.primary;
+
+      expect(style(text).color).toBe(expected);
+    });
+
+    it("removes the square's border", () => {
+      const checkbox = render(<Checkbox disabled checked>Yes</Checkbox>);
+      const square = checkbox.getByTestId("square");
+
+      expect(style(square).borderWidth).toBe(0);
+    });
+
+    it("sets the square's background fill to grey", () => {
+      const checkbox = render(<Checkbox disabled checked>Yes</Checkbox>);
+      const square = checkbox.getByTestId("square");
+      const expected = palette.grey.primaryTint;
+
+      expect(style(square).backgroundColor).toBe(expected);
     });
   });
 

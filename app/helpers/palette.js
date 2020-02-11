@@ -43,6 +43,11 @@ const palette = {
     primary:       "rgb(238, 238, 237)",
     primaryTint:   "rgb(229, 229, 224)",
     primaryTint2:  "rgb(213, 213, 206)",
+  },
+
+  grey: {
+    primary:       "rgb(180, 180, 180)",
+    primaryTint:   "rgb(100, 100, 100)",
   }
 };
 
