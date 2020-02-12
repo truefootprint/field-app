@@ -3,7 +3,7 @@ import palette from "../../app/helpers/palette";
 describe("palette", () => {
   it("has a list of names", () => {
     expect(palette.names).toEqual([
-      "green", "yellow", "blue", "red", "purple", "black", "white"
+      "green", "yellow", "blue", "red", "purple", "black", "white", "grey"
     ]);
   });
 

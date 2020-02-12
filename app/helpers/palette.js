@@ -52,7 +52,7 @@ const palette = {
 };
 
 palette.names = Object.keys(palette);
-palette.colors = palette.names.filter(n => n !== "black" && n !== "white");
+palette.colors = palette.names.filter(n => n !== "black" && n !== "white" && n !== "grey");
 palette.cycle = (i) => palette.colors[i % palette.colors.length];
 
 export default palette;
