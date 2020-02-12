@@ -23,6 +23,10 @@ class File {
     return filename.split(".").slice(-1)[0];
   }
 
+  static interpolate = (path) => {
+    return path.replace("<documents>", this.documents);
+  };
+
   static read = async (filename) => {
     return await FileSystem.readAsStringAsync(this.path(filename));
   }

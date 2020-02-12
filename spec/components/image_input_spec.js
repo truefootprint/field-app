@@ -1,13 +1,19 @@
 import ImageInput from "../../app/components/image_input";
+import File from "../../app/helpers/file";
 import moveImageToDocumentStorage from "../../app/workflows/move_image";
 
 jest.mock("../../app/workflows/move_image");
+jest.mock("../../app/helpers/file");
 
 describe("<ImageInput />", () => {
   // Hide a Jest warning about 'act' that I couldn't work out how to fix:
   const error = console.error;
   beforeEach(() => console.error = () => {});
   afterEach(() => console.error = error);
+
+  beforeEach(() => {
+    File.interpolate.mockImplementation(path => path);
+  });
 
   it("renders", () => {
     render(<ImageInput />);
@@ -68,5 +74,18 @@ describe("<ImageInput />", () => {
 
     await fireEvent(picker, "pick", { uri: "uri" });
     expect(moveImageToDocumentStorage).lastCalledWith({ uri: "uri" });
+  });
+
+  it("replaces <documents> in the image source with the documents path", async () => {
+    File.interpolate.mockReturnValue("/documents/some-image.jpg");
+
+    const image = { uri: "<documents>/some-image.jpg" };
+    const input = render(<ImageInput defaultImages={[image]} />);
+
+    const images = input.getAllByType("Image");
+    expect(images.length).toBe(1);
+
+    expect(props(images[0]).source.uri).toBe("/documents/some-image.jpg");
+    expect(File.interpolate).lastCalledWith("<documents>/some-image.jpg");
   });
 });
