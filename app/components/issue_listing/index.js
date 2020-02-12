@@ -13,11 +13,11 @@ const IssueListing = ({ color="blue", questionId, issues=[], onAction=()=>{} }) 
 
   return (
     <View {...className("issue_listing", styles(color))}>
-      {closedIssues.map((issue, i) => (
+      {openIssues.map((issue, i) => (
         <IssuePreview key={i} color={color} issue={issue} onOpen={action("Show", issue)} />
       ))}
 
-      {openIssues.map((issue, i) => (
+      {closedIssues.map((issue, i) => (
         <IssuePreview key={i} color={color} issue={issue} onOpen={action("Show", issue)} />
       ))}
 
