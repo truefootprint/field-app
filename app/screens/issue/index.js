@@ -9,14 +9,16 @@ const titles = { Edit: "Record an issue", Show: "title" };
 
 const Issue = ({ navigation }) => {
   const { state } = navigation;
-  const routeName = state.routes[state.index].routeName;
+  const route = state.routes[state.index];
 
-  const color = navigation.getParam("color");
+  const screen = route.routeName;
+  const color = route.params.color;
+
   const back = () => navigation.goBack();
 
   return (
     <Layout>
-      <Modal color={color} title={titles[routeName]} onClose={back}>
+      <Modal color={color} title={titles[screen]} onClose={back}>
         <IssueStack navigation={navigation} />
       </Modal>
     </Layout>
