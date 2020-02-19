@@ -4,7 +4,7 @@ const Show = ({ navigation }) => {
   const issue = navigation.getParam("issue");
 
   return (
-    <Text>{issue.description}</Text>
+    <Text>{issue.versionedContent.content}</Text>
   );
 };
 

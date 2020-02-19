@@ -4,11 +4,13 @@ import Downloader from "../downloader"
 import Image from "react-native-fullwidth-image"
 import styles from "./styles.js";
 
-const IssuePreview = ({ color="blue", issue={}, onOpen=()=>{} }) => {
+const IssuePreview = ({ color="blue", issue={ versionedContent: {} }, onOpen=()=>{} }) => {
   const showDetails = !issue.resolution;
   const descriptor = issue.resolution ? "resolved" : "recorded";
 
-  const photo = issue.photos && issue.photos[0];
+  const versionedContent = issue.versionedContent;
+  const photo = versionedContent.photos && versionedContent.photos[0];
+
   const uri = photo && Fingerprint.path(photo.md5, photo.url);
 
   return (
@@ -25,7 +27,7 @@ const IssuePreview = ({ color="blue", issue={}, onOpen=()=>{} }) => {
 
       {showDetails && <>
         <Text {...className("description")} numberOfLines={2}>
-          {issue.description}
+          {issue.versionedContent.content}
         </Text>
 
         {photo && <Downloader color={color} md5={photo.md5}>

@@ -24,7 +24,7 @@ describe("<IssuePreview />", () => {
 
   describe("when the issue is open", () => {
     const photo = { url: "url/photo.jpg", md5: "md5-fingerprint" };
-    const issue = { description: "issue description", photos: [photo] };
+    const issue = { versionedContent: { content: "issue description", photos: [photo] } };
 
     it("sets the checkbox text to 'Issue recorded'", () => {
       const preview = render(<IssuePreview issue={issue} />);
@@ -48,7 +48,8 @@ describe("<IssuePreview />", () => {
     });
 
     it("does not show the downloader if there is no photo", () => {
-      const preview = render(<IssuePreview issue={{ description: "description" }} />);
+      const issue = { versionedContent: { description: "description" }};
+      const preview = render(<IssuePreview issue={issue} />);
       const downloader = preview.queryByTestId("downloader");
 
       expect(downloader).toBeNull();
@@ -57,7 +58,7 @@ describe("<IssuePreview />", () => {
 
   describe("when the issue is resolved", () => {
     const photo = { url: "url/photo.jpg", md5: "md5-fingerprint" };
-    const issue = { description: "issue description", photos: [photo], resolution: {} };
+    const issue = { versionedContent: { content: "issue description", photos: [photo] }, resolution: {} };
 
     it("sets the checkbox text to 'Issue resolved'", () => {
       const preview = render(<IssuePreview color="green" issue={issue} />);
