@@ -26,7 +26,7 @@ const styles = (theme) => StyleSheet.create({
     color: palette.black.primary,
     letterSpacing: 0.9,
     marginTop: 3,
-    marginBottom: 10,
+    marginBottom: 5,
   },
 
   touchable: {
