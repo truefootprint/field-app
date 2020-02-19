@@ -72,11 +72,11 @@ describe("<Checkbox />", () => {
   });
 
   describe("when disabled", () => {
-    it("removes the outer border", () => {
+    it("removes the outer border by setting it to white", () => {
       const checkbox = render(<Checkbox disabled>Yes</Checkbox>);
       const buttonLike = checkbox.getByTestId("button_like");
 
-      expect(style(buttonLike).borderColor).toBeUndefined();
+      expect(style(buttonLike).borderColor).toBe("white");
     });
 
     it("removes the background fill that would show when checked", () => {

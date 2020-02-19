@@ -12,12 +12,9 @@ describe("<ButtonLike />", () => {
     expect(style(buttonLike).borderColor).toBe(expected);
   });
 
-  it("can add a border", () => {
-    const bordered = render(<ButtonLike />);
-    expect(style(bordered).borderWidth).toBeDefined();
-
-    const noBorder = render(<ButtonLike border={false} />);
-    expect(style(noBorder).borderWidth).toBeUndefined();
+  it("can remove the border", () => {
+    const buttonLike = render(<ButtonLike border={false} />);
+    expect(style(buttonLike).borderColor).toBe("white")
   });
 
   it("can round the corners", () => {
