@@ -5,9 +5,13 @@ const Edit = ({ navigation }) => {
   const questionId = navigation.getParam("questionId");
   const issue = navigation.getParam("issue");
 
+  const handleSubmit = ({ text, images }) => {
+    alert("submitted");
+  };
+
   return (
     <ScrollView>
-      <IssueForm color={color} />
+      <IssueForm color={color} issue={issue} onSubmit={handleSubmit} />
     </ScrollView>
   );
 };

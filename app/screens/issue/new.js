@@ -8,9 +8,13 @@ const New = ({ navigation }) => {
     navigation.dangerouslyGetParent().goBack(); // Close the modal.
   });
 
+  const handleSubmit = ({ text, images }) => {
+    alert("submitted");
+  };
+
   return (
     <ScrollView>
-      <IssueForm color={color} />
+      <IssueForm color={color} onSubmit={handleSubmit} />
     </ScrollView>
   );
 };
