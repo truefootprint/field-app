@@ -5,14 +5,18 @@ const Show = ({ navigation }) => {
   const questionId = navigation.getParam("questionId");
   const issue = navigation.getParam("issue");
 
+  const action = (name) => {
+    return () => navigation.navigate(name, { color, questionId, issue });
+  };
+
   return <>
     <ScrollView>
       <Text>{issue.versionedContent.content}</Text>
     </ScrollView>
 
     <ButtonPanel buttons={[
-      { color, text: "Update", caps: false },
-      { color, text: "Resolve", caps: false },
+      { color, text: "Update", caps: false, onPress: action("Edit") },
+      { color, text: "Resolve", caps: false, onPress: action("Resolve") },
     ]} />
   </>;
 };

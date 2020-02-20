@@ -1,11 +1,18 @@
 import Layout from "../../components/layout";
 import Modal from "../../components/modal";
-import Edit from "./edit";
 import Show from "./show";
+import New from "./new";
+import Edit from "./edit";
+import Resolve from "./resolve";
 
 const options = { headerMode: "none" };
-const IssueStack = createStackNavigator({ Edit, Show }, options);
-const titles = { Edit: "Record an issue", Show: "title" };
+const IssueStack = createStackNavigator({ Show, New, Edit, Resolve }, options);
+const titles = {
+  Show: "title",
+  New: "Record an issuse",
+  Edit: "Record an issue",
+  Resolve: "Resolve issue",
+};
 
 const Issue = ({ navigation }) => {
   const { state } = navigation;

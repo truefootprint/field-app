@@ -22,7 +22,7 @@ const IssueListing = ({ color="blue", questionId, issues=[], onAction=()=>{} }) 
       ))}
 
       {showNewIssue &&
-        <Checkbox color={color} checked={false} onCheck={action("Edit")}>
+        <Checkbox color={color} checked={false} onCheck={action("New")}>
           Record an issue
         </Checkbox>
       }
