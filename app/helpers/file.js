@@ -24,7 +24,7 @@ class File {
   }
 
   static interpolate = (path) => {
-    return path.replace("<documents>", this.documents);
+    return path.replace("[[[documents]]]", this.documents);
   };
 
   static read = async (filename) => {
