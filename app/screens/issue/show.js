@@ -5,6 +5,8 @@ const Show = ({ navigation }) => {
   const questionId = navigation.getParam("questionId");
   const issue = navigation.getParam("issue");
 
+  if (!issue) return null;
+
   const action = (name) => {
     return () => navigation.navigate(name, { color, questionId, issue });
   };
