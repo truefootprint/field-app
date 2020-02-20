@@ -59,9 +59,32 @@ describe("<IssueForm />", () => {
 
     it("pre-populates the image input", () => {
       const form = render(<IssueForm issue={issue} />);
+      const picker = form.queryByTestId("circle");
       const image = form.getByType("Image");
 
       expect(props(image).source.uri).toBe("image.jpg");
+      expect(picker).not.toBeNull();
+    });
+
+    describe("when the form is not editable", () => {
+      it("swaps the text input for a text element", () => {
+        const form = render(<IssueForm issue={issue} editable={false} />);
+        const nativeInput = form.queryByTestId("native_input");
+        const textElement = form.queryByTestId("text");
+
+        expect(nativeInput).toBeNull();
+        expect(textElement).toHaveText("description");
+      });
+
+      it("swaps the image input for image elements", () => {
+        const form = render(<IssueForm issue={issue} editable={false} />);
+        const picker = form.queryByTestId("circle");
+        const image = form.getByType("Image");
+
+        expect(picker).toBeNull();
+        expect(image).not.toBeNull();
+        expect(props(image).source.uri).toBe("image.jpg");
+      });
     });
   });
 });

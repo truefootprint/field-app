@@ -1,9 +1,10 @@
 import TextInput from "../text_input";
 import ImageInput from "../image_input";
+import Image from "react-native-fullwidth-image"
 import Button from "../button";
 import styles from "./styles.js";
 
-const IssueForm = ({ color="blue", issue, onSubmit=()=>{} }) => {
+const IssueForm = ({ color="blue", issue, editable=true, onSubmit=()=>{} }) => {
   const defaultText = issue ? issue.versionedContent.content : "";
   const defaultImagesJson = issue ? issue.versionedContent.photosJson : "[]";
 
@@ -20,21 +21,28 @@ const IssueForm = ({ color="blue", issue, onSubmit=()=>{} }) => {
     onSubmit({ text, images })
   };
 
+  const imageSource = (image) => ({...image, uri: File.interpolate(image.uri)});
+  const imageClasses = (i) => ["image", i === images.length - 1 && "last_child"];
+
   return (
     <View {...className("issue_form", styles(color))}>
       <Text {...className("heading")}>What is the issue?</Text>
 
-      <View {...className("text_input")}>
-        <TextInput defaultValue={text} color={color} placeholder="Add a note" onChangeText={setText} />
+      <View {...className("text_section")}>
+        {editable
+          ? <TextInput defaultValue={text} color={color} placeholder="Add a note" onChangeText={setText} />
+          : <Text {...className("text")}>{text}</Text>}
       </View>
 
-      <View {...className("image_input")}>
-        <ImageInput defaultImages={images} placeholder="Add a photo" color={color} onChange={setImages} />
+      <View {...className("images_section")}>
+        {editable
+          ? <ImageInput defaultImages={images} placeholder="Add a photo" color={color} onChange={setImages} />
+          : images.map((image, i) => <Image key={i} {...className("image")} source={imageSource(image)} />)}
       </View>
 
-      <View {...className("submit")}>
+      {editable && <View {...className("submit")}>
         <Button text="Submit" color={color} disabled={!changed} onPress={handleSubmit} />
-      </View>
+      </View>}
     </View>
   );
 };

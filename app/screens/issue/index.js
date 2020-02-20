@@ -8,10 +8,10 @@ import Resolve from "./resolve";
 const options = { headerMode: "none" };
 const IssueStack = createStackNavigator({ Show, New, Edit, Resolve }, options);
 const titles = {
-  Show: "title",
+  Show: "Issue",
   New: "Record an issuse",
   Edit: "Record an issue",
-  Resolve: "Resolve issue",
+  Resolve: "Resolve the issue",
 };
 
 const Issue = ({ navigation }) => {

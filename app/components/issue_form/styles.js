@@ -10,12 +10,22 @@ const styles = (theme) => StyleSheet.create({
     color: palette.black.primary,
   },
 
-  text_input: {
+  text_section: {
     marginTop: 45,
   },
 
-  image_input: {
+  text: {
+    lineHeight: 24,
+    fontStyle: "normal",
+    fontSize: 16,
+  },
+
+  images_section: {
     marginTop: 55,
+  },
+
+  image: {
+    marginBottom: 20,
   },
 
   submit: {

@@ -1,3 +1,4 @@
+import IssueForm from "../../components/issue_form";
 import ButtonPanel from "../../components/button_panel";
 
 const Show = ({ navigation }) => {
@@ -13,7 +14,7 @@ const Show = ({ navigation }) => {
 
   return <>
     <ScrollView>
-      <Text>{issue.versionedContent.content}</Text>
+      <IssueForm color={color} issue={issue} editable={false} />
     </ScrollView>
 
     <ButtonPanel buttons={[
