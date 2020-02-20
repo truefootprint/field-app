@@ -33,6 +33,7 @@ import useForeground from "./hooks/use_foreground";
 import useWifi from "./hooks/use_wifi";
 import useWhen from "./hooks/use_when";
 import useSecret from "./hooks/use_secret";
+import useBack from "./hooks/use_back";
 
 global.React = React;
 global.useState = useState;
@@ -90,3 +91,4 @@ global.useForeground = useForeground;
 global.useWifi = useWifi;
 global.useWhen = useWhen;
 global.useSecret = useSecret;
+global.useBack = useBack;
