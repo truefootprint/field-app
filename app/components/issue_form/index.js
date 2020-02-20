@@ -12,12 +12,13 @@ const IssueForm = ({ color="blue", issue, onSubmit=()=>{} }) => {
 
   const textChanged = text !== defaultText;
   const imagesChanged = JSON.stringify(images) !== defaultImagesJson;
+  const changed = textChanged || imagesChanged;
+
+  useEffect(() => UnsavedChanges.set(changed), [changed]);
 
   const handleSubmit = () => {
     onSubmit({ text, images })
   };
-
-  // TODO: show popup if there are unsaved changes
 
   return (
     <View {...className("issue_form", styles(color))}>
@@ -32,7 +33,7 @@ const IssueForm = ({ color="blue", issue, onSubmit=()=>{} }) => {
       </View>
 
       <View {...className("submit")}>
-        <Button text="Submit" color={color} disabled={!textChanged && !imagesChanged} onPress={handleSubmit} />
+        <Button text="Submit" color={color} disabled={!changed} onPress={handleSubmit} />
       </View>
     </View>
   );
