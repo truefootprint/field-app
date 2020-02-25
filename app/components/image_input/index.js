@@ -15,13 +15,8 @@ const ImageInput = ({ color, placeholder, defaultImages=[], onChange=()=>{} }) =
     onChange(newImages);
   };
 
-  const imageClasses = (i) => (
-    ["image", i === images.length - 1 && "last_child"]
-  );
-
-  const imageSource = (image) => (
-    {...image, uri: File.interpolate(image.uri)}
-  )
+  const imageClasses = (i) => (["image", i === images.length - 1 && "last_child"]);
+  const imageSource = (image) => ({...image, uri: File.interpolate(image.uri)});
 
   return (
     <View>

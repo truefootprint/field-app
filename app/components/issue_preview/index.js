@@ -5,19 +5,18 @@ import Image from "react-native-fullwidth-image"
 import styles from "./styles.js";
 
 const IssuePreview = ({ color="blue", issue={ versionedContent: {} }, onOpen=()=>{} }) => {
-  const showDetails = !issue.resolution;
-  const descriptor = issue.resolution ? "resolved" : "recorded";
+  const isResolved = issue.resolutions && issue.resolutions.length > 0;
 
   const versionedContent = issue.versionedContent;
-  const photo = versionedContent.photos && versionedContent.photos[0];
+  const photo = JSON.parse(versionedContent.photosJson || "[]")[0];
 
-  const uri = photo && Fingerprint.path(photo.md5, photo.url);
+  const imageSource = (image) => ({...image, uri: File.interpolate(image.uri)});
 
   return (
     <View {...className("issue_preview", styles(color))}>
       <View {...className("side_by_side")}>
         <View {...className("checkbox")}>
-          <Checkbox color={color} checked={true} disabled={true}>Issue {descriptor}</Checkbox>
+          <Checkbox color={color} checked={true} disabled={true}>Issue {isResolved ? "resolved" : "recorded"}</Checkbox>
         </View>
 
         <View {...className("open")}>
@@ -25,14 +24,12 @@ const IssuePreview = ({ color="blue", issue={ versionedContent: {} }, onOpen=()=
         </View>
       </View>
 
-      {showDetails && <>
+      {!isResolved && <>
         <Text {...className("description")} numberOfLines={2}>
           {issue.versionedContent.text}
         </Text>
 
-        {photo && <Downloader color={color} md5={photo.md5}>
-          <Image {...className("photo")} source={{ uri }} />
-        </Downloader>}
+        {photo && <Image source={imageSource(photo)} {...className("photo")} />}
       </>}
     </View>
   );
