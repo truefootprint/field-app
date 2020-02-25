@@ -5,7 +5,7 @@ import Button from "../button";
 import styles from "./styles.js";
 
 const IssueForm = ({ color="blue", issue, editable=true, onSubmit=()=>{} }) => {
-  const defaultText = issue ? issue.versionedContent.content : "";
+  const defaultText = issue ? issue.versionedContent.text : "";
   const defaultImagesJson = issue ? issue.versionedContent.photosJson : "[]";
 
   const [text, setText] = useState(defaultText);

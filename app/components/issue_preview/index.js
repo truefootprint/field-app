@@ -27,7 +27,7 @@ const IssuePreview = ({ color="blue", issue={ versionedContent: {} }, onOpen=()=
 
       {showDetails && <>
         <Text {...className("description")} numberOfLines={2}>
-          {issue.versionedContent.content}
+          {issue.versionedContent.text}
         </Text>
 
         {photo && <Downloader color={color} md5={photo.md5}>

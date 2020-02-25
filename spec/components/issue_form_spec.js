@@ -47,7 +47,7 @@ describe("<IssueForm />", () => {
     const photos = [{ uri: "image.jpg" }];
 
     const issue = { versionedContent: {
-      content: "description", photosJson: JSON.stringify(photos),
+      text: "description", photosJson: JSON.stringify(photos),
     }};
 
     it("pre-populates the text input", () => {
