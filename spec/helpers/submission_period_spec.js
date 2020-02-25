@@ -74,7 +74,7 @@ describe("SubmissionPeriod", () => {
     expect(SubmissionPeriod.offset(tomorrowEnd)).toBe(1);
   });
 
-  it("partitions the objects by the submission period in which they were created", () => {
+  it("can partition the objects by the submission period in which they were created", () => {
     const rightNow = { createdAt: now.toString() };
     const today = { createdAt: todayStart.toString() };
     const yesterday = { createdAt: yesterdayStart.toString() };
@@ -84,6 +84,21 @@ describe("SubmissionPeriod", () => {
     expect(result).toEqual([
       { periodStart: todayStart, periodEnd: todayEnd, objects: [rightNow, today] },
       { periodStart: yesterdayStart, periodEnd: yesterdayEnd, objects: [yesterday] },
+    ]);
+  });
+
+  it("can partition multiple collections by submission period", () => {
+    const today = { createdAt: todayStart.toString() };
+    const yesterday = { createdAt: yesterdayStart.toString() };
+
+    const collection1 = [today];
+    const collection2 = [today, yesterday];
+
+    const result = SubmissionPeriod.partitionMany({ collection1, collection2 });
+
+    expect(result).toEqual([
+      { periodStart: todayStart, periodEnd: todayEnd, collection1: [today], collection2: [today] },
+      { periodStart: yesterdayStart, periodEnd: yesterdayEnd, collection2: [yesterday] },
     ]);
   });
 });

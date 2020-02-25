@@ -60,4 +60,18 @@ SubmissionPeriod.partition = (collection, key="objects") => {
   return parts;
 };
 
+SubmissionPeriod.partitionMany = (collections) => {
+  const parts = Object.entries(collections).flatMap(([key, collection]) => (
+    SubmissionPeriod.partition(collection, key)
+  ));
+
+  const groups = groupBy(parts, o => o.periodStart);
+
+  const combined = Object.values(groups).map(parts => (
+    parts.reduce((acc, p) => ({ ...acc, ...p }))
+  ));
+
+  return combined;
+};
+
 export default SubmissionPeriod;
