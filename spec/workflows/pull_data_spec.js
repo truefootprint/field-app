@@ -1,7 +1,8 @@
-import pullData, { combineData, createAttachments } from "../../app/workflows/pull_data";
+import pullData, { createAttachments } from "../../app/workflows/pull_data";
 import File from "../../app/helpers/file";
 import Client from "../../app/helpers/client";
 import Response from "../../app/models/response";
+import Content from "../../app/models/content";
 import Attachment from "../../app/models/attachment";
 
 jest.mock("../../app/helpers/file");
@@ -42,6 +43,11 @@ describe("pullData", () => {
 
     expect(data.responses.length).toBe(1);
     expect(data.responses[0]).toMatchObject({ projectQuestionId: 1, value: "answer" });
+  });
+
+  it("combines myData with content from the local database", async () => {
+    await Content.create({ subjectType: "Issue", subjectId: 123, text: "text" });
+
   });
 
   describe("when myData is not in the cache", () => {
@@ -108,24 +114,6 @@ describe("pullData", () => {
       await pullData({ callback: d => { data = d; } });
       expect(data.responses.length).toBe(0);
     });
-  });
-});
-
-describe("combineData", () => {
-  it("combines myData with additional responses from the user", () => {
-    const myData = { id: 123, responses: [] };
-    const responses = [{ projectQuestionId: 123, value: "answer" }];
-
-    const result = combineData(myData, responses);
-    expect(result).toEqual({ id: 123, responses });
-  });
-
-  it("handles arbitrary levels of nesting", () => {
-    const myData = { a: { b: [{ c: { id: 123, responses: [] } }] } };
-    const responses = [{ projectQuestionId: 123, value: "answer" }];
-
-    const result = combineData(myData, responses);
-    expect(result).toEqual({ a: { b: [{ c: { id: 123, responses } }] } });
   });
 });
 
