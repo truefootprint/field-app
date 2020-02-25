@@ -37,7 +37,7 @@ describe("pullData", () => {
     await Response.create({ questionId: 1, value: "answer" });
 
     File.exists.mockResolvedValue(true);
-    File.readObject.mockResolvedValue({ id: 1, responses: [] });
+    File.readObject.mockResolvedValue({ id: 1, responses: [], issues: [] });
 
     await pullData({ callback: d => { data = d; } });
 
@@ -47,19 +47,26 @@ describe("pullData", () => {
 
   it("combines myData with content from the local database", async () => {
     await Content.create({ subjectType: "Issue", subjectId: 123, text: "text" });
+    const issue = { id: 123, versionedContent: {}, resolutions: [] };
 
+    File.exists.mockResolvedValue(true);
+    File.readObject.mockResolvedValue({ id: 1, responses: [], issues: [issue] });
+
+    await pullData({ callback: d => { data = d; } });
+
+    expect(data.issues[0].versionedContent).toMatchObject({ text: "text" });
   });
 
   describe("when myData is not in the cache", () => {
     beforeEach(() => {
       Client.mockImplementation(() => ({
-        getMyData: () => ({ id: 1, responses: [] }),
+        getMyData: () => ({ id: 1, responses: [], issues: [] }),
       }));
     });
 
     it("fetches myData from the backend", async () => {
       await pullData({ callback: d => { data = d; } });
-      expect(data).toEqual({ id: 1, responses: [] });
+      expect(data).toEqual({ id: 1, responses: [], issues: [] });
     });
 
     it("returns true to indicate that data was fetched", async () => {

@@ -5,19 +5,19 @@ describe("stitchMyData", () => {
   const hourAgo = new Date(now.getTime() - 60 * 60 * 1000);
 
   it("combines myData with additional responses from the user", () => {
-    const myData = { id: 1, responses: [] };
+    const myData = { id: 1, responses: [], issues: [] };
     const responses = [{ projectQuestionId: 1, value: "answer" }];
     const result = stitchMyData(myData, responses, []);
 
-    expect(result).toEqual({ id: 1, responses });
+    expect(result).toEqual({ id: 1, responses, issues: [] });
   });
 
   it("handles arbitrary levels of nesting", () => {
-    const myData = { a: { b: [{ c: { id: 123, responses: [] } }] } };
+    const myData = { a: { b: [{ c: { id: 123, responses: [], issues: [] } }] } };
     const responses = [{ projectQuestionId: 123, value: "answer" }];
     const result = stitchMyData(myData, responses, []);
 
-    expect(result).toEqual({ a: { b: [{ c: { id: 123, responses } }] } });
+    expect(result).toEqual({ a: { b: [{ c: { id: 123, responses, issues: [] } }] } });
   });
 
   it("overrides versionedContent for issues with content from the user", () => {
@@ -65,7 +65,70 @@ describe("stitchMyData", () => {
     }]});
   });
 
-  // TODO:
-  //    - add to issues if composite ["...", "Issue"] key in database
-  //    - add to resolutions if composite ["...", "Resolution"] key in database
+  it("combines myData with additional issues from the user", () => {
+    const myData = { id: 1, responses: [], issues: [] };
+    const contents = [{
+      subjectType: ["ProjectQuestion", "Issue"],
+      subjectId: 1,
+      text: "text",
+      createdAt: hourAgo,
+      updatedAt: now,
+    }];
+
+    const result = stitchMyData(myData, [], contents);
+
+    expect(result).toEqual({
+      id: 1,
+      responses: [],
+      issues: [{
+        subjectType: "ProjectQuestion",
+        subjectId: 1,
+        resolutions: [],
+        createdAt: hourAgo,
+        updatedAt: now,
+        versionedContent: {
+          subjectType: "Issue",
+          subjectId: null, // The issue is not saved in the backend yet.
+          text: "text",
+          createdAt: hourAgo,
+          updatedAt: now,
+        },
+      }],
+    });
+  });
+
+  it("combines myData with additional resolutions from the user", () => {
+    const myData = { id: 1, responses: [], issues: [{ id: 2, resolutions: [] }] };
+    const contents = [{
+      subjectType: ["Issue", "Resolution"],
+      subjectId: 2,
+      text: "text",
+      createdAt: hourAgo,
+      updatedAt: now,
+    }];
+
+    const result = stitchMyData(myData, [], contents);
+
+    expect(result).toEqual({
+      id: 1,
+      responses: [],
+      issues: [{
+        id: 2,
+        resolutions: [{
+          issueId: 2,
+          createdAt: hourAgo,
+          updatedAt: now,
+          versionedContent: {
+            subjectType: "Resolution",
+            subjectId: null, // The resolution is not saved in the backend yet.
+            text: "text",
+            createdAt: hourAgo,
+            updatedAt: now,
+          },
+        }],
+      }],
+    });
+  });
+
+  // TODO: how to create resolutions for issues that are not persisted?
 });

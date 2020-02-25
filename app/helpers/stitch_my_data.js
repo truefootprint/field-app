@@ -6,6 +6,14 @@ const stitchMyData = (myData, responses, contents) => {
     if (isProjectQuestion(o)) {
       const responses = responseGroups[o.id] || [];
       o.responses = o.responses.concat(responses);
+
+      const issues = newIssues("ProjectQuestion", o.id, contentGroups);
+      o.issues = o.issues.concat(issues);
+
+      o.issues.forEach(issue => {
+        const resolutions = newResolutions(issue.id, contentGroups);
+        issue.resolutions = issue.resolutions.concat(resolutions);
+      });
     }
 
     if (isIssue(o)) {
@@ -20,6 +28,40 @@ const stitchMyData = (myData, responses, contents) => {
 
     return o;
   });
+};
+
+const newIssues = (subjectType, subjectId, contentGroups) => {
+  const key = [[subjectType, "Issue"], subjectId];
+  const contents = contentGroups[key] || [];
+
+  return contents.map(c => ({
+    subjectType,
+    subjectId,
+    resolutions: [],
+    createdAt: c.createdAt,
+    updatedAt: c.updatedAt,
+    versionedContent: {
+      ...c,
+      subjectType: "Issue",
+      subjectId: null,
+    },
+  }));
+};
+
+const newResolutions = (issueId, contentGroups) => {
+  const key = [["Issue", "Resolution"], issueId];
+  const contents = contentGroups[key] || [];
+
+  return contents.map(c => ({
+    issueId,
+    createdAt: c.createdAt,
+    updatedAt: c.updatedAt,
+    versionedContent: {
+      ...c,
+      subjectType: "Resolution",
+      subjectId: null,
+    },
+  }));
 };
 
 const newest = (contents, existing) => {
