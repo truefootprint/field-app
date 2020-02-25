@@ -2,6 +2,8 @@ import submitContent from "../../workflows/submit_content";
 import IssueForm from "../../components/issue_form";
 
 const Resolve = ({ navigation }) => {
+  const { connected } = useContext(AppContext);
+
   const color = navigation.getParam("color");
   const questionId = navigation.getParam("questionId");
   const issue = navigation.getParam("issue");
@@ -10,7 +12,7 @@ const Resolve = ({ navigation }) => {
     const subject = { type: ["Issue", "Resolution"], id: issue.id };
     const parent = issue.versionedContent;
 
-    submitContent({ subject, text, images, parent });
+    submitContent({ connected, subject, text, images, parent });
   };
 
   return (

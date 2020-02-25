@@ -2,6 +2,8 @@ import submitContent from "../../workflows/submit_content";
 import IssueForm from "../../components/issue_form";
 
 const New = ({ navigation }) => {
+  const { connected } = useContext(AppContext);
+
   const color = navigation.getParam("color");
   const questionId = navigation.getParam("questionId");
 
@@ -12,7 +14,7 @@ const New = ({ navigation }) => {
   const handleSubmit = ({ text, images }) => {
     const subject = { type: ["Question", "Issue"], id: questionId };
 
-    submitContent({ subject, text, images });
+    submitContent({ connected, subject, text, images });
   };
 
   return (
