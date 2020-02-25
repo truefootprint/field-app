@@ -1,3 +1,4 @@
+import submitContent from "../../workflows/submit_content";
 import IssueForm from "../../components/issue_form";
 
 const New = ({ navigation }) => {
@@ -9,7 +10,9 @@ const New = ({ navigation }) => {
   });
 
   const handleSubmit = ({ text, images }) => {
-    alert("submitted");
+    const subject = { type: ["Question", "Issue"], id: questionId };
+
+    submitContent({ subject, text, images });
   };
 
   return (
