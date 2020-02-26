@@ -11,7 +11,7 @@ const Source = ({ navigation }) => {
   const path = Fingerprint.path(file.md5, file.url);
 
   return (
-    <Downloader color={color} md5={file.md5}>
+    <Downloader color={color} path={path}>
       <PDF uri={path} />
     </Downloader>
   );

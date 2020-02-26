@@ -19,7 +19,7 @@ const ImageInput = ({ color, placeholder, defaultImages=[], onChange=()=>{} }) =
   return (
     <View>
       {images.map((image, i) => (
-        <Image source={image} key={i} {...className(imageClasses(i), styles)} />
+        <Image color={color} source={image} key={i} {...className(imageClasses(i), styles)} />
       ))}
 
       <ImagePicker text={placeholder} onPick={handlePick} color={color} {...className("picker")} />

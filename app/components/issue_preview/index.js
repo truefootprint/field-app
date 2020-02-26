@@ -26,7 +26,7 @@ const IssuePreview = ({ color="blue", issue={ versionedContent: {} }, onOpen=()=
           {issue.versionedContent.text}
         </Text>
 
-        {photo && <Image source={photo} {...className("photo")} />}
+        {photo && <Image source={photo} color={color} {...className("photo")} />}
       </>}
     </View>
   );

@@ -9,7 +9,7 @@ const options = { headerMode: "none" };
 const IssueStack = createStackNavigator({ Show, New, Edit, Resolve }, options);
 const titles = {
   Show: "Issue",
-  New: "Record an issuse",
+  New: "Record an issue",
   Edit: "Record an issue",
   Resolve: "Resolve the issue",
 };

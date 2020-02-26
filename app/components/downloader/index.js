@@ -4,18 +4,22 @@ import Button from "../button";
 import NoWifi from "../no_wifi";
 import styles from "./styles.js";
 
-const Downloader = ({ color="blue", md5, children }) => {
+const Downloader = ({ color="blue", path, children }) => {
   const { connected } = useContext(AppContext);
 
   const [downloaded, setDownloaded] = useState();
   const [failed, setFailed] = useState();
 
+  const md5 = File.basename(path).split(".")[0];
+
   const loadFile = async () => {
     setFailed(false);
 
-    const attachment = await Attachment.findOne({ where: { md5 } });
-    const exists = await File.exists(attachment.filename);
+    const exists = await File.exists(path);
     if (exists) { setDownloaded(true); return; }
+
+    const attachment = await Attachment.findOne({ where: { md5 } });
+    if (!attachment) { throw new Error("No attachment for ", md5); }
 
     // We either need to cancel or wait for existing downloads to finish
     // otherwise downloadFile returns false because there's one in progress.

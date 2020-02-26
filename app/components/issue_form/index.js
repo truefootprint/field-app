@@ -36,7 +36,7 @@ const IssueForm = ({ color="blue", issue, editable=true, onSubmit=()=>{} }) => {
       <View {...className("images_section")}>
         {editable
           ? <ImageInput defaultImages={images} placeholder="Add a photo" color={color} onChange={setImages} />
-          : images.map((image, i) => <Image key={i} {...className("image")} source={image} />)}
+          : images.map((image, i) => <Image key={i} color={color} {...className("image")} source={image} />)}
       </View>
 
       {editable && <View {...className("submit")}>
