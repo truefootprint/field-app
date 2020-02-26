@@ -1,6 +1,6 @@
 import TextInput from "../text_input";
 import ImageInput from "../image_input";
-import Image from "react-native-fullwidth-image"
+import Image from "../image";
 import Button from "../button";
 import styles from "./styles.js";
 
@@ -21,7 +21,6 @@ const IssueForm = ({ color="blue", issue, editable=true, onSubmit=()=>{} }) => {
     onSubmit({ text, images })
   };
 
-  const imageSource = (image) => ({...image, uri: File.interpolate(image.uri)});
   const imageClasses = (i) => ["image", i === images.length - 1 && "last_child"];
 
   return (
@@ -37,7 +36,7 @@ const IssueForm = ({ color="blue", issue, editable=true, onSubmit=()=>{} }) => {
       <View {...className("images_section")}>
         {editable
           ? <ImageInput defaultImages={images} placeholder="Add a photo" color={color} onChange={setImages} />
-          : images.map((image, i) => <Image key={i} {...className("image")} source={imageSource(image)} />)}
+          : images.map((image, i) => <Image key={i} {...className("image")} source={image} />)}
       </View>
 
       {editable && <View {...className("submit")}>

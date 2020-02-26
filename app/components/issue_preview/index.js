@@ -1,7 +1,6 @@
 import Checkbox from "../checkbox";
 import Button from "../button";
-import Downloader from "../downloader"
-import Image from "react-native-fullwidth-image"
+import Image from "../image";
 import styles from "./styles.js";
 
 const IssuePreview = ({ color="blue", issue={ versionedContent: {} }, onOpen=()=>{} }) => {
@@ -9,8 +8,6 @@ const IssuePreview = ({ color="blue", issue={ versionedContent: {} }, onOpen=()=
 
   const versionedContent = issue.versionedContent;
   const photo = JSON.parse(versionedContent.photosJson || "[]")[0];
-
-  const imageSource = (image) => ({...image, uri: File.interpolate(image.uri)});
 
   return (
     <View {...className("issue_preview", styles(color))}>
@@ -29,7 +26,7 @@ const IssuePreview = ({ color="blue", issue={ versionedContent: {} }, onOpen=()=
           {issue.versionedContent.text}
         </Text>
 
-        {photo && <Image source={imageSource(photo)} {...className("photo")} />}
+        {photo && <Image source={photo} {...className("photo")} />}
       </>}
     </View>
   );
