@@ -1,8 +1,9 @@
 import submitContent from "../../workflows/submit_content";
+import pullData from "../../workflows/pull_data";
 import IssueForm from "../../components/issue_form";
 
 const Resolve = ({ navigation }) => {
-  const { connected } = useContext(AppContext);
+  const { connected, setData } = useContext(AppContext);
 
   const color = navigation.getParam("color");
   const questionId = navigation.getParam("questionId");
@@ -12,8 +13,10 @@ const Resolve = ({ navigation }) => {
     const subject = { type: ["Issue", "Resolution"], id: issue.id };
     const parent = issue.versionedContent;
 
-    submitContent({ connected, subject, text, images, parent });
+    submitContent({ connected, subject, text, images, parent, callback: rerender });
   };
+
+  const rerender = () => pullData({ connected, callback: setData });
 
   return (
     <ScrollView>

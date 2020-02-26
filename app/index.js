@@ -45,7 +45,7 @@ const App = () => {
   }
 
   return (
-    <AppContext.Provider value={{ data, token, setToken, connected }}>
+    <AppContext.Provider value={{ data, setData, token, setToken, connected }}>
       <View style={{ flex: 1 }} {...className("root")}>
         <AppContainer ref={ref => UnsavedChanges.setNavigator(ref)} />
         <DevConsole />
