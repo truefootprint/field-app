@@ -9,6 +9,7 @@ import camelCaseKeys from "camelcase-keys";
 import camelCase from "camelcase";
 import snakeCaseKeys from "snakecase-keys";
 import snakeCase from "to-snake-case";
+import { v4 as uuid } from "uuid";
 
 import File from "./helpers/file";
 import Download from "./helpers/download";
@@ -63,6 +64,7 @@ global.camelCaseKeys = camelCaseKeys;
 global.camelCase = camelCase;
 global.snakeCaseKeys = snakeCaseKeys;
 global.snakeCase = snakeCase;
+global.uuid = uuid;
 
 global.File = File;
 global.Download = Download;
