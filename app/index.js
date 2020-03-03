@@ -16,9 +16,6 @@ const AppStack = createStackNavigator({ Home, Project, Source, Issue }, options)
 const AuthStack = createSwitchNavigator({ Login, App: AppStack }, options);
 const AppContainer = createAppContainer(AuthStack);
 
-// Show a confirmation before navigating if there are unsaved changes.
-UnsavedChanges.askBeforeNavigating(AppStack);
-
 // These tasks run every 15 minutes when the app is in the background.
 SyncMyDataTask.enable({ log: true });
 PhotoUploadTask.enable({ log: true });
@@ -47,7 +44,7 @@ const App = () => {
   return (
     <AppContext.Provider value={{ data, setData, token, setToken, connected }}>
       <View style={{ flex: 1 }} {...className("root")}>
-        <AppContainer ref={ref => UnsavedChanges.setNavigator(ref)} />
+        <AppContainer />
         <DevConsole />
       </View>
     </AppContext.Provider>

@@ -15,8 +15,6 @@ const IssueForm = ({ color="blue", issue, editable=true, onSubmit=()=>{} }) => {
   const imagesChanged = JSON.stringify(images) !== defaultImagesJson;
   const changed = textChanged || imagesChanged;
 
-  useEffect(() => UnsavedChanges.set(changed), [changed]);
-
   const handleSubmit = () => {
     onSubmit({ text, images })
   };
