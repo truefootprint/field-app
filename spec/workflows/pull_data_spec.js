@@ -2,7 +2,6 @@ import pullData, { createAttachments } from "../../app/workflows/pull_data";
 import File from "../../app/helpers/file";
 import Client from "../../app/helpers/client";
 import Response from "../../app/models/response";
-import Content from "../../app/models/content";
 import Attachment from "../../app/models/attachment";
 
 jest.mock("../../app/helpers/file");
@@ -43,18 +42,6 @@ describe("pullData", () => {
 
     expect(data.responses.length).toBe(1);
     expect(data.responses[0]).toMatchObject({ projectQuestionId: 1, value: "answer" });
-  });
-
-  it("combines myData with content from the local database", async () => {
-    await Content.create({ subjectType: "Issue", subjectId: 123, text: "text" });
-    const issue = { id: 123, versionedContent: {}, resolutions: [] };
-
-    File.exists.mockResolvedValue(true);
-    File.readObject.mockResolvedValue({ id: 1, responses: [], issues: [issue] });
-
-    await pullData({ callback: d => { data = d; } });
-
-    expect(data.issues[0].versionedContent).toMatchObject({ text: "text" });
   });
 
   describe("when myData is not in the cache", () => {
