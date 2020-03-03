@@ -13,7 +13,7 @@ const Project = ({ navigation }) => {
   };
 
   const handleIssueAction = ({ action, ...params }) => {
-    navigation.navigate(action, params);
+    navigation.navigate("Issue", { todo: "todo" });
   };
 
   const handleSource = (sourceMaterial) => {
