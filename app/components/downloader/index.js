@@ -18,6 +18,8 @@ const Downloader = ({ color="blue", path, children }) => {
     const exists = await File.exists(path);
     if (exists) { setDownloaded(true); return; }
 
+    // TODO: what should we do if the user hasn't uploaded the photo yet?
+    // This will currently error when we should probably show some helpful text.
     const attachment = await Attachment.findOne({ where: { md5 } });
     if (!attachment) { throw new Error("No attachment for ", md5); }
 
