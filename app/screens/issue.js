@@ -1,15 +1,15 @@
 import Layout from "../components/layout";
+import IssueComponent from "../components/issue";
 
 const Issue = ({ navigation }) => {
   const color = navigation.getParam("color");
   const questionId = navigation.getParam("questionId");
   const issue = navigation.getParam("issue");
+  const currentUser = navigation.getParam("currentUser");
 
   return (
     <Layout>
-      <Text>{color}</Text>
-      <Text>{questionId}</Text>
-      <Text>{JSON.stringify(issue)}</Text>
+      <IssueComponent color={color} questionId={questionId} currentUser={currentUser} {...issue} />
     </Layout>
   );
 };

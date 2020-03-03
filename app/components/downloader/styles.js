@@ -4,6 +4,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     minHeight: 200,
+    backgroundColor: "white",
   },
 
   retry: {

@@ -13,7 +13,7 @@ const Project = ({ navigation }) => {
   };
 
   const handleViewIssue = ({ color, questionId, issue }) => {
-    navigation.navigate("Issue", { color, questionId, issue });
+    navigation.navigate("Issue", { color, questionId, issue, currentUser: data.user });
   };
 
   const handleViewSource = (sourceMaterial) => {
