@@ -1,7 +1,7 @@
 import Card from "../card";
 import Question from "../question";
 
-const Topic = ({ color="blue", name, questions=[], onAnswerQuestion=()=>{}, onIssueAction=()=>{} }) => {
+const Topic = ({ color="blue", name, questions=[], onAnswerQuestion=()=>{}, onViewIssue=()=>{} }) => {
   const handleAnswer = (question) => {
     return (answer) => onAnswerQuestion({ question, answer });
   };
@@ -9,7 +9,7 @@ const Topic = ({ color="blue", name, questions=[], onAnswerQuestion=()=>{}, onIs
   return (
     questions.map((props, i) => (
       <Card color={color} heading={name} key={i} number={i + 1} outOf={questions.length}>
-        <Question color={color} onAnswer={handleAnswer(props)} onIssueAction={onIssueAction} {...props} />
+        <Question color={color} onAnswer={handleAnswer(props)} onViewIssue={onViewIssue} {...props} />
       </Card>
     ))
   );

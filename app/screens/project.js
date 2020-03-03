@@ -12,11 +12,11 @@ const Project = ({ navigation }) => {
     answerQuestion({ connected, question, answer });
   };
 
-  const handleIssueAction = ({ action, ...params }) => {
-    navigation.navigate("Issue", { todo: "todo" });
+  const handleViewIssue = ({ color, questionId, issue }) => {
+    navigation.navigate("Issue", { color, questionId, issue });
   };
 
-  const handleSource = (sourceMaterial) => {
+  const handleViewSource = (sourceMaterial) => {
     navigation.navigate("Source", sourceMaterial);
   };
 
@@ -25,8 +25,8 @@ const Project = ({ navigation }) => {
       <ProjectComponent
         index={index}
         onAnswerQuestion={handleAnswer}
-        onViewSource={handleSource}
-        onIssueAction={handleIssueAction}
+        onViewIssue={handleViewIssue}
+        onViewSource={handleViewSource}
         {...project} />
     </Layout>
   );

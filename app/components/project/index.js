@@ -2,7 +2,7 @@ import Activity from "../activity";
 import Sticky from "../sticky";
 import Summary from "../summary";
 
-const Project = ({ index, name, projectSummary={}, projectActivities=[], sourceMaterials=[], currentProjectActivity={}, onViewSource=()=>{}, onAnswerQuestion=()=>{}, onIssueAction=()=>{} }) => {
+const Project = ({ index, name, projectSummary={}, projectActivities=[], sourceMaterials=[], currentProjectActivity={}, onViewSource=()=>{}, onAnswerQuestion=()=>{}, onViewIssue=()=>{} }) => {
   const projectColor = palette.cycle(index);
   const summaryText = (projectSummary || {}).text;
   const activityCount = projectActivities.length;
@@ -25,7 +25,7 @@ const Project = ({ index, name, projectSummary={}, projectActivities=[], sourceM
       />
 
       {projectActivities.map(({ id, ...props }, i) => (
-        Activity({ color: activityColor(i), isCurrent: isCurrent(id), onAnswerQuestion, onIssueAction, ...props })
+        Activity({ color: activityColor(i), isCurrent: isCurrent(id), onAnswerQuestion, onViewIssue, ...props })
       ))}
     </Sticky.Container>
   );

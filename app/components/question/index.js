@@ -6,7 +6,7 @@ import PhotoUpload from "./photo_upload";
 import FreeText from "./free_text";
 import styles from "./styles.js";
 
-const Question = ({ navigation, color="blue", id, type, text, expectedValue, responses=[], onAnswer=()=>{}, issues=[], onIssueAction=()=>{}, ...rest }) => {
+const Question = ({ navigation, color="blue", id, type, text, expectedValue, responses=[], onAnswer=()=>{}, issues=[], onViewIssue=()=>{}, ...rest }) => {
   const [canSubmit, setCanSubmit] = useState(false);
   const response = SubmissionPeriod.last(responses);
 
@@ -14,10 +14,6 @@ const Question = ({ navigation, color="blue", id, type, text, expectedValue, res
     setCanSubmit(true);
     onAnswer(answer);
   };
-
-  const handleIssue = () => {
-    onIssue({ color });
-  }
 
   const handleSubmit = () => {
     // The submit button is to reassure the user, it doesn't actually send data.
@@ -37,7 +33,7 @@ const Question = ({ navigation, color="blue", id, type, text, expectedValue, res
       </View>
 
       {<View {...className(`${type}_issue`)}>
-        <IssueListing color={color} questionId={id} issues={issues} onAction={onIssueAction} />
+        <IssueListing color={color} questionId={id} issues={issues} onViewIssue={onViewIssue} />
       </View>}
 
       {<Button text="Submit" color={color} disabled={!canSubmit} onPress={handleSubmit} />}
