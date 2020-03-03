@@ -1,5 +1,10 @@
 import Question from "../../app/components/question";
+import Downloader from "../../app/components/downloader";
 import moveImageToDocumentStorage from "../../app/workflows/move_image";
+
+jest.mock("../../app/components/downloader", () => ({
+  __esModule: true, default: ({ children }) => children,
+}));
 
 jest.mock("../../app/workflows/move_image");
 

@@ -1,6 +1,11 @@
 import ImageInput from "../../app/components/image_input";
+import Downloader from "../../app/components/downloader";
 import File from "../../app/helpers/file";
 import moveImageToDocumentStorage from "../../app/workflows/move_image";
+
+jest.mock("../../app/components/downloader", () => ({
+  __esModule: true, default: ({ children }) => children,
+}));
 
 jest.mock("../../app/workflows/move_image");
 jest.mock("../../app/helpers/file");

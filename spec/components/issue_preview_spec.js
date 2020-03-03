@@ -1,5 +1,10 @@
 import IssuePreview from "../../app/components/issue_preview";
 import Attachment from "../../app/models/attachment";
+import Downloader from "../../app/components/downloader";
+
+jest.mock("../../app/components/downloader", () => ({
+  __esModule: true, default: ({ children }) => children,
+}));
 
 describe("<IssuePreview />", () => {
   it("renders", () => {
