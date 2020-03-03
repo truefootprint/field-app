@@ -11,6 +11,8 @@ const downloadFile = async (attachmentId) => {
   const existsOnDevice = await File.exists(attachment.filename);
   if (existsOnDevice) { await setPulled(attachment); return false; }
 
+  if (Download.inProgress()) return false; // Check again, just in case.
+
   const success = await Download.start(attachment.url, attachment.filename);
   if (success) await setPulled(attachment);
 

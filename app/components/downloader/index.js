@@ -12,7 +12,7 @@ const Downloader = ({ color="blue", path, children }) => {
 
   const md5 = File.basename(path).split(".")[0];
 
-  const loadFile = async () => {
+  const loadFile = async (attempt = 1) => {
     setFailed(false);
 
     const exists = await File.exists(path);
@@ -21,11 +21,12 @@ const Downloader = ({ color="blue", path, children }) => {
     // TODO: what should we do if the user hasn't uploaded the photo yet?
     // This will currently error when we should probably show some helpful text.
     const attachment = await Attachment.findOne({ where: { md5 } });
-    if (!attachment) { throw new Error("No attachment for ", md5); }
+    if (!attachment) { setFailed(true); return; }
 
-    // We either need to cancel or wait for existing downloads to finish
-    // otherwise downloadFile returns false because there's one in progress.
-    if (Download.inProgress()) await Download.resume();
+    if (Download.inProgress()) {
+      if (attempt <= 30) setTimeout(() => loadFile(attempt + 1, 1000));
+      return;
+    }
 
     const success = await downloadFile(attachment.id);
     if (success) { setDownloaded(true); return; }
