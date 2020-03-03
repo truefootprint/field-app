@@ -27,63 +27,27 @@ describe("<IssuePreview />", () => {
     expect(callback).toHaveBeenCalled();
   });
 
-  describe("when the issue is open", () => {
-    const photosJson = JSON.stringify([{ uri: "url/photo.jpg", md5: "md5-fingerprint" }]);
-    const issue = { versionedContent: { text: "issue description", photosJson } };
+  it("shows the issue description", () => {
+    const issue = { notes: [{ text: "issue description" }] };
+    const preview = render(<IssuePreview issue={issue} />);
+    const description = preview.getByTestId("description");
 
-    it("sets the checkbox text to 'Issue recorded'", () => {
-      const preview = render(<IssuePreview issue={issue} />);
-      const checkbox = preview.getByTestId("checkbox");
-
-      expect(checkbox).toHaveText("Issue recorded");
-    });
-
-    it("shows the issue description", () => {
-      const preview = render(<IssuePreview issue={issue} />);
-      const description = preview.getByTestId("description");
-
-      expect(description).toHaveText("issue description");
-    });
-
-    it("shows the photo", () => {
-      const preview = render(<IssuePreview issue={issue} />);
-      const images = preview.queryAllByType("Image");
-
-      expect(images.length).toBe(1);
-    });
-
-    it("does not break if there is no photo", () => {
-      const issue = { versionedContent: { text: "description" }};
-      const preview = render(<IssuePreview issue={issue} />);
-      const images = preview.queryAllByType("Image");
-
-      expect(images.length).toBe(0);
-    });
+    expect(description).toHaveText("issue description");
   });
 
-  describe("when the issue is resolved", () => {
-    const photosJson = JSON.stringify([{ uri: "url/photo.jpg", md5: "md5-fingerprint" }]);
-    const issue = { versionedContent: { text: "issue description", photosJson }, resolutions: [{}] };
+  it("sets the checkbox text to 'Issue recorded'", () => {
+    const issue = { notes: [{ text: "issue description" }] };
+    const preview = render(<IssuePreview issue={issue} />);
+    const checkbox = preview.getByTestId("checkbox");
 
-    it("sets the checkbox text to 'Issue resolved'", () => {
-      const preview = render(<IssuePreview color="green" issue={issue} />);
-      const checkbox = preview.getByTestId("checkbox");
+    expect(checkbox).toHaveText("Issue recorded");
+  });
 
-      expect(checkbox).toHaveText("Issue resolved");
-    });
+  it("sets the checkbox text to 'Issue resolved' when resolved", () => {
+    const issue = { resolved: true, notes: [{ text: "issue description" }] };
+    const preview = render(<IssuePreview color="green" issue={issue} />);
+    const checkbox = preview.getByTestId("checkbox");
 
-    it("hides the issue description", () => {
-      const preview = render(<IssuePreview issue={issue} />);
-      const description = preview.queryByTestId("description");
-
-      expect(description).toBeNull();
-    });
-
-    it("does not show the photo", () => {
-      const preview = render(<IssuePreview issue={issue} />);
-      const images = preview.queryAllByType("Image");
-
-      expect(images.length).toBe(0);
-    });
+    expect(checkbox).toHaveText("Issue resolved");
   });
 });

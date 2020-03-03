@@ -26,11 +26,6 @@ const styles = (theme) => StyleSheet.create({
     lineHeight: 24,
     color: palette.black.primary,
   },
-
-  photo: {
-    marginTop: 20,
-    paddingBottom: 10,
-  },
 });
 
 export default (color) => styles(palette[color]);
