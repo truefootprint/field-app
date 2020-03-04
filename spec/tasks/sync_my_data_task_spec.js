@@ -25,22 +25,30 @@ describe("SyncMyDataTask", () => {
     pushData.mockResolvedValue(true);
     await SyncMyDataTask.run();
 
-    expect(pullData).lastCalledWith({ force: true, callback: expect.anything() });
+    expect(pullData).lastCalledWith({ connected: true, force: true, callback: expect.anything() });
   });
 
   it("does not force pull data if data was not pushed", async () => {
     pushData.mockResolvedValue(false);
     await SyncMyDataTask.run();
 
-    expect(pullData).lastCalledWith({ force: false, callback: expect.anything() });
+    expect(pullData).lastCalledWith({ connected: true, force: false, callback: expect.anything() });
   });
 
-  it("does not push or pull data if there's no connection", async () => {
+  it("does not push data if there's no connection", async () => {
     hasWifi.mockResolvedValue(false);
     await SyncMyDataTask.run();
 
     expect(pushData).not.toHaveBeenCalled();
-    expect(pullData).not.toHaveBeenCalled();
+  });
+
+  // This is so data loads from the cache when the app starts, otherwise it'd
+  // get stuck on the loading screen waiting for data to be loaded to memory.
+  it("pulls data from the file cache if there's no connection", async () => {
+    hasWifi.mockResolvedValue(false);
+    await SyncMyDataTask.run();
+
+    expect(pullData).lastCalledWith({ connected: false, force: false, callback: expect.anything() });
   });
 
   it("returns false if there's no connection", async () => {
@@ -71,7 +79,7 @@ describe("SyncMyDataTask", () => {
       pushData.mockResolvedValue(false);
       await SyncMyDataTask.runWith({ connected: true, force: true });
 
-      expect(pullData).lastCalledWith({ force: true, callback: expect.anything() });
+      expect(pullData).lastCalledWith({ connected: true, force: true, callback: expect.anything() });
     });
 
     it("can pass the pulled data to the callback", async () => {

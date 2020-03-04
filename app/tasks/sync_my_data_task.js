@@ -21,14 +21,12 @@ class SyncMyDataTask extends BackgroundTask {
   }
 
   static async runWith({ connected, force, callback=()=>{} } = {}) {
-    if (!connected) return false;
-
-    const dataWasPushed = await pushData();
+    const dataWasPushed = connected ? await pushData() : false;
 
     const forcePull = force || dataWasPushed;
-    const dataWasPulled = await pullData({ force: forcePull, callback });
+    const dataWasPulled = await pullData({ connected, force: forcePull, callback });
 
-    return dataWasPushed || dataWasPulled;
+    return connected && (dataWasPushed || dataWasPulled);
   }
 };
 
