@@ -1,6 +1,6 @@
 import pushData from "../../app/workflows/push_data";
 import Response from "../../app/models/response";
-import Content from "../../app/models/content";
+import IssueNote from "../../app/models/issue_note";
 import Client from "../../app/helpers/client";
 
 jest.mock("../../app/helpers/client");
@@ -18,10 +18,12 @@ describe("pushData", () => {
     Client.mockImplementation(() => ({ postMyUpdates }));
 
     await Response.create({ id: 1, questionId: 2, value: "answer" });
-    await Content.create({ id: 3, subjectType: "Issue", subjectId: 4, text: "text" });
+
+    const issueUuid = await uuid();
+    await IssueNote.create({ id: 3, issueUuid, subjectType: "Project", subjectId: 4, text: "text" });
   });
 
-  it("pushes responses and contents to the backend, partitioned by period", async () => {
+  it("pushes responses and issue notes to the backend, partitioned by period", async () => {
     await pushData();
 
     expect(postMyUpdates).lastCalledWith([{
@@ -35,13 +37,14 @@ describe("pushData", () => {
         createdAt: expect.anything(),
         updatedAt: expect.anything(),
       }],
-      contents: [{
+      issueNotes: [{
         localId: 3,
-        subjectType: "Issue",
+        issueUuid: expect.anything(),
+        subjectType: "Project",
         subjectId: 4,
         text: "text",
         photosJson: "[]",
-        parentId: null,
+        resolved: false,
         pushed: false,
         createdAt: expect.anything(),
         updatedAt: expect.anything(),
@@ -51,18 +54,18 @@ describe("pushData", () => {
 
   it("updates records to 'pushed' in the database after pushing them", async () => {
     let response = await Response.findOne();
-    let content = await Content.findOne();
+    let issueNote = await IssueNote.findOne();
 
     expect(response.pushed).toBe(false);
-    expect(content.pushed).toBe(false);
+    expect(issueNote.pushed).toBe(false);
 
     await pushData();
 
     response = await Response.findOne();
-    content = await Content.findOne();
+    issueNote = await IssueNote.findOne();
 
     expect(response.pushed).toBe(true);
-    expect(content.pushed).toBe(true);
+    expect(issueNote.pushed).toBe(true);
   });
 
   it("does not update 'pushed' if the API request fails", async () => {
@@ -73,10 +76,10 @@ describe("pushData", () => {
     try { await pushData(); } catch {}
 
     const response = await Response.findOne();
-    const content = await Content.findOne();
+    const issueNote = await IssueNote.findOne();
 
     expect(response.pushed).toBe(false);
-    expect(content.pushed).toBe(false);
+    expect(issueNote.pushed).toBe(false);
   });
 
   it("does not make an API request if there is nothing to push", async () => {

@@ -1,21 +1,21 @@
 import Client from "../helpers/client";
 import SubmissionPeriod from "../helpers/submission_period";
 import Response from "../models/response";
-import Content from "../models/content";
+import IssueNote from "../models/issue_note";
 import ResponsePresenter from "../presenters/response_presenter";
-import ContentPresenter from "../presenters/content_presenter";
+import IssueNotePresenter from "../presenters/issue_note_presenter";
 
 const pushData = async () => {
   const responses = await ResponsePresenter.presentAll({ pushed: false });
-  const contents = await ContentPresenter.presentAll({ pushed: false });
+  const issueNotes = await IssueNotePresenter.presentAll({ pushed: false });
 
-  if (responses.length === 0 && contents.length === 0) return false;
+  if (responses.length === 0 && issueNotes.length === 0) return false;
 
-  const partitions = SubmissionPeriod.partitionMany({ responses, contents });
+  const partitions = SubmissionPeriod.partitionMany({ responses, issueNotes });
   await new Client().postMyUpdates(partitions);
 
   await Response.update({ pushed: true }, { ...whereIds(responses) });
-  await Content.update({ pushed: true }, { ...whereIds(contents) });
+  await IssueNote.update({ pushed: true }, { ...whereIds(issueNotes) });
 
   return true;
 };
