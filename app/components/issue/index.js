@@ -1,11 +1,12 @@
 import IssueNote from "../issue_note";
+import TextInput from "../text_input";
 import styles from "./styles.js";
 
 const Issue = ({ color, currentUser, resolved, notes }) => {
   notes = notes || [];
 
   return (
-    <View {...className("issue", styles(color))}>
+    <KeyboardAvoidingView {...className("issue", styles(color))} behavior="height">
       <ScrollView {...className("inner")}>
         {notes.map((note, i) => (
           <IssueNote
@@ -16,7 +17,13 @@ const Issue = ({ color, currentUser, resolved, notes }) => {
             {...note} />
         ))}
       </ScrollView>
-    </View>
+
+      <View {...className("bottom")}>
+        <View {...className("text_input")}>
+          <TextInput color={color} placeholder="Add your notes..." />
+        </View>
+      </View>
+    </KeyboardAvoidingView>
   );
 };
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, useRef, cloneElement } from "react";
 import { useScreens } from "react-native-screens";
-import { View, StyleSheet, TouchableOpacity, TouchableHighlight, TouchableWithoutFeedback, Text, Modal, ScrollView } from "react-native";
+import { View, StyleSheet, TouchableOpacity, TouchableHighlight, TouchableWithoutFeedback, Text, Modal, ScrollView, KeyboardAvoidingView } from "react-native";
 import Svg, { Path } from "react-native-svg";
 import { createAppContainer, StackActions, createSwitchNavigator, withNavigation } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
@@ -51,6 +51,7 @@ global.TouchableHighlight = TouchableHighlight;
 global.Text = Text;
 global.Modal = Modal;
 global.ScrollView = ScrollView;
+global.KeyboardAvoidingView = KeyboardAvoidingView;
 global.Svg = Svg;
 global.Path = Path;
 global.createAppContainer = createAppContainer;
