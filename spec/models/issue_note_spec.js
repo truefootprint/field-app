@@ -2,7 +2,8 @@ import IssueNote from "../../app/models/issue_note";
 
 describe("IssueNote", () => {
   it("can persist issue notes", async () => {
-    await IssueNote.create({ subjectType: "Question", subjectId: 123, text: "text" });
+    const issueUuid = await uuid();
+    await IssueNote.create({ subjectType: "Question", subjectId: 123, text: "text", issueUuid });
     const issueNotes = await IssueNote.findAll();
 
     expect(issueNotes.length).toBe(1);

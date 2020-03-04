@@ -2,7 +2,6 @@ const IssueNote = sequelize.define("issue_note", {
   issueUuid: {
     type: Sequelize.UUID,
     allowNull: false,
-    defaultValue: uuid,
   },
   subjectType: {
     type: Sequelize.STRING,
