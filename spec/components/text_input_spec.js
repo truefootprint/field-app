@@ -100,10 +100,19 @@ describe("<TextInput />", () => {
     expect(callback).toHaveBeenCalled();
   });
 
+  it("can set an 'onSubmit' callback", () => {
+    const callback = jest.fn();
+    const input = render(<TextInput onSubmit={callback} />);
+    const nativeInput = input.getByTestId("native_input");
+
+    fireEvent(nativeInput, "submitEditing");
+    expect(callback).toHaveBeenCalled();
+  });
+
   it("passes the input text to all of the callbacks", () => {
     const callback = jest.fn();
     const input = render(
-      <TextInput onChangeText={callback} onFocus={callback} onBlur={callback} />
+      <TextInput onChangeText={callback} onFocus={callback} onBlur={callback} onSubmit={callback} />
     );
     const nativeInput = input.getByTestId("native_input");
 
@@ -117,6 +126,10 @@ describe("<TextInput />", () => {
 
     fireEvent(nativeInput, "blur");
     expect(callback.mock.calls.length).toBe(3);
+    expect(callback).lastCalledWith("123");
+
+    fireEvent(nativeInput, "submitEditing");
+    expect(callback.mock.calls.length).toBe(4);
     expect(callback).lastCalledWith("123");
   });
 });

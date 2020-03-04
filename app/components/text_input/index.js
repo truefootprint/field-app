@@ -1,7 +1,7 @@
 import { TextInput as NativeInput } from "react-native";
 import stylesheet from "./styles.js";
 
-const TextInput = ({ color="blue", placeholder, defaultValue, units, onChangeText=()=>{}, onFocus=()=>{}, onBlur=()=>{}, ...rest }) => {
+const TextInput = ({ color="blue", placeholder, defaultValue, units, onChangeText=()=>{}, onFocus=()=>{}, onBlur=()=>{}, onSubmit=()=>{}, ...rest }) => {
   const [focussed, setFocussed] = useState(false);
   const [text, setText] = useState(defaultValue || "");
 
@@ -14,6 +14,7 @@ const TextInput = ({ color="blue", placeholder, defaultValue, units, onChangeTex
   const handleChange = (text) => { setText(text); onChangeText(text); };
   const handleFocus = () => { setFocussed(true); onFocus(text); };
   const handleBlur = () => { setFocussed(false); onBlur(text); };
+  const handleSubmit = () => { setFocussed(false); onSubmit(text); };
 
   return (
     <View>
@@ -27,10 +28,12 @@ const TextInput = ({ color="blue", placeholder, defaultValue, units, onChangeTex
           placeholder={placeholder}
           keyboardType={units ? "numeric" : "default"}
           placeholderTextColor={styles.placeholder.color}
+          blurOnSubmit={true}
           selectionColor={styles.selection.color}
           onChangeText={handleChange}
           onFocus={handleFocus}
           onBlur={handleBlur}
+          onSubmitEditing={handleSubmit}
           {...rest} />
 
         {units && <Text {...className(["units", focussed && "focussed"])}>
