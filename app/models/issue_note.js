@@ -19,6 +19,11 @@ const IssueNote = sequelize.define("issue_note", {
     allowNull: false,
     defaultValue: "[]",
   },
+  resolved: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
   pushed: {
     type: Sequelize.BOOLEAN,
     allowNull: false,
