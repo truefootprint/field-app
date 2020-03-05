@@ -10,11 +10,11 @@ const DevConsole = () => {
     Logger.onLine = () => {
       setLines([...Logger.lines]);
 
-      if (ref.current) {
-        setTimeout(() => {
+      setTimeout(() => {
+        if (ref.current) {
           ref.current.scrollToEnd();
-        }, 50);
-      }
+        }
+      }, 50);
     };
 
     return () => Logger.onLine = () => {};
