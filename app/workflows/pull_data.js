@@ -3,8 +3,10 @@ import FileCache from "../helpers/file_cache";
 import File from "../helpers/file";
 import stitchMyData from "../helpers/stitch_my_data";
 import Response from "../models/response";
+import IssueNote from "../models/issue_note";
 import Attachment from "../models/attachment";
 import ResponsePresenter from "../presenters/response_presenter";
+import IssueNotePresenter from "../presenters/issue_note_presenter";
 
 const pullData = async ({ connected=true, force, callback=()=>{} } = {}) => {
   let fetched = false;
@@ -14,7 +16,8 @@ const pullData = async ({ connected=true, force, callback=()=>{} } = {}) => {
   const myData = await FileCache.fetch("my_data.json", { onMiss, maxAge });
 
   const responses = await ResponsePresenter.presentAll();
-  const combined = stitchMyData(myData, responses);
+  const issueNotes = await IssueNotePresenter.presentAll();
+  const combined = stitchMyData(myData, responses, issueNotes);
 
   await callback(combined);
   return fetched;
@@ -26,6 +29,7 @@ const fetchThenUpdateDatabase = async (callback) => {
   const myData = await new Client().getMyData();
 
   await Response.destroy({ where: { pushed: true } });
+  await IssueNote.destroy({ where: { pushed: true } });
   await createAttachments(myData);
 
   // Idea: We could check responses definitely appear in myData before deleting?

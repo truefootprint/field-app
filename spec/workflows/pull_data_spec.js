@@ -2,6 +2,7 @@ import pullData, { createAttachments } from "../../app/workflows/pull_data";
 import File from "../../app/helpers/file";
 import Client from "../../app/helpers/client";
 import Response from "../../app/models/response";
+import IssueNote from "../../app/models/issue_note";
 import Attachment from "../../app/models/attachment";
 
 jest.mock("../../app/helpers/file");
@@ -44,6 +45,19 @@ describe("pullData", () => {
     expect(data.responses[0]).toMatchObject({ projectQuestionId: 1, value: "answer" });
   });
 
+  it("combines myData with issue notes from the local database", async () => {
+    const issueUuid = await uuid();
+    await IssueNote.create({ subjectType: "Question", subjectId: 123, text: "text", issueUuid });
+
+    File.exists.mockResolvedValue(true);
+    File.readObject.mockResolvedValue({ uuid: issueUuid, resolved: false, notes: [] });
+
+    await pullData({ callback: d => { data = d; } });
+
+    expect(data.notes.length).toBe(1);
+    expect(data.notes[0]).toMatchObject({ subjectType: "ProjectQuestion", text: "text" });
+  });
+
   describe("when myData is not in the cache", () => {
     beforeEach(() => {
       Client.mockImplementation(() => ({
@@ -78,6 +92,19 @@ describe("pullData", () => {
 
       expect(responses.length).toBe(1);
       expect(responses[0].pushed).toBe(false);
+    });
+
+    it("deletes pushed issue notes after fetching", async () => {
+      const issueUuid = await uuid();
+
+      await IssueNote.create({ subjectType: "Question", subjectId: 123, issueUuid, pushed: false });
+      await IssueNote.create({ subjectType: "Question", subjectId: 123, issueUuid, pushed: true });
+
+      await pullData();
+      const issueNotes = await IssueNote.findAll();
+
+      expect(issueNotes.length).toBe(1);
+      expect(issueNotes[0].pushed).toBe(false);
     });
 
     it("creates attachments after fetching", async () => {
