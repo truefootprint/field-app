@@ -5,7 +5,7 @@ import styles from "./styles.js";
 
 const options = { exif: true };
 
-const ImagePicker = ({ color="blue", text, onPick=()=>{} }) => {
+const ImagePicker = ({ color="blue", text, icon, onPick=()=>{} }) => {
   const [visible, setVisible] = useState(false);
 
   const handlePick = (result) => {
@@ -24,15 +24,17 @@ const ImagePicker = ({ color="blue", text, onPick=()=>{} }) => {
   };
 
   return (
-    <View>
-      {text && <Text {...className("text", styles(color))}>{text}</Text>}
+    <View {...className("image_picker", styles(color))}>
+      {text && <Text {...className("text")}>{text}</Text>}
 
       <TouchableOpacity onPress={() => setVisible(true)} activeOpacity={0.8}>
-        <View {...className("rectangle", styles(color))}>
-          <View {...className("circle")}>
-            <Text {...className("plus")}>+</Text>
+        {icon ? icon : (
+          <View {...className("rectangle")}>
+            <View {...className("circle")}>
+              <Text {...className("plus")}>+</Text>
+            </View>
           </View>
-        </View>
+        )}
       </TouchableOpacity>
 
       <Lightbox visible={visible} onDismiss={() => setVisible(false)}>

@@ -39,7 +39,7 @@ describe("<ImageInput />", () => {
 
   it("shows picked images", async () => {
     const input = render(<ImageInput />);
-    const picker = input.getByTestId("picker");
+    const picker = input.getByTestId("image_picker");
 
     await fireEvent(picker, "pick", { uri: "first" });
     await fireEvent(picker, "pick", { uri: "second" });
@@ -64,7 +64,7 @@ describe("<ImageInput />", () => {
   it("can set an 'onChange' callback", async () => {
     const callback = jest.fn();
     const input = render(<ImageInput onChange={callback} />);
-    const picker = input.getByTestId("picker");
+    const picker = input.getByTestId("image_picker");
 
     await fireEvent(picker, "pick", { uri: "first" });
     expect(callback).lastCalledWith([{ uri: "first" }]);
@@ -75,7 +75,7 @@ describe("<ImageInput />", () => {
 
   it("moves the picked image from the cache to document storage", async () => {
     const input = render(<ImageInput />);
-    const picker = input.getByTestId("picker");
+    const picker = input.getByTestId("image_picker");
 
     await fireEvent(picker, "pick", { uri: "uri" });
     expect(moveImageToDocumentStorage).lastCalledWith({ uri: "uri" });

@@ -3,7 +3,7 @@ import Image from "../image";
 import ImagePicker from "../image_picker";
 import styles from "./styles.js";
 
-const ImageInput = ({ color, placeholder, defaultImages=[], onChange=()=>{} }) => {
+const ImageInput = ({ color, placeholder, icon, defaultImages=[], onChange=()=>{} }) => {
   const [images, setImages] = useState(defaultImages);
 
   const handlePick = async (image) => {
@@ -22,7 +22,7 @@ const ImageInput = ({ color, placeholder, defaultImages=[], onChange=()=>{} }) =
         <Image color={color} source={image} key={i} {...className(imageClasses(i), styles)} />
       ))}
 
-      <ImagePicker text={placeholder} onPick={handlePick} color={color} {...className("picker")} />
+      <ImagePicker text={placeholder} icon={icon} onPick={handlePick} color={color} />
     </View>
   );
 };

@@ -188,7 +188,7 @@ describe("<Question />", () => {
 
     it("renders", () => {
       const question = render(<Question {...nav} type="photo_upload" />);
-      const picker = question.queryByTestId("picker");
+      const picker = question.queryByTestId("image_picker");
 
       expect(picker).toBeDefined();
     });
@@ -196,7 +196,7 @@ describe("<Question />", () => {
     it("can set an 'onAnswer' callback", async () => {
       const callback = jest.fn();
       const question = render(<Question {...nav} type="photo_upload" onAnswer={callback} />);
-      const picker = question.getByTestId("picker");
+      const picker = question.getByTestId("image_picker");
 
       await fireEvent(picker, "pick", { uri: "uri" });
       expect(callback).lastCalledWith([{ uri: "uri" }]);
