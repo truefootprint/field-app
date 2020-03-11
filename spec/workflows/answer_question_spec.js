@@ -88,7 +88,7 @@ describe("answerQuestion", () => {
   describe("PhotoUploadQuestion", () => {
     it("creates an image", async () => {
       await answerQuestion({
-        question: {type: "PhotoUploadQuestion", id: 123 },
+        question: { type: "PhotoUploadQuestion", id: 123 },
         answer: [{ uri: "image.jpg" }]
       });
 

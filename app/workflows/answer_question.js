@@ -37,7 +37,7 @@ const answerQuestion = async ({ connected, question, answer, callback=()=>{} }) 
   if (connected) {
     await pushData();
 
-    for (let image of imagesToUpload) {
+    for (const image of imagesToUpload) {
       await uploadPhoto(image.id);
     };
   }
