@@ -12,8 +12,8 @@ const Project = ({ navigation }) => {
     answerQuestion({ connected, question, answer });
   };
 
-  const handleViewIssue = ({ color, questionId, issue }) => {
-    navigation.navigate("Issue", { color, questionId, issue, currentUser: data.user });
+  const handleViewIssue = ({ color, questionId, issueUuid }) => {
+    navigation.navigate("Issue", { color, questionId, issueUuid });
   };
 
   const handleViewSource = (sourceMaterial) => {

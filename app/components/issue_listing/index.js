@@ -7,8 +7,8 @@ const IssueListing = ({ color="blue", questionId, issues=[], onViewIssue=()=>{} 
   const closedIssues = issues.filter(i => i.resolution);
   const showNewIssue = openIssues.length === 0;
 
-  const handleViewIssue = (issue) => {
-    return () => onViewIssue({ color, questionId, issue });
+  const handleViewIssue = (issue = {}) => {
+    return () => onViewIssue({ color, questionId, issueUuid: issue.uuid });
   };
 
   return (
