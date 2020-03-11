@@ -7,11 +7,6 @@ const styles = (theme) => StyleSheet.create({
 
   inner: {
     width: "95%",
-    opacity: 0,
-  },
-
-  visible: {
-    opacity: 1,
   },
 
   bottom: {
