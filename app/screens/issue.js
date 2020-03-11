@@ -28,7 +28,7 @@ const Issue = ({ navigation }) => {
 
   const rerender = (issueNote) => {
     pullData({ connected, callback: setData });
-    setUuid(issueNote.issueUuid);
+    if (!issueUuid) setUuid(issueNote.issueUuid);
   };
 
   return (

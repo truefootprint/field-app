@@ -6,8 +6,9 @@ import styles from "./styles.js";
 
 const Issue = ({ color="blue", currentUser, resolved, notes, onNote=()=>{} }) => {
   notes = mixinCurrentUser(notes, currentUser);
-  const [photos, setPhotos] = useState([]);
 
+  const [photos, setPhotos] = useState([]);
+  const [count, setCount] = useState(0);
   const scrollView = useRef();
 
   const scrollToEnd = () => {
@@ -16,6 +17,8 @@ const Issue = ({ color="blue", currentUser, resolved, notes, onNote=()=>{} }) =>
 
   const handleSubmit = (text) => {
     onNote({ text, photos });
+    setPhotos([]);
+    setCount(c => c + 1); // Clear the text input
   };
 
   return (
@@ -31,7 +34,7 @@ const Issue = ({ color="blue", currentUser, resolved, notes, onNote=()=>{} }) =>
         ))}
       </ScrollView>
 
-      <View {...className("bottom")}>
+      <View {...className("bottom")} key={count}>
         <View {...className("text_input")}>
           <TextInput color={color} placeholder="Add your notes..." onSubmit={handleSubmit} />
         </View>
