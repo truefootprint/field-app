@@ -22,8 +22,8 @@ const Issue = ({ navigation }) => {
     setIssue(getAtPath(data, pathToIssue));
   });
 
-  const handleNote = ({ text }) => {
-    addIssueNote({ connected, subjectType: "Question", subjectId: questionId, issue, text, callback: rerender });
+  const handleNote = ({ text, photos }) => {
+    addIssueNote({ connected, subjectType: "Question", subjectId: questionId, issue, text, photos, callback: rerender });
   };
 
   const rerender = (issueNote) => {

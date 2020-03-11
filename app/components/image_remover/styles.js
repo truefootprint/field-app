@@ -1,7 +1,7 @@
 const styles = StyleSheet.create({
   image_remover: {
-    width: 50,
-    height: 50,
+    width: 55,
+    height: 55,
     justifyContent: "center",
   },
 

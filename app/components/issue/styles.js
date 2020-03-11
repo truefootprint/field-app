@@ -10,17 +10,23 @@ const styles = (theme) => StyleSheet.create({
   },
 
   bottom: {
-    width: "100%",
     height: 72,
     backgroundColor: theme.primaryTint,
     alignItems: "center",
     justifyContent: "center",
+    paddingLeft: "2.5%",
+    paddingRight: "2.5%",
+    flexDirection: "row",
   },
 
   text_input: {
-    width: "95%",
+    flex: 1,
     backgroundColor: "white",
   },
+
+  image_input: {
+    marginLeft: 8,
+  }
 });
 
 export default (color) => styles(palette[color]);

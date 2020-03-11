@@ -1,9 +1,12 @@
 import IssueNote from "../issue_note";
 import TextInput from "../text_input";
+import ImageInput from "../image_input";
+import { Camera } from "../svg_icon";
 import styles from "./styles.js";
 
 const Issue = ({ color="blue", currentUser, resolved, notes, onNote=()=>{} }) => {
   notes = mixinCurrentUser(notes, currentUser);
+  const [photos, setPhotos] = useState([]);
 
   const scrollView = useRef();
 
@@ -12,7 +15,7 @@ const Issue = ({ color="blue", currentUser, resolved, notes, onNote=()=>{} }) =>
   };
 
   const handleSubmit = (text) => {
-    onNote({ text });
+    onNote({ text, photos });
   };
 
   return (
@@ -31,6 +34,10 @@ const Issue = ({ color="blue", currentUser, resolved, notes, onNote=()=>{} }) =>
       <View {...className("bottom")}>
         <View {...className("text_input")}>
           <TextInput color={color} placeholder="Add your notes..." onSubmit={handleSubmit} />
+        </View>
+
+        <View {...className("image_input")}>
+          <ImageInput color={color} icon={<Camera />} onChange={setPhotos} />
         </View>
       </View>
     </KeyboardAvoidingView>

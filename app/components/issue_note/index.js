@@ -24,7 +24,7 @@ const IssueNote = ({ color, text, photosJson, resolved, user, currentUser, previ
         {user.name}
       </Text>}
 
-      {text && <Text {...className("text")}>{text}</Text>}
+      {!!text && <Text {...className("text")}>{text}</Text>}
 
       <View {...className("images")}>
         {photos.map((photo, i) => (
