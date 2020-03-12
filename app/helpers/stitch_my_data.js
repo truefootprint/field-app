@@ -15,6 +15,7 @@ const stitchMyData = (myData, responses, issueNotes) => {
     if (isIssue(o)) {
       const notes = notesByIssue[o.uuid] || [];
       o.notes = o.notes.concat(notes);
+      o.resolved = o.notes.some(n => n.resolved);
     }
 
     return o;

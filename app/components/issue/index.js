@@ -1,4 +1,5 @@
 import IssueNote from "../issue_note";
+import IssueResolver from "../issue_resolver";
 import TextInput from "../text_input";
 import ImageInput from "../image_input";
 import { Camera } from "../svg_icon";
@@ -9,7 +10,9 @@ const Issue = ({ color="blue", currentUser, resolved, notes, onNote=()=>{} }) =>
 
   const [photos, setPhotos] = useState([]);
   const [count, setCount] = useState(0);
+
   const scrollView = useRef();
+  const showResolver = !resolved && notes.length > 0;
 
   const scrollToEnd = () => {
     if (scrollView.current) scrollView.current.scrollToEnd({ animated: false });
@@ -32,6 +35,8 @@ const Issue = ({ color="blue", currentUser, resolved, notes, onNote=()=>{} }) =>
             previousNote={notes[i - 1]}
             {...note} />
         ))}
+
+        {showResolver && <IssueResolver color={color} onResolve={() => onNote({ resolved: true })} />}
       </ScrollView>
 
       <View {...className("bottom")} key={count}>

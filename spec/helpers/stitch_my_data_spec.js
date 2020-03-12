@@ -60,6 +60,14 @@ describe("stitchMyData", () => {
     });
   });
 
+  it("sets existing issues to resolved if a note is added that is resolved", () => {
+    const myData = { uuid: "some-uuid", resolved: false, notes: [] };
+    const notes = [{ issueUuid: "some-uuid", resolved: true }];
+    const result = stitchMyData(myData, [], notes);
+
+    expect(result).toEqual({ uuid: "some-uuid", resolved: true, notes });
+  });
+
   it("handles arbitrary levels of nesting", () => {
     const myData = { a: { b: [{ c: { id: 123, responses: [], issues: [] } }] } };
     const responses = [{ projectQuestionId: 123, value: "answer" }];
