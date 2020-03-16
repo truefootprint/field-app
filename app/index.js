@@ -3,6 +3,7 @@ import DevConsole from "./components/dev_console";
 import SyncMyDataTask from "./tasks/sync_my_data_task";
 import PhotoUploadTask from "./tasks/photo_upload_task";
 import FileDownloadTask from "./tasks/file_download_task";
+import initializeSentry from "./helpers/sentry";
 import loadApp from "./workflows/load_app";
 import Login from "./screens/login";
 import Home from "./screens/home";
@@ -20,6 +21,9 @@ const AppContainer = createAppContainer(AuthStack);
 SyncMyDataTask.enable({ log: true });
 PhotoUploadTask.enable({ log: true });
 FileDownloadTask.enable({ log: true });
+
+// Capture exceptions and send them to Sentry.
+initializeSentry();
 
 const App = () => {
   useScreens();

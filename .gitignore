@@ -1,6 +1,7 @@
 node_modules/**/*
 .expo/*
 npm-debug.*
+yarn-error.log
 *.jks
 *.p8
 *.p12
@@ -12,5 +13,6 @@ web-report/
 .DS_Store
 /tmp/
 /config/host.json
+/config/sentry.json
 /dist/
 /.expo-shared
