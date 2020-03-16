@@ -33,4 +33,8 @@ const IssueNote = sequelize.define("issue_note", {
   updatedAt: timestampField("updatedAt"),
 });
 
+IssueNote.onLoad = () => {
+  // Set up associations here.
+};
+
 export default IssueNote;
