@@ -1,0 +1,44 @@
+#!/usr/bin/env ruby
+
+# This script uploads sourcemaps to Sentry so we can see symbol names for exceptions.
+# It is based on this: https://github.com/expo/sentry-expo/blob/master/upload-sourcemaps.js
+#
+# We can't use the expo postPublish hook as suggested since we're self-hosting the app.
+
+require "json"
+
+path_to_credentials = ARGV.first
+
+if path_to_credentials.nil?
+  puts "Usage: ./bin/sourcemap /path/to/sentry-credentials.json"
+  exit(1)
+end
+
+def read_json(path)
+  json = File.read(File.expand_path(path))
+  JSON.parse(json, symbolize_names: true)
+end
+
+credentials = read_json(path_to_credentials)
+manifest = read_json("dist/android-index.json")
+version = manifest.fetch(:revisionId)
+
+env = [
+  "SENTRY_ORG=#{credentials.fetch(:organisation)}",
+  "SENTRY_PROJECT=#{credentials.fetch(:project)}",
+  "SENTRY_AUTH_TOKEN=#{credentials.fetch(:auth_token)}",
+].join(" ")
+
+success = system(<<~CMD)
+  (which sentry-cli || brew install getsentry/tools/sentry-cli)             && \
+                                                                               \
+  cp dist/bundles/android-*.js tmp/main.android.bundle                      && \
+  cp dist/bundles/android-*.map tmp/main.android.map                        && \
+                                                                               \
+  #{env} sentry-cli releases new #{version}                                 && \
+                                                                               \
+  #{env} sentry-cli releases files #{version} upload-sourcemaps --rewrite      \
+     tmp/main.android.*
+CMD
+
+exit(success ? 0 : 1)
