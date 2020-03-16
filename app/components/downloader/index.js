@@ -11,8 +11,10 @@ const Downloader = ({ color="blue", path, children }) => {
   const [failed, setFailed] = useState();
 
   const md5 = File.basename(path).split(".")[0];
+  const state = { mounted: true };
 
   const loadFile = async (attempt = 1) => {
+    if (!state.mounted) return;
     setFailed(false);
 
     const exists = await File.exists(path);
@@ -39,7 +41,10 @@ const Downloader = ({ color="blue", path, children }) => {
     setFailed(true);
   };
 
-  useEffect(() => { loadFile(); }, []);
+  useEffect(() => {
+    loadFile();
+    return () => { state.mounted = false; }
+  }, []);
 
   const retryText = (
     <View {...className("downloader", styles)}>
