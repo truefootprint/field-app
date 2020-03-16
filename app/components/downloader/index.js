@@ -24,7 +24,12 @@ const Downloader = ({ color="blue", path, children }) => {
     if (!attachment) { setFailed(true); return; }
 
     if (Download.inProgress()) {
-      if (attempt <= 30) setTimeout(() => loadFile(attempt + 1), 1000);
+      if (attempt <= 5) {
+        setTimeout(() => loadFile(attempt + 1), 1000);
+      } else {
+        setFailed(true);
+      }
+
       return;
     }
 
