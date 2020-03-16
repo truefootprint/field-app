@@ -53,16 +53,6 @@ describe("FileDownloadTask", () => {
     expect(Download.resume).toHaveBeenCalled();
   });
 
-  it("pauses the download if there's one in progress when the task ends", async () => {
-    Download.inProgress.mockReturnValue(false);
-    await FileDownloadTask.run();
-    expect(Download.pause).not.toHaveBeenCalled();
-
-    Download.inProgress.mockReturnValue(true);
-    await FileDownloadTask.run();
-    expect(Download.pause).toHaveBeenCalled();
-  });
-
   it("ends the task after a maximum of three failed downloads", async () => {
     await FileDownloadTask.run();
 

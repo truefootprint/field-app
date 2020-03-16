@@ -63,7 +63,7 @@ class FileDownloadTask extends BackgroundTask {
     }
 
     // Use the safetyNet time to save a snapshot of the partial file donwload.
-    if (Download.inProgress()) {
+    if (outOfTime && Download.inProgress()) {
       await Download.pause();
     }
 
