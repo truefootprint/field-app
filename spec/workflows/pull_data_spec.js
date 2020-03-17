@@ -151,6 +151,19 @@ describe("createAttachments", () => {
     expect(attachments[0].pulled).toBe(false);
   });
 
+  it("only creates one attachment if referenced more than once", async () => {
+    const myData = [
+      { md5: "md5-fingerprint", url: "first-url" },
+      { md5: "md5-fingerprint", url: "second-url" },
+      { md5: "another-fingerprint", url: "third-url" },
+    ];
+
+    await createAttachments(myData);
+    const attachments = await Attachment.findAll();
+
+    expect(attachments.length).toBe(2);
+  });
+
   it("updates the record's url if it has changed in the data", async () => {
     await Attachment.create({ md5: "md5-fingerprint", url: "old-url" });
 

@@ -39,8 +39,12 @@ const fetchThenUpdateDatabase = async (callback) => {
 };
 
 const createAttachments = async (myData) => {
+  const seen = {};
+
   await eachNested(myData, async o => {
     if (isFileAttachment(o)) {
+      if (seen[o.md5]) { return; } else { seen[o.md5] = true; }
+
       const where = { md5: o.md5 };
       const attributes = { md5: o.md5, url: o.url };
 

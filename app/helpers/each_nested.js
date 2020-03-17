@@ -4,12 +4,17 @@ const eachNested = async (node, fn) => {
   if (node === null) return;
 
   if (Array.isArray(node)) {
-    node.forEach(n => eachNested(n, fn));
+    for (const n of node) {
+      await eachNested(n, fn);
+    }
+
     return;
   }
 
   if (typeof node === "object") {
-    Object.values(node).forEach(n => eachNested(n, fn));
+    for (const n of Object.values(node)) {
+      await eachNested(n, fn)
+    }
   }
 };
 
