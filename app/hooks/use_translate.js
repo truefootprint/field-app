@@ -9,7 +9,11 @@
 // t("n_of_m", { n: 3, m: 5 });
 
 const useTranslate = () => {
-  const { data } = useContext(AppContext);
+  let { data } = useContext(AppContext);
+
+  if (typeof jest !== "undefined") {
+    data = { userInterfaceText: fakeTranslationText };
+  }
 
   const translate = (key, args={}) => {
     let value = translate[key];
@@ -19,7 +23,7 @@ const useTranslate = () => {
     }
 
     for (const [k, v] of Object.entries(args)) {
-      value = value.replace(`%{${k}}`, v.toString());
+      value = value.replace(`%{${k}}`, v);
     }
 
     return value;

@@ -10,6 +10,7 @@ import resetDB from "./support/reset_db";
 import props from "./support/props";
 import style from "./support/style";
 import sleep from "./support/sleep";
+import text from "./support/translation_text";
 
 global.render = render;
 global.fireEvent = fireEvent;
@@ -19,6 +20,7 @@ global.innerText = innerText;
 global.props = props;
 global.style = style;
 global.sleep = sleep;
+global.fakeTranslationText = text;
 
 expect.extend({ toHaveText });
 

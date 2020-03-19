@@ -2,6 +2,7 @@ import Button from "../button";
 import styles from "./styles.js";
 
 const Summary = ({ color="blue", name, text, activityCount, hasContract, onViewContract=()=>{} }) => {
+  const t = useTranslate();
   const s = styles(color);
 
   return (
@@ -9,16 +10,16 @@ const Summary = ({ color="blue", name, text, activityCount, hasContract, onViewC
       <Text {...className("title")}>{name}</Text>
 
       {text && <>
-        <Text {...className("heading")}>Project summary</Text>
+        <Text {...className("heading")}>{t.project_summary}</Text>
         <Text {...className("text")}>{text}</Text>
       </>}
 
       {hasContract &&
-        <Button color={color} text="Project contract" caps={false} fill={false} onPress={onViewContract} />
+        <Button color={color} text={t.project_contract} caps={false} fill={false} onPress={onViewContract} />
       }
 
       <Text {...className("activity_count")}>
-        This project has {activityCount} activities to monitor:
+        {t("n_activities", { n: activityCount })}:
       </Text>
     </View>
   );
