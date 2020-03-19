@@ -37,6 +37,7 @@ import useWifi from "./hooks/use_wifi";
 import useWhen from "./hooks/use_when";
 import useSecret from "./hooks/use_secret";
 import useBack from "./hooks/use_back";
+import useTranslate from "./hooks/use_translate";
 
 global.React = React;
 global.useState = useState;
@@ -102,3 +103,4 @@ global.useWifi = useWifi;
 global.useWhen = useWhen;
 global.useSecret = useSecret;
 global.useBack = useBack;
+global.useTranslate = useTranslate;
