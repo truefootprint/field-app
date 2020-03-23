@@ -7,6 +7,7 @@ import styles from "./styles.js";
 const IssueResolver = ({ color="blue", onResolve=()=>{} }) => {
   const [visible, setVisible] = useState(false);
   const [index, setIndex] = useState(0);
+  const t = useTranslate();
 
   const handleSubmit = () => {
     setVisible(false);
@@ -18,9 +19,9 @@ const IssueResolver = ({ color="blue", onResolve=()=>{} }) => {
 
   return (
     <View {...className("issue_resolver", styles(color))}>
-      <Text {...className("prompt_text")}>Is this issue resolved?</Text>
+      <Text {...className("prompt_text")}>{t.issue.is_it_resolved}</Text>
 
-      <Button color={color} text="Yes, it’s resolved" caps={false} onPress={() => setVisible(true)} />
+      <Button color={color} text={t.issue.yes_resolved} caps={false} onPress={() => setVisible(true)} />
 
       <Lightbox visible={visible} onDismiss={() => setVisible(false)}>
         <TouchableOpacity {...className("touchable")} onPress={() => setVisible(false)} activeOpacity={0.8}>
@@ -29,21 +30,21 @@ const IssueResolver = ({ color="blue", onResolve=()=>{} }) => {
 
         <View {...className("lightbox")}>
           <Text {...className("confirm_text")}>
-            Are you sure this issue is resolved?
+            {t.issue.are_you_sure}
           </Text>
 
           <RadioGroup color={color} onChange={i => setIndex(i)} defaultIndex={0}>
             <Radio>
-              <Text>Yes</Text>
+              <Text>{t.yes}</Text>
             </Radio>
 
             <Radio>
-              <Text>Cancel</Text>
+              <Text>{t.cancel}</Text>
             </Radio>
           </RadioGroup>
 
           <View {...className("submit")}>
-            <Button color={color} text="Submit" onPress={handleSubmit} />
+            <Button color={color} text={t.submit} onPress={handleSubmit} />
           </View>
         </View>
       </Lightbox>

@@ -8,6 +8,7 @@ import styles from "./styles.js";
 const Issue = ({ color="blue", currentUser, resolved, notes, onNote=()=>{} }) => {
   notes = mixinCurrentUser(notes, currentUser);
 
+  const t = useTranslate();
   const [photos, setPhotos] = useState([]);
   const [count, setCount] = useState(0);
 
@@ -41,7 +42,7 @@ const Issue = ({ color="blue", currentUser, resolved, notes, onNote=()=>{} }) =>
 
       <View {...className("bottom")} key={count}>
         <View {...className("text_input")}>
-          <TextInput color={color} placeholder="Add your notes..." onSubmit={handleSubmit} />
+          <TextInput color={color} placeholder={t.add_notes} onSubmit={handleSubmit} />
         </View>
 
         <View {...className("image_input")}>

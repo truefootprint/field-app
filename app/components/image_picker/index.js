@@ -7,6 +7,7 @@ const options = { exif: true };
 
 const ImagePicker = ({ color="blue", text, icon, onPick=()=>{} }) => {
   const [visible, setVisible] = useState(false);
+  const t = useTranslate();
 
   const handlePick = (result) => {
     const { cancelled, uri, width, height, exif } = result;
@@ -39,9 +40,9 @@ const ImagePicker = ({ color="blue", text, icon, onPick=()=>{} }) => {
 
       <Lightbox visible={visible} onDismiss={() => setVisible(false)}>
         <Menu onSelect={handleMenu}>
-          <Text {...className("menu_item")}>Take photo</Text>
-          <Text {...className("menu_item")}>Choose from library</Text>
-          <Text {...className("menu_item")}>Cancel</Text>
+          <Text {...className("menu_item")}>{t.photo.take}</Text>
+          <Text {...className("menu_item")}>{t.photo.choose}</Text>
+          <Text {...className("menu_item")}>{t.cancel}</Text>
         </Menu>
       </Lightbox>
     </View>

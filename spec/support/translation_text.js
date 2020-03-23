@@ -16,4 +16,8 @@ export default [
   { key: "no",                   value: "No" },
   { key: "submit",               value: "Submit" },
   { key: "cancel",               value: "Cancel" },
+  { key: "loading",              value: "Loading..." },
+  { key: "try_again",            value: "Try again" },
+  { key: "download_failed",      value: "Download failed" },
+  { key: "no_wifi",              value: "No WiFi, please connect to WiFi." },
 ];

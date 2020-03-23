@@ -5,6 +5,7 @@ import styles from "./styles.js";
 
 const ImageRemover = ({ color="blue", image, onRemove=()=>{} }) => {
   const [visible, setVisible] = useState(false);
+  const t = useTranslate();
 
   const handleMenu = async (_, index) => {
     setVisible(false);
@@ -20,8 +21,8 @@ const ImageRemover = ({ color="blue", image, onRemove=()=>{} }) => {
 
       <Lightbox visible={visible} onDismiss={() => setVisible(false)}>
         <Menu onSelect={handleMenu}>
-          <Text {...className("menu_item")}>Remove photo</Text>
-          <Text {...className("menu_item")}>Cancel</Text>
+          <Text {...className("menu_item")}>{t.photo.remove}</Text>
+          <Text {...className("menu_item")}>{t.cancel}</Text>
         </Menu>
       </Lightbox>
     </View>

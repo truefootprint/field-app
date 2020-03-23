@@ -6,6 +6,7 @@ import styles from "./styles.js";
 
 const Downloader = ({ color="blue", path, children }) => {
   const { connected } = useContext(AppContext);
+  const t = useTranslate();
 
   const [downloaded, setDownloaded] = useState();
   const [failed, setFailed] = useState();
@@ -48,17 +49,17 @@ const Downloader = ({ color="blue", path, children }) => {
 
   const retryText = (
     <View {...className("downloader", styles)}>
-      <Text>Download failed</Text>
+      <Text>{t.download_failed}</Text>
 
       <View {...className("retry")}>
-        <Button color={color} text="Retry" caps={false} fill={false} onPress={loadFile} />
+        <Button color={color} text={t.try_again} caps={false} fill={false} onPress={loadFile} />
       </View>
     </View>
   );
 
   const loadingText = (
     <View {...className("downloader", styles)}>
-      <Text>Loading...</Text>
+      <Text>{t.loading}</Text>
     </View>
   );
 

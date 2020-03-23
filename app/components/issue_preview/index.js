@@ -5,6 +5,8 @@ import Image from "../image";
 import styles from "./styles.js";
 
 const IssuePreview = ({ color="blue", issue={ notes: [] }, onOpen=()=>{} }) => {
+  const t = useTranslate();
+
   const note = issue.notes.find(n => n.text && n.text.length > 0);
   const text = note && note.text;
 
@@ -12,11 +14,11 @@ const IssuePreview = ({ color="blue", issue={ notes: [] }, onOpen=()=>{} }) => {
     <View {...className("issue_preview", styles(color))}>
       <View {...className("side_by_side")}>
         <View {...className("checkbox")}>
-          <Checkbox color={color} checked={true} disabled={true}>Issue {issue.resolved ? "resolved" : "recorded"}</Checkbox>
+          <Checkbox color={color} checked={true} disabled={true}>{issue.resolved ? t.issue.resolved : t.issue.recorded}</Checkbox>
         </View>
 
         <View {...className("open")}>
-          <Button color={color} caps={false} fill={false} text="View details" onPress={onOpen} />
+          <Button color={color} caps={false} fill={false} text={t.view_details} onPress={onOpen} />
         </View>
       </View>
 

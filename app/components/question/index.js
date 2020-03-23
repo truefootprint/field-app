@@ -9,6 +9,7 @@ import styles from "./styles.js";
 const Question = ({ navigation, color="blue", id, type, text, expectedValue, responses=[], onAnswer=()=>{}, issues=[], onViewIssue=()=>{}, ...rest }) => {
   const [canSubmit, setCanSubmit] = useState(false);
   const response = SubmissionPeriod.last(responses);
+  const t = useTranslate();
 
   const handleAnswer = (answer) => {
     setCanSubmit(true);
@@ -36,7 +37,7 @@ const Question = ({ navigation, color="blue", id, type, text, expectedValue, res
         <IssueListing color={color} questionId={id} issues={issues} onViewIssue={onViewIssue} />
       </View>}
 
-      {<Button text="Submit" color={color} disabled={!canSubmit} onPress={handleSubmit} />}
+      {<Button text={t.submit} color={color} disabled={!canSubmit} onPress={handleSubmit} />}
     </View>
   );
 };

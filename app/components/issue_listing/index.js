@@ -3,6 +3,8 @@ import Checkbox from "../checkbox";
 import styles from "./styles.js";
 
 const IssueListing = ({ color="blue", questionId, issues=[], onViewIssue=()=>{} }) => {
+  const t = useTranslate();
+
   const openIssues = issues.filter(i => !i.resolution);
   const closedIssues = issues.filter(i => i.resolution);
   const showNewIssue = openIssues.length === 0;
@@ -23,7 +25,7 @@ const IssueListing = ({ color="blue", questionId, issues=[], onViewIssue=()=>{} 
 
       {showNewIssue &&
         <Checkbox color={color} checked={false} onCheck={handleViewIssue()}>
-          Record an issue
+          {t.issue.record}
         </Checkbox>
       }
     </View>

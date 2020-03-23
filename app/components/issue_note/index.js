@@ -4,6 +4,7 @@ import styles from "./styles.js";
 const IssueNote = ({ color, text, photosJson, resolved, user, currentUser, previousNote }) => {
   const photos = JSON.parse(photosJson);
   const hasContent = text || photos.length > 0;
+  const t = useTranslate();
 
   const isSameUser = previousNote && previousNote.user.id === user.id;
   const isThisUser = user.id === currentUser.id;
@@ -38,7 +39,7 @@ const IssueNote = ({ color, text, photosJson, resolved, user, currentUser, previ
         {user.name}
       </Text>
 
-      <Text {...className(["text", "white"])}>This issue is resolved</Text>
+      <Text {...className(["text", "white"])}>{t.issue.resolved}</Text>
     </View>}
   </>;
 };
