@@ -12,6 +12,7 @@
     "expo-background-fetch": "~7.0.0",
     "expo-file-system": "~7.0.0",
     "expo-image-picker": "^7.0.0",
+    "expo-localization": "~7.0.0",
     "expo-network": "^2.0.0",
     "expo-random": "~7.0.0",
     "expo-secure-store": "^8.0.0",
