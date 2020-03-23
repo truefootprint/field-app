@@ -20,6 +20,14 @@ class Client {
     this.headers.Authorization = `Basic ${Base64.btoa(`:${token}`)}`;
   }
 
+  static setLocale(locale) {
+    this.headers["Accept-Language"] = locale;
+  }
+
+  static setTimezone(timezone) {
+    this.headers["Time-Zone"] = timezone;
+  }
+
   getMyData() {
     return this.getJSON("/my_data");
   }

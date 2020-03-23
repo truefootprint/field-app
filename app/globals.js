@@ -38,6 +38,7 @@ import useWhen from "./hooks/use_when";
 import useSecret from "./hooks/use_secret";
 import useBack from "./hooks/use_back";
 import useTranslate from "./hooks/use_translate";
+import useLocale from "./hooks/use_locale";
 
 global.React = React;
 global.useState = useState;
@@ -104,3 +105,4 @@ global.useWhen = useWhen;
 global.useSecret = useSecret;
 global.useBack = useBack;
 global.useTranslate = useTranslate;
+global.useLocale = useLocale;

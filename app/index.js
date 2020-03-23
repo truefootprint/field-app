@@ -31,6 +31,7 @@ const App = () => {
   const [loaded, setLoaded] = useState();
   const [data, setData] = useState();
   const [token, setToken] = useSecret("token", () => setData({}));
+  const { locale, timezone } = useLocale();
 
   const foreground = useForeground();
   const connected = useWifi();
@@ -40,6 +41,11 @@ const App = () => {
     await PhotoUploadTask.runWith({ connected });
     await FileDownloadTask.runWith({ connected });
   }, [connected]);
+
+  useWhen([locale, timezone], async () => {
+    Client.setLocale(locale);
+    Client.setTimezone(timezone);
+  });
 
   if (!loaded || !data) {
     return <AppLoading startAsync={loadApp} onFinish={() => setLoaded(true)} />;
