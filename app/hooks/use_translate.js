@@ -7,6 +7,10 @@
 // Use the latter when you need to provide arguments:
 //
 // t("n_of_m", { n: 3, m: 5 });
+//
+// Keys can be nested with dot (.) characters:
+//
+// t.issue.record
 
 const useTranslate = () => {
   let { data } = useContext(AppContext);
@@ -16,7 +20,7 @@ const useTranslate = () => {
   }
 
   const translate = (key, args={}) => {
-    let value = translate[key];
+    let value = getNested(key);
 
     if (typeof value === "undefined") {
       throw new Error(`missing translation: ${key}`);
@@ -29,8 +33,20 @@ const useTranslate = () => {
     return value;
   };
 
+  const getNested = (key) => (
+    key.split(".").reduce((obj, k) => obj[k], translate)
+  );
+
+  const setNested = (key, value) => {
+    const parts = key.split(".");
+    const last = parts.pop();
+
+    const obj = parts.reduce((obj, k) => obj[k] = obj[k] || {}, translate);
+    obj[last] = value;
+  }
+
   for (const { key, value } of data.userInterfaceText) {
-    translate[key] = value;
+    setNested(key, value);
   }
 
   return translate;
