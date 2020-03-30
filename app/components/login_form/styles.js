@@ -1,6 +1,11 @@
 const styles = StyleSheet.create({
   login_form: {
     flex: 1,
+    backgroundColor: "white",
+  },
+
+  inner: {
+    flex: 1,
     width: "85%",
     justifyContent: "center",
     alignSelf: "center",

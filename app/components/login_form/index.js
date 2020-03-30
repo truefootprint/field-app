@@ -13,22 +13,24 @@ const LoginForm = ({ color="purple", error=false, onSubmit=()=>{} }) => {
 
   return (
     <View {...className("login_form", styles)}>
-      <View {...className("row1")}>
-        <Phone size={25} />
-        <Text {...className("text")}>What’s your mobile number?</Text>
-      </View>
-
-      <View {...className("row2")}>
-        <View {...className("input")}>
-          <TextInput color={color} placeholder="e.g. 01234567890" onChangeText={setPhone} />
+      <View {...className("inner")}>
+        <View {...className("row1")}>
+          <Phone size={25} />
+          <Text {...className("text")}>What’s your mobile number?</Text>
         </View>
 
-        <Button color={color} icon={<ArrowRight color="white" />} onPress={handlePress} />
-      </View>
+        <View {...className("row2")}>
+          <View {...className("input")}>
+            <TextInput color={color} placeholder="e.g. 01234567890" onChangeText={setPhone} />
+          </View>
 
-      {error && <Text {...className("error")}>
-        Login failed. Unrecognised mobile number.
-      </Text>}
+          <Button color={color} icon={<ArrowRight color="white" />} onPress={handlePress} />
+        </View>
+
+        {error && <Text {...className("error")}>
+          Login failed. Unrecognised mobile number.
+        </Text>}
+      </View>
     </View>
   );
 };
