@@ -6,18 +6,18 @@ const palette = {
     secondaryTint: "rgb(75, 87, 81)",
   },
 
-  yellow: {
-    primary:       "rgb(211, 191, 115)",
-    primaryTint:   "rgb(198, 180, 110)",
-    secondary:     "rgb(159, 155, 105)",
-    secondaryTint: "rgb(110, 107, 71)",
-  },
-
   blue: {
     primary:       "rgb(70, 137, 168)",
     primaryTint:   "rgb(63, 129, 160)",
     secondary:     "rgb(77, 104, 117)",
     secondaryTint: "rgb(53, 76, 86)",
+  },
+
+  yellow: {
+    primary:       "rgb(211, 191, 115)",
+    primaryTint:   "rgb(198, 180, 110)",
+    secondary:     "rgb(159, 155, 105)",
+    secondaryTint: "rgb(110, 107, 71)",
   },
 
   red: {
