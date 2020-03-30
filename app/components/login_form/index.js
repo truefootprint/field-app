@@ -1,17 +1,34 @@
 import TextInput from "../../components/text_input";
 import Button from "../../components/button";
+import { Phone, ArrowRight, Exclamation } from "../svg_icon";
 import styles from "./styles.js";
 
-const LoginForm = ({ placeholder="Phone", submitText="Submit", error=false, onSubmit=()=>{} }) => {
+const LoginForm = ({ color="purple", error=false, onSubmit=()=>{} }) => {
   const [phone, setPhone] = useState();
+
+  const handlePress = () => {
+    Keyboard.dismiss();
+    onSubmit(phone);
+  };
 
   return (
     <View {...className("login_form", styles)}>
-      <TextInput placeholder={placeholder} onChangeText={setPhone} />
+      <View {...className("row1")}>
+        <Phone size={25} />
+        <Text {...className("text")}>What’s your mobile number?</Text>
+      </View>
 
-      <Button text={submitText} onPress={() => onSubmit(phone)} />
+      <View {...className("row2")}>
+        <View {...className("input")}>
+          <TextInput color={color} placeholder="e.g. 01234567890" onChangeText={setPhone} />
+        </View>
 
-      {error && <Text {...className("error")}>Login failed</Text>}
+        <Button color={color} icon={<ArrowRight color="white" />} onPress={handlePress} />
+      </View>
+
+      {error && <Text {...className("error")}>
+        Login failed. Unrecognised mobile number.
+      </Text>}
     </View>
   );
 };
