@@ -47,17 +47,15 @@ const App = () => {
     Client.setTimezone(timezone);
   });
 
-  if (!loaded || !data) {
-    return <AppLoading startAsync={loadApp} onFinish={() => setLoaded(true)} />;
-  }
-
   return (
-    <AppContext.Provider value={{ data, setData, token, setToken, connected }}>
-      <View style={{ flex: 1 }} {...className("root")}>
-        <AppContainer />
-        <DevConsole />
-      </View>
-    </AppContext.Provider>
+    !loaded || !data
+      ? <AppLoading startAsync={loadApp} onFinish={() => setLoaded(true)} onError={Logger.warn} />
+      : <AppContext.Provider value={{ data, setData, token, setToken, connected }}>
+          <View style={{ flex: 1 }} {...className("root")}>
+            <AppContainer />
+            <DevConsole />
+          </View>
+        </AppContext.Provider>
   );
 };
 
