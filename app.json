@@ -23,7 +23,15 @@
         "LOCATION",
         "NOTIFICATIONS",
         "USER_FACING_NOTIFICATIONS"
-      ]
+      ],
+      "config": {
+        "googleMaps": { "apiKey": "AIzaSyBcT8g_xEPsRJ59qKoVfeuycYGxeYqOERQ" }
+      }
+    },
+    "ios": {
+      "config": {
+        "googleMapsApiKey": "AIzaSyD69i5vAUkOXZPtdAoqs17uLIoTS73v00M"
+      }
     }
   }
 }
