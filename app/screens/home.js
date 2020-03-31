@@ -2,6 +2,7 @@ import Image from "react-native-fullwidth-image"
 import Layout from "../components/layout";
 import Button from "../components/button";
 import Card from "../components/card";
+import Map from "../components/map";
 
 const image = require("../assets/images/splash-screen.png"); // TODO
 
@@ -25,6 +26,8 @@ const Home = ({ navigation }) => {
     <Layout>
       <ScrollView contentContainerStyle={{ alignItems: "center" }}>
         {projects.map(projectCard)}
+
+        <Card number={1} outOf={1}><Map /></Card>
       </ScrollView>
     </Layout>
   );
