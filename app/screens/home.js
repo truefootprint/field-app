@@ -4,7 +4,13 @@ import Button from "../components/button";
 import Card from "../components/card";
 import Map from "../components/map";
 
-const image = require("../assets/images/splash-screen.png"); // TODO
+const images = {
+  2: require("../assets/images/project-id-2.jpg"),
+  3: require("../assets/images/project-id-3.jpg"),
+  4: require("../assets/images/project-id-4.jpg"),
+  5: require("../assets/images/project-id-5.jpg"),
+  _: require("../assets/images/project-id-2.jpg"),
+};
 
 const Home = ({ navigation }) => {
   const { data } = useContext(AppContext);
@@ -14,10 +20,10 @@ const Home = ({ navigation }) => {
     return () => navigation.navigate("Project", { index });
   };
 
-  const projectCard = ({ name }, i) => (
+  const projectCard = ({ name, id }, i) => (
     <Card key={i} color={palette.cycle(i)} heading={name} number={i + 1} outOf={projects.length}>
       <TouchableOpacity {...className("touchable")} onPress={handlePress(i)} activeOpacity={0.8}>
-        <Image source={image} width={500} height={500} />
+        <Image source={images[id] || images._} width={500} height={350} />
       </TouchableOpacity>
     </Card>
   );
