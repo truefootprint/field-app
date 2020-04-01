@@ -1,5 +1,8 @@
+import * as Location from 'expo-location';
+import * as Permissions from 'expo-permissions';
 import MapView, { Marker } from "react-native-maps";
 import Image from "../image";
+import Button from "../button";
 import styles from "./styles.js";
 
 const Map = () => {
@@ -13,9 +16,20 @@ const Map = () => {
   const [colors, setColors] = useState(["red", "red"]);
   const uri = File.interpolate("[[[documents]]]/d1cd76a708872ce4aa870a2a22b480a7.png");
 
+  const getLocation = async () => {
+    const response = await Permissions.askAsync(Permissions.LOCATION);
+    Logger.log(JSON.stringify(response));
+
+    if (response.status === "granted") {
+      const position = await Location.getCurrentPositionAsync();
+      Logger.log(JSON.stringify(position));
+      setRegion(r => ({ ...position.coords, latitudeDelta: 0.005, longitudeDelta: 0.005 }));
+    }
+  };
+
   return (
     <View {...className("map", styles)}>
-      <MapView {...className("map_view", styles)} initialRegion={region} onRegionChange={setRegion}>
+      <MapView {...className("map_view", styles)} region={region} onRegionChange={setRegion}>
 
         <Marker coordinate={{ latitude: 3.698, longitude: 29.637 }}
                 title="Healthcare Center 1"
@@ -30,11 +44,9 @@ const Map = () => {
         <Marker coordinate={{ latitude: 3.898, longitude: 29.737 }}>
           <Text style={{ color: "red" }}>FieldApp Map Prototype</Text>
         </Marker>
-
-        <Marker coordinate={{ latitude: 3.233, longitude: 29.15 }} image={{ uri }} />
       </MapView>
 
-      <Textj>{region}</Textj>
+      <Button text="Get location" onPress={getLocation} caps={false} />
     </View>
   );
 };
