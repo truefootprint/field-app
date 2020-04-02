@@ -1,5 +1,4 @@
 import "./globals";
-import DevConsole from "./components/dev_console";
 import SyncMyDataTask from "./tasks/sync_my_data_task";
 import PhotoUploadTask from "./tasks/photo_upload_task";
 import FileDownloadTask from "./tasks/file_download_task";
@@ -9,6 +8,8 @@ import Home from "./screens/home";
 import Project from "./screens/project";
 import Source from "./screens/source";
 import Issue from "./screens/issue";
+import Loading from "./components/loading";
+import DevConsole from "./components/dev_console";
 
 // Create the navigation stack so that you can't go back to the login screen.
 const options = { headerMode: "none" };
@@ -32,6 +33,8 @@ const App = () => {
   const foreground = useForeground();
   const connected = useWifi();
 
+  useEffect(() => { loadApp(() => setLoaded(true)); }, []);
+
   useWhen([loaded, foreground, token], async () => {
     await SyncMyDataTask.runWith({ connected, callback: setData });
     await PhotoUploadTask.runWith({ connected });
@@ -43,15 +46,15 @@ const App = () => {
     Client.setTimezone(timezone);
   });
 
+  if (!loaded || !data) return <Loading />;
+
   return (
-    !loaded || !data
-      ? <AppLoading startAsync={loadApp} onFinish={() => setLoaded(true)} onError={Logger.warn} />
-      : <AppContext.Provider value={{ data, setData, token, setToken, connected }}>
-          <View style={{ flex: 1 }} {...className("root")}>
-            <AppContainer />
-            <DevConsole />
-          </View>
-        </AppContext.Provider>
+    <AppContext.Provider value={{ data, setData, token, setToken, connected }}>
+      <View style={{ flex: 1 }} {...className("root")}>
+        <AppContainer />
+        <DevConsole />
+      </View>
+    </AppContext.Provider>
   );
 };
 

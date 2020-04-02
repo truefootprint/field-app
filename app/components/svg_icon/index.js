@@ -63,17 +63,26 @@ const Refresh = ({ size=20, color=palette.black.primary }) => (
   </Svg>
 );
 
-const Spinner = ({ size=20, color }) => (
-  <Svg width={size} height={size} viewBox="0 0 47 47">
-    <Path fill={color || "#4C6876"} d="M28,4.5 C28,6.9853125 25.9853125,9 23.5,9 C21.0146875,9 19,6.9853125 19,4.5 C19,2.0146875 21.0146875,0 23.5,0 C25.9853125,0 28,2.0146875 28,4.5 Z" />
-    <Path fill={color || "#5F736A"} d="M23.5,37 C21.0146875,37 19,39.0146875 19,41.5 C19,43.9853125 21.0146875,46 23.5,46 C25.9853125,46 28,43.9853125 28,41.5 C28,39.0146875 25.9853125,37 23.5,37 Z" />
-    <Path fill={color || "#4E4053"} d="M41.5,19 C39.0146875,19 37,21.0146875 37,23.5 C37,25.9853125 39.0146875,28 41.5,28 C43.9853125,28 46,25.9853125 46,23.5 C46,21.0146875 43.9853125,19 41.5,19 Z" />
-    <Path fill={color || "#804C59"} d="M9,23.5 C9,21.0146875 6.9853125,19 4.5,19 C2.0146875,19 0,21.0146875 0,23.5 C0,25.9853125 2.0146875,28 4.5,28 C6.9853125,28 9,25.9853125 9,23.5 Z" />
-    <Path fill={color || "#4E4053"} d="M9.5,32 C7.0146875,32 5,34.0146875 5,36.5 C5,38.9853125 7.0146875,41 9.5,41 C11.9853125,41 14,38.9853125 14,36.5 C14,34.0147812 11.9852187,32 9.5,32 Z" />
-    <Path fill={color || "#4C6876"} d="M36.5,32 C34.0146875,32 32,34.0146875 32,36.5 C32,38.9853125 34.0146875,41 36.5,41 C38.9853125,41 41,38.9853125 41,36.5 C41,34.0147812 38.9853125,32 36.5,32 Z" />
-    <Path fill={color || "#C6B46A"} d="M9.5,5 C7.0146875,5 5,7.0146875 5,9.5 C5,11.9853125 7.0146875,14 9.5,14 C11.9853125,14 14,11.9853125 14,9.5 C14,7.0146875 11.9852187,5 9.5,5 Z" />
-  </Svg>
-);
+const Spinner = ({ size=20, pointSize=9, numberOfPoints=8, frame=0 }) => {
+  const theta = Math.PI * 2 / numberOfPoints;
+  const radius = size / 2;
+
+  const centerX = i => Math.cos(i * theta) * (radius - pointSize);
+  const centerY = i => Math.sin(i * theta) * (radius - pointSize);
+
+  const color = i => isBlank(i) ? "white" : palette[palette.cycle(i)].secondary;
+  const isBlank = i => i === frame % numberOfPoints;
+
+  const range = Array(numberOfPoints).fill().map((_, i) => i);
+
+  return (
+    <Svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+      <Group transform={`translate(${radius}, ${radius})`}>
+        {range.map(i => <Circle key={i} cx={centerX(i)} cy={centerY(i)} fill={color(i)} r={pointSize} />)}
+      </Group>
+    </Svg>
+  );
+};
 
 const Tick = ({ size=20, color=palette.black.primary }) => (
   <Svg width={size} height={size} viewBox="0 0 32.296 32.296">

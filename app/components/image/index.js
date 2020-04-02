@@ -1,4 +1,4 @@
-import FullWidthImage from "react-native-fullwidth-image"
+import FullWidthImage from "react-native-fullwidth-image";
 import File from "../../helpers/file";
 import Downloader from "../downloader";
 

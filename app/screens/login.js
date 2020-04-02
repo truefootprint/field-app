@@ -1,6 +1,7 @@
 import Layout from "../components/layout";
 import LoginForm from "../components/login_form";
 import NoWifi from "../components/no_wifi";
+import Loading from "../components/loading";
 
 const Login = ({ navigation }) => {
   const { token, setToken, data, connected } = useContext(AppContext);
@@ -21,9 +22,10 @@ const Login = ({ navigation }) => {
     token ? setToken(token) : setError(true)
   };
 
-  return connected
-    ? <LoginForm onSubmit={handleSubmit} error={error} />
-    : <NoWifi />;
+  if (token) return <Loading />;
+  if (!connected) return <NoWifi />;
+
+  return <LoginForm onSubmit={handleSubmit} error={error} />;
 };
 
 export default Login;
