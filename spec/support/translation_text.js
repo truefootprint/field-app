@@ -11,6 +11,7 @@ export default [
   { key: "issue.is_it_resolved", value: "Is this issue resolved?" },
   { key: "issue.are_you_sure",   value: "Are you sure this issue is resolved?" },
   { key: "issue.yes_resolved",   value: "Yes, it’s resolved" },
+  { key: "issue.recorded",       value: "Issue recorded" },
   { key: "issue.resolved",       value: "Issue resolved" },
   { key: "yes",                  value: "Yes" },
   { key: "no",                   value: "No" },

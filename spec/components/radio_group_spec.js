@@ -1,7 +1,7 @@
 import RadioGroup, { Radio } from "../../app/components/radio_group";
 import Checkbox from "../../app/components/checkbox";
 
-describe("<Checkbox />", () => {
+describe("<RadioGroup />", () => {
   it("renders", () => {
     render(<RadioGroup />);
 
@@ -70,7 +70,7 @@ describe("<Checkbox />", () => {
     expect(props(group).data.index).toBe(1);
 
     fireEvent.press(group.getAllByTestId("touchable")[0]);
-    expect(props(group).data.index).toBe(1);
+    expect(props(group).data.index).toBe(1); // does not change
   });
 
   it("can combine radios and other components", () => {

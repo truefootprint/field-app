@@ -178,6 +178,20 @@ describe("<Question />", () => {
       expect(props(radios[0]).data.checked).toBe(false);
       expect(props(radios[1]).data.checked).toBe(true);
     });
+
+    it("works with multiple answers", () => {
+      const options = [{ id: 1, text: "First" }, { id: 2, text: "Second" }];
+      const response = { value: "[1,2]", createdAt: new Date().toString() };
+
+      const question = render(
+        <Question {...nav} type="multi_choice" multipleAnswers={true} multiChoiceOptions={options} responses={[response]} />
+      );
+
+      const checkboxes = question.getAllByTestId("checkbox");
+
+      expect(props(checkboxes[0]).data.checked).toBe(true);
+      expect(props(checkboxes[1]).data.checked).toBe(true);
+    });
   });
 
   describe("photo upload questions", () => {

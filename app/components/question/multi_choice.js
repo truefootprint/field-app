@@ -1,28 +1,42 @@
 import RadioGroup, { Radio } from "../radio_group";
+import CheckList, { Checkbox } from "../check_list";
 
-const MultiChoice = ({ color="blue", multiChoiceOptions=[], response, onAnswer=()=>{} }) => {
-  const defaultId = response && parseInt(response.value, 10);
+const MultiChoice = ({ color="blue", response, multiChoiceOptions=[], multipleAnswers, onAnswer=()=>{} }) => {
+  const optionsText = multiChoiceOptions.map(o => o.text);
 
-  // TODO: add support for multiple selections
-  const defaultIndex = filterIndex(multiChoiceOptions, o => o.id === defaultId)[0];
+  const defaultIds = response && [JSON.parse(response.value)].flat() || [];
+  const defaultIndexes = filterIndex(multiChoiceOptions, o => contains(o.id, defaultIds));
 
-  const radio = ({ text }, i) => (
-    <Radio key={i}>
-      <Text>{text}</Text>
-    </Radio>
-  );
+  const onChange = (indexes) => {
+    const ids = indexes.map(index => multiChoiceOptions[index].id);
+    ids.sort((a, b) => a - b);
 
-  const handleChange = (index) => {
-    const option = multiChoiceOptions[index];
-
-    onAnswer(option.id);
+    const value = ids.length <= 1 ? (ids[0] || "") : JSON.stringify(ids);
+    onAnswer(value);
   };
 
-  return (
-    <RadioGroup color={color} onChange={handleChange} defaultIndex={defaultIndex}>
-      {multiChoiceOptions.map(radio)}
-    </RadioGroup>
-  );
+  const props = { color, defaultIndexes, optionsText, onChange };
+  return multipleAnswers ? <MultipleAnswers {...props} /> : <SingleAnswer {...props} />;
 };
+
+const MultipleAnswers = ({ color, defaultIndexes, optionsText, onChange=()=>{} }) => (
+  <CheckList color={color} onChange={onChange} defaultIndexes={defaultIndexes}>
+    {optionsText.map((text, i) => (
+      <Checkbox key={i}>
+        <Text>{text}</Text>
+      </Checkbox>
+    ))}
+  </CheckList>
+);
+
+const SingleAnswer = ({ color, defaultIndexes, optionsText, onChange=()=>{} }) => (
+  <RadioGroup color={color} onChange={i => onChange([i])} defaultIndex={defaultIndexes[0]}>
+    {optionsText.map((text, i) => (
+      <Radio key={i}>
+        <Text>{text}</Text>
+      </Radio>
+    ))}
+  </RadioGroup>
+);
 
 export default MultiChoice;
