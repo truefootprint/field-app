@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+
+require "json"
+
+path_to_token = ARGV.first
+
+if path_to_token.nil?
+  puts "Usage: ./bin/build /path/to/github-api-token"
+  puts "This must be created on a per-user basis with the 'repo:public_repo' permission"
+  exit(1)
+end
+
+token = File.read(path_to_token).strip
+version = JSON.parse(File.read("app.json")).dig("expo", "version")
+files = Dir.glob("dist/*").map { |file| "--attach #{file}" }.join(" ")
+
+puts "Creating release #{version} in GitHub"
+
+success = system(<<~CMD)
+  (which hub || brew install hub) &&                                           \
+                                                                               \
+  GITHUB_TOKEN=#{token}                                                        \
+    hub release create #{version} -m 'Release version #{version}' #{files}
+CMD
+
+exit(success ? 0 : 1)
+
