@@ -1,6 +1,21 @@
 #!/bin/bash
 
-expo export --public-url https://field-app.truefootprint.com --dump-sourcemap
+expo export \
+  --public-url https://github.com/truefootprint/field-app/releases/latest/download \
+  --asset-url . \
+  --dump-sourcemap
 
+# We don't need the iOS bundle since the app is only supported on Android currently.
 rm -f dist/ios-*
 rm -f dist/bundles/ios-*
+rm -f dist/debug.html
+
+# Flatten the dist directory so it fits the format for GitHub releases.
+find dist -type f -mindepth 2 -exec mv {} dist \;
+
+# Remove the leftover empty directories.
+find dist -type d -mindepth 1 -exec rmdir {} \;
+
+# Update the index files now that the assets/bundles have moved up a directory.
+sed -i '' 's/download\/assets/download/g' dist/*.json
+sed -i '' 's/download\/bundles/download/g' dist/*.json
