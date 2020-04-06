@@ -1,14 +1,16 @@
 #!/bin/bash
 
-if [ "$#" -ne 2 ]; then
-  echo "Usage: ./bin/deploy /path/to/expo-credentials.json /path/to/sentry-credentials.json"
+if [ "$#" -ne 3 ]; then
+  echo "Usage: ./bin/deploy github-api-token expo-credentials.json sentry-credentials.json"
   exit 1
 fi
 
-./bin/clean            && \
-./bin/switch_env prod  &&
-./bin/export           && \
-./bin/build $1         && \
-./bin/push_gh_pages    && \
-./bin/upload $1        && \
-./bin/sourcemap $2
+./bin/clean                        && \
+./bin/switch_env prod              && \
+./bin/export                       && \
+./bin/github_release $1            && \
+./bin/build $2                     && \
+./bin/github_release $1 --append   && \
+./bin/push_gh_pages                && \
+./bin/upload $2                    && \
+./bin/sourcemap $3
