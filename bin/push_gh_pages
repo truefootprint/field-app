@@ -1,13 +1,14 @@
 #/bin/bash
 
-cd dist                                                         && \
+rm -rf tmp/gh-pages                                             && \
+mkdir -p tmp/gh-pages                                           && \
+cd tmp/gh-pages                                                 && \
 touch .nojekyll                                                 && \
 echo field-app.truefootprint.com > CNAME                        && \
-cp ../app/assets/html/redirect.html index.html                  && \
-cp ../app/assets/html/privacy-policy.html .                     && \
+cp ../../app/assets/html/* .                                    && \
 git init                                                        && \
 git add -A                                                      && \
 git commit -m 'Deploy changes'                                  && \
 git remote add origin git@github.com:truefootprint/field-app    && \
 git push -f origin head:gh-pages                                && \
-cd ..
+cd ../..
