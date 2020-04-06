@@ -17,6 +17,12 @@ data = JSON.parse(json, symbolize_names: true)
 relative_path = data.fetch(:keystore_path)
 keystore_path = File.expand_path("#{path}/../#{relative_path}")
 
+# Even though we have all the files locally, expo's workflow insists we build
+# from remote files generated with the 'export' command. I suppose this is to
+# ensure the application bundles _actually_ exist in the location you've set so
+# that 'over the air' updates work when the app is downloaded to a device.
+latest_release = "https://github.com/truefootprint/field-app/releases/latest/download"
+
 success = system(<<~CMD)
   turtle setup:android                                                      && \
                                                                                \
@@ -26,7 +32,7 @@ success = system(<<~CMD)
   EXPO_ANDROID_KEY_PASSWORD=#{data.fetch(:key_password)}                       \
                                                                                \
   turtle build:android                                                         \
-    --public-url https://field-app.truefootprint.com/android-index.json        \
+    --public-url #{latest_release}/android-index.json                          \
     --keystore-path #{keystore_path}                                           \
     --keystore-alias #{data.fetch(:keystore_alias)}                            \
     --output dist/field-app.aab                                             && \
