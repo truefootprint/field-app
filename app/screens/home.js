@@ -1,3 +1,4 @@
+import Constants from "expo-constants";
 import Image from "react-native-fullwidth-image"
 import Layout from "../components/layout";
 import Button from "../components/button";
@@ -34,6 +35,10 @@ const Home = ({ navigation }) => {
         {projects.map(projectCard)}
 
         <Card number={1} outOf={1}><Map /></Card>
+
+        <Text style={{ marginBottom: 20, color: "#ddd", fontSize: 12 }}>
+          FieldApp version {Constants.manifest.version}
+        </Text>
       </ScrollView>
     </Layout>
   );
