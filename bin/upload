@@ -20,7 +20,7 @@ success = system(<<~CMD)
   expo upload:android          \
     --key #{upload_key_path}   \
     --path dist/field-app.aab  \
-    --track internal
+    --track production
 CMD
 
 unless success
