@@ -2,25 +2,28 @@
 
 require "json"
 
-path_to_token = ARGV.first
+path_to_token, append_flag = ARGV
 
 if path_to_token.nil?
-  puts "Usage: ./bin/build /path/to/github-api-token"
+  puts "Usage: ./bin/build /path/to/github-api-token [--append]"
   puts "This must be created on a per-user basis with the 'repo:public_repo' permission"
   exit(1)
 end
 
+appending = append_flag == "--append"
+command = appending ? "edit" : "create"
+
 token = File.read(path_to_token).strip
 version = JSON.parse(File.read("app.json")).dig("expo", "version")
-files = Dir.glob("dist/*").map { |file| "--attach #{file}" }.join(" ")
 
-puts "Creating release #{version} in GitHub"
+paths = appending ? "dist/field-app*" : "dist/*"
+attachments = Dir.glob(paths).map { |file| "--attach #{file}" }.join(" ")
 
 success = system(<<~CMD)
   (which hub || brew install hub) &&                                           \
                                                                                \
   GITHUB_TOKEN=#{token}                                                        \
-    hub release create #{version} -m 'Release version #{version}' #{files}
+    hub release #{command} #{version} -m 'Release version #{version}' #{attachments}
 CMD
 
 exit(success ? 0 : 1)
