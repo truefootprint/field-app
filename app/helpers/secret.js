@@ -2,11 +2,17 @@ import * as SecureStore from "expo-secure-store";
 
 class Secret {
   static read = async (key, callback=()=>{}) => {
-    const value = await SecureStore.getItemAsync(key);
+    let value;
+
+    // This guards against corruption / loss of encryption key.
+    try { value = await SecureStore.getItemAsync(key); }
+    catch { await this.remove(key); }
+
     await callback(value);
     return value;
   };
 
+  // Sometimes this fails in the emulator. Fixed by uninstalling expo.
   static write = async (key, value, callback=()=>{}) => {
     await SecureStore.setItemAsync(key, value);
     await callback(value);
