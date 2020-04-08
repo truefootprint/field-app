@@ -53,8 +53,12 @@ class Client {
 
   async getJSON(path) {
     const response = await fetch(`${host}${path}`, { headers: Client.headers });
-    const data = await response.json();
 
+    if (this.isError(response)) {
+      throw new Error(`GET ${path} failed with a ${response.status} status code`);
+    }
+
+    const data = await response.json();
     return camelCaseKeys(data, { deep: true });
   }
 
@@ -79,9 +83,8 @@ class Client {
       body,
     });
 
-    const status = response.status;
-    if (status !== 201 && status !== 401) {
-      throw new Error(`POST failed with ${response.status}: ${path}`);
+    if (this.isError(response)) {
+      throw new Error(`POST ${path} failed with a ${response.status} status code`);
     }
 
     try {
@@ -90,6 +93,10 @@ class Client {
     } catch {
       return {};
     }
+  }
+
+  isError(response) {
+    return response.status >= 400;
   }
 
   toFormData(data) {
