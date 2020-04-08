@@ -1,9 +1,9 @@
-import Constants from "expo-constants";
 import Image from "react-native-fullwidth-image"
 import Layout from "../components/layout";
 import Button from "../components/button";
 import Card from "../components/card";
 import Map from "../components/map";
+import Version from "../components/version";
 
 const images = {
   2: require("../assets/images/project-id-2.jpg"),
@@ -36,9 +36,7 @@ const Home = ({ navigation }) => {
 
         <Card number={1} outOf={1}><Map /></Card>
 
-        <Text style={{ marginBottom: 20, color: "#ddd", fontSize: 12 }}>
-          FieldApp version {Constants.manifest.version}
-        </Text>
+        <Version />
       </ScrollView>
     </Layout>
   );
