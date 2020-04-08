@@ -49,4 +49,22 @@ const catchGlobalErrors = () => {
   tracking.enable({ allRejections: true, onUnhandled: handleRejected });
 };
 
+import React from "react";
+class ErrorBoundary extends React.Component {
+  state = { hasError: false }
+
+  static getDerivedStateFromError (error) {
+    return { hasError: true }
+  }
+
+  componentDidCatch (error, info) {
+    alert('test');
+  }
+
+  render () {
+    return this.state.hasError ? null : this.props.children;
+  }
+}
+
 export default catchGlobalErrors;
+export { ErrorBoundary };

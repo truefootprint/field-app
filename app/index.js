@@ -11,6 +11,8 @@ import Issue from "./screens/issue";
 import Loading from "./components/loading";
 import DevConsole from "./components/dev_console";
 
+import { ErrorBoundary } from "./helpers/global_errors";
+
 // Create the navigation stack so that you can't go back to the login screen.
 const options = { headerMode: "none" };
 const AppStack = createStackNavigator({ Home, Project, Source, Issue }, options);
@@ -49,12 +51,14 @@ const App = () => {
   if (!loaded || !data) return <Loading />;
 
   return (
+    <ErrorBoundary>
     <AppContext.Provider value={{ data, setData, token, setToken, connected }}>
       <View style={{ flex: 1 }} {...className("root")}>
         <AppContainer />
         <DevConsole />
       </View>
     </AppContext.Provider>
+    </ErrorBoundary>
   );
 };
 
