@@ -17,10 +17,6 @@ const Summary = ({ color="blue", name, text, activityCount, hasContract, onViewC
       {hasContract &&
         <Button color={color} text={t.project_contract} caps={false} fill={false} onPress={onViewContract} />
       }
-
-      <Text {...className("activity_count")}>
-        {t("n_activities", { n: activityCount })}:
-      </Text>
     </View>
   );
 };

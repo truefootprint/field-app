@@ -2,7 +2,6 @@ export default [
   { key: "n_of_m",               value: "%{n} of %{m}" },
   { key: "project_summary",      value: "Project summary" },
   { key: "project_contract",     value: "Project contract" },
-  { key: "n_activities",         value: "This project has %{n} activities to monitor" },
   { key: "view_details",         value: "View details" },
   { key: "add_notes",            value: "Add your notes..." },
   { key: "photo.take",           value: "Take photo" },
