@@ -29,6 +29,8 @@ File.write(path, <<~JSON)
   // fetched userInterfaceText from /my_data. This is bundled into the app.
 
   const preLoginTranslations = #{json};
+
+  export default preLoginTranslations;
 JSON
 
 puts "Written to #{path}"

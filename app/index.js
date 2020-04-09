@@ -42,6 +42,7 @@ const App = () => {
   }, [connected]);
 
   useWhen([locale, timezone], async () => {
+    useTranslate.setLocale(locale);
     Client.setLocale(locale);
     Client.setTimezone(timezone);
   });

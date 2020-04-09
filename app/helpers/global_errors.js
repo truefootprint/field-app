@@ -35,17 +35,23 @@ const catchGlobalErrors = () => {
     let title, body;
 
     if (message.match(/\d\d\d status/)) {
-      [title, body] = ["Network error", "Sorry, there seems to be a problem with our computers. Please try again later."];
+      [title, body] = [t("error.network.title"), t("error.network.body")];
     } else {
-      [title, body] = ["Unexpected Error", "Sorry, there seems to be a problem. If it keeps happening, try reinstalling the app."];
+      [title, body] = [t("error.unknown.title"), t("error.unknown.body")];
     }
 
     if (message.length > 0) {
-      body += `\n\nError details:\n${message.trim()}`;
+      body += `\n\n${t("error.details")}\n${message.trim()}`;
     }
 
     return [title, body];
   };
+
+  // The useTranslate hook should define global.translate. If the app errors
+  // before we even get there, fallback to the pre-login English translations.
+  const t = (key) => (
+    global.translate ? global.translate(key) : preLoginTranslations["en"][key]
+  );
 
   ErrorUtils.setGlobalHandler(handleError);
   tracking.enable({ allRejections: true, onUnhandled: handleRejected });

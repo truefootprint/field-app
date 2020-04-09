@@ -1,3 +1,5 @@
+import preLoginTranslations from "../helpers/pre_login_translations";
+
 // Provides a function for getting translated text from the user_interface_text
 // section of /my_data. Both these work:
 //
@@ -15,8 +17,17 @@
 const useTranslate = () => {
   let { data } = useContext(AppContext);
 
+  data = data || { userInterfaceText: [] };
+  data.userInterfaceText = data.userInterfaceText || [];
+
   if (typeof jest !== "undefined") {
     data = { userInterfaceText: fakeTranslationText };
+  }
+
+  if (useTranslate.locale) {
+    data.userInterfaceText = [
+      ...preLoginTranslations[useTranslate.locale], ...data.userInterfaceText,
+    ];
   }
 
   const translate = (key, args={}) => {
@@ -49,7 +60,15 @@ const useTranslate = () => {
     setNested(key, value);
   }
 
+  // Try to use translations in app/helpers/global_errors if the app hasn't
+  // crashed before this point! Otherwise, it falls back to pre-login / English.
+  global.translate = translate;
+
   return translate;
+};
+
+useTranslate.setLocale = (locale) => {
+  useTranslate.locale = "fr"; // TODO: fallbacks
 };
 
 export default useTranslate;

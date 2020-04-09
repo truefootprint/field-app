@@ -5,6 +5,7 @@ import styles from "./styles.js";
 
 const LoginForm = ({ color="purple", error=false, onSubmit=()=>{} }) => {
   const [phone, setPhone] = useState();
+  const t = useTranslate();
 
   const handlePress = () => {
     Keyboard.dismiss();
@@ -16,19 +17,19 @@ const LoginForm = ({ color="purple", error=false, onSubmit=()=>{} }) => {
       <View {...className("inner")}>
         <View {...className("row1")}>
           <Phone size={25} />
-          <Text {...className("text")}>What’s your mobile number?</Text>
+          <Text {...className("text")}>{t.login.prompt}</Text>
         </View>
 
         <View {...className("row2")}>
           <View {...className("input")}>
-            <TextInput color={color} placeholder="e.g. 01234567890" onChangeText={setPhone} />
+            <TextInput color={color} placeholder={t.login.placeholder} onChangeText={setPhone} />
           </View>
 
           <Button color={color} icon={<ArrowRight color="white" />} onPress={handlePress} />
         </View>
 
         {error && <Text {...className("error")}>
-          Login failed. Unrecognised mobile number.
+          {t.login.failed}
         </Text>}
       </View>
     </View>

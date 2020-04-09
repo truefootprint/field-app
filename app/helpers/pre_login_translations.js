@@ -81,3 +81,5 @@ const preLoginTranslations = {
     }
   ]
 };
+
+export default preLoginTranslations;
