@@ -20,15 +20,15 @@ const Version = () => {
   };
 
   const throwTestErrors = () => {
-    setTimeout(() => {
-      throw new Error('Test error: async timeout');
-    }, 1000);
-
     (async () => {
-      throw new Error('Test error: async promise');
+      throw new Error('Test error 1 out of 3: from a promise');
     })();
 
-    throw new Error('Test error: synchronous');
+    setTimeout(() => {
+      throw new Error('Test error 2 out of 3: from a timeout');
+    }, 1000);
+
+    throw new Error('Test error 3 out of 3: from the main thread');
   }
 
   return (
