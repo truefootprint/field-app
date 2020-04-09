@@ -22,6 +22,7 @@ const styles = (theme) => StyleSheet.create({
   text_input: {
     flex: 1,
     backgroundColor: "white",
+    paddingLeft: 10,
   },
 
   image_input: {
