@@ -18,9 +18,23 @@ const Login = ({ navigation }) => {
   const handleSubmit = async (phone) => {
     setError(false);
 
-    const { token } = await new Client().postTokens(phone);
+    const token = await generateToken(phone);
     token ? setToken(token) : setError(true)
   };
+
+  const generateToken = async (phone) => {
+    try {
+      const { token } = await new Client().postTokens(phone);
+      return token;
+    } catch (error) {
+      if (authFailed(error)) return null;
+      throw error;
+    }
+  };
+
+  const authFailed = (error) => (
+    error && error.message && error.message.includes("401")
+  );
 
   if (token) return <Loading />;
   if (!connected) return <NoWifi />;
