@@ -7,6 +7,7 @@ fi
 
 ./bin/clean                        && \
 ./bin/switch_env prod              && \
+./bin/translations prod --confirm  && \
 ./bin/export                       && \
 ./bin/github_release $1            && \
 ./bin/build $2                     && \

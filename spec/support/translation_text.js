@@ -19,5 +19,4 @@ export default [
   { key: "loading",              value: "Loading..." },
   { key: "try_again",            value: "Try again" },
   { key: "download_failed",      value: "Download failed" },
-  { key: "no_wifi",              value: "No WiFi, please connect to WiFi." },
 ];
