@@ -1,17 +1,19 @@
 import * as tracking from "promise/setimmediate/rejection-tracking";
 import { Alert } from "react-native";
 
-// This runs after Expo and Sentry have registered their own listeners, although
-// Expo has RootErrorBoundary that may still intercept errors in development.
+// If an Expo app crashes, the default behaviour is to reload the app. We don't
+// want this, e.g. if a server request fails, the user should still be able to
+// use the app and the request will retry (and hopefully succeed) later.
+//
+// Instead of reloading the app, we instead show an alert to the user. This can
+// be tested in production by tapping on the Version component a few times. The
+// handleError function calls 'previous' so errors are still sent to Sentry.
 //
 // If an unhandled Promise is rejected, the sentry-expo package is smart and
-// captures that, but there's no way to hook into this process at present.
-//
-// Therefore, we capture these rejections ourselves, log them and call then
-// handleError function which _should_ send them to Sentry (it calls previous).
-//
-// Instead of crashing the app, we instead show alerts to the user which can
-// be tested in production by tapping on the Version component a few times.
+// captures that, but there's no way to hook into this process. Therefore, we
+// capture these ourself, log them and call handleError to send them to Sentry.
+
+ErrorUtils.setGlobalHandler(() => {}); // Clear Expo's handler at import time.
 
 const catchGlobalErrors = () => {
   const previous = ErrorUtils.getGlobalHandler();
