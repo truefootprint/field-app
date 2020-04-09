@@ -68,7 +68,14 @@ const useTranslate = () => {
 };
 
 useTranslate.setLocale = (locale) => {
-  useTranslate.locale = "fr"; // TODO: fallbacks
+  const p = preLoginTranslations;
+  const [language, region] = locale.split("-");
+
+  // Mimic the fallback behaviour in Rails. If we end up with more complicated
+  // rules in the backend, we could pass them via the /translations endpoint.
+  if (p[locale])   { useTranslate.locale = locale;   return; }
+  if (p[language]) { useTranslate.locale = language; return; }
+  if (p["en"])     { useTranslate.locale = "en";     return; }
 };
 
 export default useTranslate;
