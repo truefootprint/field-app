@@ -56,6 +56,8 @@ const useTranslate = () => {
     obj[last] = value;
   }
 
+  // This is inefficient since we build the entire translations object in every
+  // component that uses this hook, even if one key is used. TODO: do it better
   for (const { key, value } of data.userInterfaceText) {
     setNested(key, value);
   }
