@@ -16,7 +16,7 @@ def set_host(host)
 end
 
 if env == "prod"
-  set_host("https://reporter-backend.truefootprint.com")
+  set_host("https://field-backend.truefootprint.com")
   exit(0)
 end
 

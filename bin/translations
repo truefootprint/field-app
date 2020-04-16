@@ -13,7 +13,7 @@ end
 
 host = {
   dev: "http://localhost:3000/translations",
-  prod: "https://reporter-backend.truefootprint.com/translations",
+  prod: "https://field-backend.truefootprint.com/translations",
 }.fetch(env.to_sym)
 
 puts "Pulling pre-login translations from #{host}"
