@@ -19,7 +19,10 @@ const Home = ({ navigation }) => {
   const projects = data.projects;
 
   const handlePress = (index) => {
-    return () => navigation.navigate("Project", { index });
+    return () => {
+      useTranslate.setProject(projects[index]); // Use the project-specific translations.
+      navigation.navigate("Project", { index });
+    }
   };
 
   const projectCard = ({ name, id }, i) => (

@@ -48,18 +48,20 @@ const useTranslate = () => {
     key.split(".").reduce((obj, k) => obj[k], translate)
   );
 
-  const setNested = (key, value) => {
+  const setNested = (key, value, projects) => {
+    if (projects && !contains(useTranslate.projectId, projects)) return;
+
     const parts = key.split(".");
     const last = parts.pop();
 
     const obj = parts.reduce((obj, k) => obj[k] = obj[k] || {}, translate);
-    obj[last] = value;
+    obj[last] = obj[last] || value; // Don't override project-specific translation.
   }
 
   // This is inefficient since we build the entire translations object in every
   // component that uses this hook, even if one key is used. TODO: do it better
-  for (const { key, value } of data.userInterfaceText) {
-    setNested(key, value);
+  for (const { key, value, projects } of data.userInterfaceText) {
+    setNested(key, value, projects);
   }
 
   // Try to use translations in app/helpers/global_errors if the app hasn't
@@ -79,5 +81,13 @@ useTranslate.setLocale = (locale) => {
   if (p[language]) { useTranslate.locale = language; return; }
   if (p["en"])     { useTranslate.locale = "en";     return; }
 };
+
+useTranslate.setProject = ({ id }) => {
+  useTranslate.projectId = id;
+};
+
+useTranslate.unsetProject = () => {
+  delete useTranslate.projectId;
+}
 
 export default useTranslate;

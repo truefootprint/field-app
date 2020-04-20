@@ -8,6 +8,11 @@ const Project = ({ navigation }) => {
   const index = navigation.getParam("index");
   const project = data.projects[index];
 
+  useBack(() => {
+    useTranslate.unsetProject(); // Don't use project-specific translations.
+    navigation.navigate("Home");
+  });
+
   const handleAnswer = ({ question, answer }) => {
     answerQuestion({ connected, question, answer });
   };
