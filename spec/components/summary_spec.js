@@ -11,14 +11,6 @@ describe("<Sticky />", () => {
     expect(style(summary).backgroundColor).toBe(palette.green.primary);
   });
 
-  it("hides the heading if there is no summary text", () => {
-    const withHeading = render(<Summary color="green" text="text" />);
-    expect(withHeading).toHaveText("Project summary");
-
-    const withoutHeading = render(<Summary color="green" />);
-    expect(withoutHeading).not.toHaveText("Project summary");
-  });
-
   it("hides the 'Project contract' button if hasContract is false", () => {
     const withContract = render(<Summary hasContract={true} />);
     expect(withContract).toHaveText("Project contract");

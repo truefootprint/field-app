@@ -1,7 +1,8 @@
 export default [
   { key: "n_of_m",               value: "%{n} of %{m}" },
-  { key: "project_summary",      value: "Project summary" },
-  { key: "project_contract",     value: "Project contract" },
+  { key: "summary.title",        value: "Project summary" },
+  { key: "summary.body",         value: "..." },
+  { key: "summary.contract",     value: "Project contract" },
   { key: "view_details",         value: "View details" },
   { key: "add_notes",            value: "Add your notes..." },
   { key: "photo.take",           value: "Take photo" },
