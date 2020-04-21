@@ -37,9 +37,6 @@ const Home = ({ navigation }) => {
     <Layout>
       <ScrollView contentContainerStyle={{ alignItems: "center" }}>
         {projects.map(projectCard)}
-
-        <Card number={1} outOf={1}><Map /></Card>
-
         <Version />
       </ScrollView>
     </Layout>
