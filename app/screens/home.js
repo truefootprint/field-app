@@ -18,10 +18,10 @@ const Home = ({ navigation }) => {
   const { data } = useContext(AppContext);
   const projects = data.projects;
 
-  const handlePress = (index) => {
+  const handlePress = (projectIndex) => {
     return () => {
-      useTranslate.setProject(projects[index]); // Use the project-specific translations.
-      navigation.navigate("Project", { index });
+      useTranslate.setProject(projects[projectIndex]); // Use the project-specific translations.
+      navigation.navigate("Intro", { introPage: 1, projectIndex });
     }
   };
 

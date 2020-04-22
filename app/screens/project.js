@@ -5,7 +5,7 @@ import answerQuestion from "../workflows/answer_question";
 const Project = ({ navigation }) => {
   const { data, connected } = useContext(AppContext);
 
-  const index = navigation.getParam("index");
+  const index = navigation.getParam("projectIndex");
   const project = data.projects[index];
 
   useBack(() => {

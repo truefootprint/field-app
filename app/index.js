@@ -5,6 +5,7 @@ import FileDownloadTask from "./tasks/file_download_task";
 import loadApp from "./workflows/load_app";
 import Login from "./screens/login";
 import Home from "./screens/home";
+import Intro from "./screens/intro";
 import Project from "./screens/project";
 import Source from "./screens/source";
 import Issue from "./screens/issue";
@@ -13,7 +14,7 @@ import DevConsole from "./components/dev_console";
 
 // Create the navigation stack so that you can't go back to the login screen.
 const options = { headerMode: "none" };
-const AppStack = createStackNavigator({ Home, Project, Source, Issue }, options);
+const AppStack = createStackNavigator({ Home, Intro, Project, Source, Issue }, options);
 const AuthStack = createSwitchNavigator({ Login, App: AppStack }, options);
 const AppContainer = createAppContainer(AuthStack);
 
