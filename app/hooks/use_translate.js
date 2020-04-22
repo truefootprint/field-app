@@ -49,14 +49,18 @@ const useTranslate = () => {
   );
 
   const setNested = (key, value, projects) => {
-    if (projects && !contains(useTranslate.projectId, projects)) return;
+    if (projects && !contains(useTranslate.project.id, projects)) return;
 
     const parts = key.split(".");
     const last = parts.pop();
 
     const obj = parts.reduce((obj, k) => obj[k] = obj[k] || {}, translate);
-    obj[last] = obj[last] || value; // Don't override project-specific translation.
+    obj[last] = obj[last] || interpolate(value);
   }
+
+  const interpolate = (value) => (
+    value.replace("%{project}", useTranslate.project.name)
+  );
 
   // This is inefficient since we build the entire translations object in every
   // component that uses this hook, even if one key is used. TODO: do it better
@@ -82,12 +86,14 @@ useTranslate.setLocale = (locale) => {
   if (p["en"])     { useTranslate.locale = "en";     return; }
 };
 
-useTranslate.setProject = ({ id }) => {
-  useTranslate.projectId = id;
+useTranslate.setProject = (project) => {
+  useTranslate.project = project;
 };
 
 useTranslate.unsetProject = () => {
-  delete useTranslate.projectId;
+  delete useTranslate.project;
 }
+
+useTranslate.project = {};
 
 export default useTranslate;
