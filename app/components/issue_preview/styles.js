@@ -4,6 +4,7 @@ const styles = (theme) => StyleSheet.create({
     borderLeftWidth: 3,
     marginLeft: -3,
     paddingLeft: 15,
+    marginBottom: 30,
   },
 
   side_by_side: {
