@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext, useRef, cloneElement } from "re
 import { useScreens } from "react-native-screens";
 import { View, StyleSheet, TouchableOpacity, TouchableHighlight, TouchableWithoutFeedback, Text, Modal, ScrollView, KeyboardAvoidingView, Keyboard } from "react-native";
 import Svg, { Circle, Polygon, Path, G as Group } from "react-native-svg";
+import Markdown from "react-native-markdown-display";
 import { createAppContainer, StackActions, createSwitchNavigator, withNavigation } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { AppLoading } from "expo";
@@ -64,6 +65,7 @@ global.Circle = Circle;
 global.Polygon = Polygon;
 global.Path = Path;
 global.Group = Group;
+global.Markdown = Markdown;
 global.createAppContainer = createAppContainer;
 global.StackActions = StackActions;
 global.withNavigation = withNavigation;
