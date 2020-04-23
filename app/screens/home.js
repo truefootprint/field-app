@@ -6,12 +6,12 @@ import Map from "../components/map";
 import Version from "../components/version";
 
 const images = {
-  2: require("../assets/images/project-id-2.jpg"),
   3: require("../assets/images/project-id-3.jpg"),
   4: require("../assets/images/project-id-4.jpg"),
   5: require("../assets/images/project-id-5.jpg"),
   6: require("../assets/images/project-id-6.jpg"),
-  _: require("../assets/images/project-id-2.jpg"),
+  7: require("../assets/images/project-id-7.jpg"),
+  _: require("../assets/images/project-id-3.jpg"),
 };
 
 const Home = ({ navigation }) => {
