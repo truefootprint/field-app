@@ -2,8 +2,11 @@ import Layout from "../components/layout";
 import IntroComponent from "../components/intro";
 
 const Intro = ({ navigation }) => {
+  const { data } = useContext(AppContext);
+
   const pageParam = navigation.getParam("introPage");
   const projectIndex = navigation.getParam("projectIndex");
+  const project = data.projects[projectIndex];
 
   const color = palette.cycle(projectIndex);
   const [page, setPage] = useState(parseInt(pageParam || 1, 10));
@@ -28,7 +31,14 @@ const Intro = ({ navigation }) => {
   return (
     <Layout>
       <ScrollView>
-        <IntroComponent color={color} page={page} onNextPage={nextPage} onFinish={handleFinish} />
+
+        <IntroComponent
+          color={color}
+          project={project}
+          page={page}
+          onNextPage={nextPage}
+          onFinish={handleFinish} />
+
       </ScrollView>
     </Layout>
   );
