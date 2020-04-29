@@ -33,7 +33,7 @@ const Intro = ({ navigation }) => {
   };
 
   const handleRole = (role) => {
-    connected ? changeRole({ role }) : alert(t.no_wifi);
+    connected ? changeRole({ project, role }) : alert(t.no_wifi);
   };
 
   return (

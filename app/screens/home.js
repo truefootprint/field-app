@@ -4,6 +4,7 @@ import Button from "../components/button";
 import Card from "../components/card";
 import Map from "../components/map";
 import Version from "../components/version";
+import { navigateToIntro } from "../workflows/change_role";
 
 const images = {
   3: require("../assets/images/project-id-3.jpg"),
@@ -17,6 +18,8 @@ const images = {
 const Home = ({ navigation }) => {
   const { data } = useContext(AppContext);
   const projects = data.projects;
+
+  useEffect(() => { navigateToIntro({ navigation, projects }); }, []);
 
   const handlePress = (projectIndex) => {
     return () => {
