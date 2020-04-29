@@ -3,7 +3,8 @@ import IntroComponent from "../components/intro";
 import changeRole from "../workflows/change_role";
 
 const Intro = ({ navigation }) => {
-  const { data } = useContext(AppContext);
+  const { data, connected } = useContext(AppContext);
+  const t = useTranslate();
 
   const pageParam = navigation.getParam("introPage");
   const projectIndex = navigation.getParam("projectIndex");
@@ -22,13 +23,17 @@ const Intro = ({ navigation }) => {
   }, [page]);
 
   const handleNext = (role) => {
-    if (role) { changeRole({ role }); return; }
+    if (role) { handleRole(role); return; }
     setPage(page + 1);
   };
 
   const handleFinish = (role) => {
-    if (role) { changeRole({ role }); return; }
+    if (role) { handleRole(role); return; }
     navigation.navigate("Project", { projectIndex });
+  };
+
+  const handleRole = (role) => {
+    connected ? changeRole({ role }) : alert(t.no_wifi);
   };
 
   return (
