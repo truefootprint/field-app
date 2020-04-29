@@ -47,6 +47,10 @@ class Client {
     return this.postFile("/my_photos", { image });
   }
 
+  postChangeRoles(projectRole) {
+    return this.postJSON(`/change_roles`, { id: projectRole.id })
+  }
+
   postTokens(phoneNumber) {
     return this.postJSON("/tokens", { phoneNumber });
   }

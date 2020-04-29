@@ -11,9 +11,9 @@ const RoleListing = ({ color="blue", project, role, onSelect=()=>{}, disableSubm
 
   return (
     <RadioGroup color={color} onChange={handleChange}>
-      {project.projectRoles.map(({ id, name }) => (
+      {project.projectRoles.map(({ id, displayName }) => (
         <Radio key={id} checked={role && role.id === id}>
-          <Text>{name}</Text>
+          <Text>{displayName}</Text>
         </Radio>
       ))}
     </RadioGroup>

@@ -1,5 +1,6 @@
 import Layout from "../components/layout";
 import IntroComponent from "../components/intro";
+import changeRole from "../workflows/change_role";
 
 const Intro = ({ navigation }) => {
   const { data } = useContext(AppContext);
@@ -11,20 +12,22 @@ const Intro = ({ navigation }) => {
   const color = palette.cycle(projectIndex);
   const [page, setPage] = useState(parseInt(pageParam || 1, 10));
 
-  const prevPage = () => setPage(page - 1);
-  const nextPage = () => setPage(page + 1);
-  const firstPage = page === 1;
-
   useBack(() => {
-    if (firstPage) {
+    if (page === 1) {
       useTranslate.unsetProject(); // Don't use project-specific translations.
       navigation.navigate("Home");
     } else {
-      prevPage();
+      setPage(page - 1);
     }
   }, [page]);
 
-  const handleFinish = () => {
+  const handleNext = (role) => {
+    if (role) { changeRole({ role }); return; }
+    setPage(page + 1);
+  };
+
+  const handleFinish = (role) => {
+    if (role) { changeRole({ role }); return; }
     navigation.navigate("Project", { projectIndex });
   };
 
@@ -36,7 +39,7 @@ const Intro = ({ navigation }) => {
           color={color}
           project={project}
           page={page}
-          onNextPage={nextPage}
+          onNextPage={handleNext}
           onFinish={handleFinish} />
 
       </ScrollView>
