@@ -91,7 +91,7 @@ useTranslate.setProject = (project) => {
 };
 
 useTranslate.unsetProject = () => {
-  delete useTranslate.project;
+  useTranslate.project = {};
 }
 
 useTranslate.project = {};
