@@ -1,5 +1,6 @@
 ## FieldApp
 
+
 This repository contains a React Native mobile app that allows users to answer
 questions about projects and open issues relating to them. It speaks to the
 [FieldBackend](https://github.com/truefootprint/field-backend). The app is
@@ -13,11 +14,12 @@ access to features of the mobile device such as the camera.
 In addition to this README which contains setup instructions, the [doc/](doc/)
 directory contains these useful resources:
 
-1. [Overview](./doc/overview.md)
-2. [Offline functionality](./doc/offline_functionality.md)
-3. [Background tasks](./doc/background_tasks.md)
-4. [Translations](./doc/translations.md)
-5. [Deploying the app](./doc/deploying_the_app.md)
+1. [Screenshots](./doc/screenshots.md): Some screenshots demonstrating the primary functionality of the app.
+2. [Overview](./doc/overview.md): An explanation of the layout of the code in the app. Each major subdirectory is listed.
+3. [Offline functionality](./doc/offline_functionality.md): How the app's data synchronization and offline functionality works.
+4. [Background tasks](./doc/background_tasks.md): How background tasks are configured and run. Some important scheduling information.
+5. [Translations](./doc/translations.md): How translations work. The `useTranslate` hook. (also see: [FieldBackend](https://github.com/truefootprint/field-backend/blob/master/doc/translations.md)).
+6. [Deploying the app](./doc/deploying_the_app.md): How to deploy the app. Credentials. Over the air updates, GitHub releases, etc.
 
 You should also refer to [FieldBackend](https://github.com/truefootprint/field-backend#readme)
 which contains documentation about the domain model and much more.
