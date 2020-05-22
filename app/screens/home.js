@@ -6,6 +6,7 @@ import Map from "../components/map";
 import Version from "../components/version";
 import { navigateToIntro } from "../workflows/change_role";
 
+// TODO: make this data driven, e.g. add image attachments to projects
 const images = {
   3: require("../assets/images/project-id-3.jpg"),
   4: require("../assets/images/project-id-4.jpg"),
