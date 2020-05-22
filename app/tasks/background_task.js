@@ -1,5 +1,6 @@
 import * as TaskManager from "expo-task-manager";
 import * as BackgroundFetch from "expo-background-fetch";
+import * as Localization from "expo-localization";
 
 const Result = BackgroundFetch.Result;
 
@@ -35,12 +36,18 @@ class BackgroundTask {
   static async runSafely (name, log) {
     log && Logger.log(`Running ${name} background task...`);
 
+    // Background tasks run in a separrate process so we need to set global state.
+    const { locale, timezone } = await Localization.getLocalizationAsync();
+
+    Client.setLocale(locale);
+    Client.setTimezone(timezone);
+
     try {
       const bool = await this.run();
       return bool ? Result.NewData : Result.NoData;
 
     } catch (error) {
-      log && Logger.error(`Error running ${name} background task:`, error);
+      log && Logger.warn(`Error running ${name} background task:`, error);
       return Result.Failed;
     }
   }
