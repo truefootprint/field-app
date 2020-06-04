@@ -13,7 +13,7 @@ const Intro = ({ navigation }) => {
   const color = palette.cycle(projectIndex);
   const [page, setPage] = useState(parseInt(pageParam || 1, 10));
 
-  useBack(() => {
+  useBack(navigation, () => {
     if (page === 1) {
       useTranslate.unsetProject(); // Don't use project-specific translations.
       navigation.navigate("Home");

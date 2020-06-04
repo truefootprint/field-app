@@ -2,14 +2,18 @@ import { BackHandler } from "react-native";
 
 // Overrides the default back button behaviour on android with a custom function.
 
-const useBack = (onBack=()=>{}, dependencies=[]) => {
-  useEffect(() => {
-    const listener = BackHandler.addEventListener("hardwareBackPress", () => {
-      onBack();
-      return true;
-    });
+const useBack = (navigation, onBack=()=>{}, dependencies=[]) => {
+  const handleBack = () => {
+    if (!navigation.isFocused()) return false;
 
-    return listener.remove;
+    onBack();
+    return true;
+  };
+
+  useEffect(() => {
+    const listener = BackHandler.addEventListener("hardwareBackPress", handleBack);
+
+    return () => BackHandler.removeEventListener("hardwareBackPress", listener);
   }, dependencies);
 };
 

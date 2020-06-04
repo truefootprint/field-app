@@ -8,7 +8,7 @@ const Project = ({ navigation }) => {
   const index = navigation.getParam("projectIndex");
   const project = data.projects[index];
 
-  useBack(() => {
+  useBack(navigation, () => {
     useTranslate.unsetProject(); // Don't use project-specific translations.
     navigation.navigate("Home");
   });
