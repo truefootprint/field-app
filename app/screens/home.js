@@ -13,6 +13,7 @@ const images = {
   5: require("../assets/images/project-id-5.jpg"),
   6: require("../assets/images/project-id-6.jpg"),
   7: require("../assets/images/project-id-7.jpg"),
+  8: require("../assets/images/project-id-8.jpg"),
   _: require("../assets/images/project-id-3.jpg"),
 };
 
@@ -32,7 +33,7 @@ const Home = ({ navigation }) => {
   const projectCard = ({ name, id }, i) => (
     <Card key={i} color={palette.cycle(i)} heading={name} number={i + 1} outOf={projects.length}>
       <TouchableOpacity {...className("touchable")} onPress={handlePress(i)} activeOpacity={0.8}>
-        <Image source={images[id] || images._} width={500} height={350} />
+        <Image source={images[id] || images._} width={500} height={id === 8 ? 650 : 350} />
       </TouchableOpacity>
     </Card>
   );
