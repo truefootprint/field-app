@@ -21,6 +21,13 @@ describe("addIssueNote", () => {
     expect(issueNotes[0].pushed).toBe(false);
   });
 
+  it("does nothing if there is no content", async () => {
+    await addIssueNote({ subjectType: "Project", subjectId: 123, text: "", photos: [], resolved: false });
+    const issueNotes = await IssueNote.findAll();
+
+    expect(issueNotes.length).toBe(0);
+  });
+
   it("generates an issueUuid for new issues", async () => {
     await addIssueNote({ subjectType: "Project", subjectId: 123, text: "text" });
     const issueNote = await IssueNote.findOne();

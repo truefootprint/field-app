@@ -7,6 +7,9 @@ const addIssueNote = async ({ connected, subjectType, subjectId, issue, text, ph
   photos = [photos].flat().filter(p => p);
   const imagesToUpload = [];
 
+  // Guard against the user submitting an issue note with no content.
+  if (isBlank(text) && photos.length === 0 && !resolved) return;
+
   for (const image of photos) {
       const filename = File.basename(image.uri);
       const [record, _] = await Image.findOrCreate({ where: { filename } });
@@ -34,5 +37,9 @@ const addIssueNote = async ({ connected, subjectType, subjectId, issue, text, ph
   await callback(issueNote);
   return issueNote;
 };
+
+const isBlank = (string) => (
+  !string || /^\s*$/.test(string)
+);
 
 export default addIssueNote;

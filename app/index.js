@@ -37,6 +37,8 @@ const App = () => {
   useEffect(() => { loadApp(() => setLoaded(true)); }, []);
 
   useWhen([loaded, foreground, token], async () => {
+    Client.setToken(token); // Ensure the token is definitely set (race condition)
+
     await SyncMyDataTask.runWith({ connected, callback: setData });
     await PhotoUploadTask.runWith({ connected });
     await FileDownloadTask.runWith({ connected });
