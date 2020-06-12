@@ -1,7 +1,8 @@
 import RadioGroup, { Radio } from "../radio_group";
 import CheckList, { Checkbox } from "../check_list";
 
-const MultiChoice = ({ color="blue", response, multiChoiceOptions=[], multipleAnswers, onAnswer=()=>{} }) => {
+const MultiChoice = ({ color="blue", response, multiChoiceOptions=[], multipleAnswers, questionId, onAnswer=()=>{} }) => {
+  const { selectedOptions, setSelectedOptions } = useContext(AppContext);
   const optionsText = multiChoiceOptions.map(o => o.text);
 
   const defaultIds = response && [JSON.parse(response.value)].flat() || [];
@@ -13,6 +14,9 @@ const MultiChoice = ({ color="blue", response, multiChoiceOptions=[], multipleAn
 
     const value = ids.length <= 1 ? (ids[0] || "") : JSON.stringify(ids);
     onAnswer(value);
+
+    selectedOptions[questionId] = ids;
+    setSelectedOptions(selectedOptions);
   };
 
   const props = { color, defaultIndexes, optionsText, onChange };

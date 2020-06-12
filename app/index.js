@@ -29,6 +29,7 @@ const App = () => {
   const [loaded, setLoaded] = useState();
   const [data, setData] = useState();
   const [token, setToken] = useSecret("token", () => setData({}));
+  const [selectedOptions, setSelectedOptions] = useState({});
   const { locale, timezone } = useLocale();
 
   const foreground = useForeground();
@@ -53,7 +54,7 @@ const App = () => {
   if (!loaded || !data) return <Loading />;
 
   return (
-    <AppContext.Provider value={{ data, setData, token, setToken, connected }}>
+    <AppContext.Provider value={{ data, setData, token, setToken, connected, selectedOptions, setSelectedOptions }}>
       <View style={{ flex: 1 }} {...className("root")}>
         <AppContainer />
         <DevConsole />
