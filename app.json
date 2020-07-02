@@ -12,7 +12,7 @@
     "splash": { "image": "app/assets/images/splash-screen.png" },
     "assetBundlePatterns": ["app/assets/**/*"],
     "updates": { "fallbackToCacheTimeout": 0 },
-    "version": "0.57.0",
+    "version": "0.57.1",
     "android": {
       "versionCode": 57,
       "package": "com.truefootprint.field_app",
