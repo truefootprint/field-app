@@ -4,80 +4,145 @@
 // fetched userInterfaceText from /my_data. This is bundled into the app.
 
 const preLoginTranslations = {
-  "fr": [
+  "sw": [
     {
-      "key": "login.prompt",
-      "value": "Quel est ton numéro de portable?"
-    },
-    {
-      "key": "login.failed",
-      "value": "Échec de la connexion. Numéro de mobile non reconnu."
-    },
-    {
-      "key": "login.placeholder",
-      "value": "par ex. 0123456789"
-    },
-    {
-      "key": "loading",
-      "value": "Chargement..."
-    },
-    {
-      "key": "error.network.title",
-      "value": "Erreur réseau"
-    },
-    {
-      "key": "error.network.body",
-      "value": "Désolé, il semble y avoir un problème avec nos ordinateurs. Veuillez réessayer plus tard."
-    },
-    {
-      "key": "error.unknown.title",
-      "value": "Erreur inattendue"
-    },
-    {
-      "key": "error.unknown.body",
-      "value": "Désolé, il semble y avoir un problème. Si cela continue, essayez de réinstaller l'application."
-    },
-    {
-      "key": "error.details",
-      "value": "Détails de l'erreur:"
-    }
-  ],
-  "en": [
-    {
-      "key": "login.prompt",
-      "value": "What’s your mobile number?"
-    },
-    {
-      "key": "login.failed",
-      "value": "Login failed. Unrecognised mobile number."
-    },
-    {
+      "id": 3,
       "key": "login.placeholder",
       "value": "e.g. 0123456789"
     },
     {
+      "id": 34,
+      "key": "loading",
+      "value": "Inapakia ..."
+    },
+    {
+      "id": 39,
+      "key": "error.network.title",
+      "value": "Tatizo la mtandao"
+    },
+    {
+      "id": 40,
+      "key": "error.network.body",
+      "value": "Samahani, inaonekana kuna shida na kompyuta zetu. Tafadhali jaribu tena baadae."
+    },
+    {
+      "id": 41,
+      "key": "error.unknown.title",
+      "value": "Kosa lisilotarajiwa"
+    },
+    {
+      "id": 42,
+      "key": "error.unknown.body",
+      "value": "Samahani, inaonekana kuna shida. Ikiendelea kutokea, jaribu kuweka tena programu."
+    },
+    {
+      "id": 43,
+      "key": "error.details",
+      "value": "Error details:"
+    },
+    {
+      "id": 1,
+      "key": "login.prompt",
+      "value": "Nambari yako ya simu ni ipi?"
+    },
+    {
+      "id": 2,
+      "key": "login.failed",
+      "value": "Imeshindikana kujiandikisha kuingia. Nambari ya simu isiyojulikana."
+    }
+  ],
+  "fr": [
+    {
+      "id": 3,
+      "key": "login.placeholder",
+      "value": "par ex. 0123456789"
+    },
+    {
+      "id": 34,
+      "key": "loading",
+      "value": "Chargement..."
+    },
+    {
+      "id": 39,
+      "key": "error.network.title",
+      "value": "Erreur réseau"
+    },
+    {
+      "id": 40,
+      "key": "error.network.body",
+      "value": "Désolé, il semble y avoir un problème avec nos ordinateurs. Veuillez réessayer plus tard."
+    },
+    {
+      "id": 41,
+      "key": "error.unknown.title",
+      "value": "Erreur inattendue"
+    },
+    {
+      "id": 42,
+      "key": "error.unknown.body",
+      "value": "Désolé, il semble y avoir un problème. Si cela continue, essayez de réinstaller l'application."
+    },
+    {
+      "id": 43,
+      "key": "error.details",
+      "value": "Détails de l'erreur:"
+    },
+    {
+      "id": 1,
+      "key": "login.prompt",
+      "value": "Quel est ton numéro de portable?"
+    },
+    {
+      "id": 2,
+      "key": "login.failed",
+      "value": "Échec de la connexion. Numéro de mobile non reconnu."
+    }
+  ],
+  "en": [
+    {
+      "id": 3,
+      "key": "login.placeholder",
+      "value": "e.g. 0123456789"
+    },
+    {
+      "id": 34,
       "key": "loading",
       "value": "Loading..."
     },
     {
+      "id": 39,
       "key": "error.network.title",
       "value": "Network error"
     },
     {
+      "id": 40,
       "key": "error.network.body",
       "value": "Sorry, there seems to be a problem with our computers. Please try again later."
     },
     {
+      "id": 41,
       "key": "error.unknown.title",
       "value": "Unexpected error"
     },
     {
+      "id": 42,
       "key": "error.unknown.body",
       "value": "Sorry, there seems to be a problem. If it keeps happening, try reinstalling the app."
     },
     {
+      "id": 43,
       "key": "error.details",
       "value": "Error details:"
+    },
+    {
+      "id": 1,
+      "key": "login.prompt",
+      "value": "What’s your mobile number?"
+    },
+    {
+      "id": 2,
+      "key": "login.failed",
+      "value": "Login failed. Unrecognised mobile number."
     }
   ]
 };
