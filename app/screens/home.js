@@ -30,10 +30,10 @@ const Home = ({ navigation }) => {
     }
   };
 
-  const projectCard = ({ name, id }, i) => (
+  const projectCard = ({ name, id, projectTypeId }, i) => (
     <Card key={i} color={palette.cycle(i)} heading={name} number={i + 1} outOf={projects.length}>
       <TouchableOpacity {...className("touchable")} onPress={handlePress(i)} activeOpacity={0.8}>
-        <Image source={images[id] || images._} width={500} height={id === 8 ? 650 : 350} />
+        <Image source={projectTypeId ===  6 ? images[7] : (images[id] || images._)} width={500} height={id === 8 ? 650 : 350} />
       </TouchableOpacity>
     </Card>
   );
