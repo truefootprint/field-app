@@ -4,68 +4,11 @@
 // fetched userInterfaceText from /my_data. This is bundled into the app.
 
 const preLoginTranslations = {
-  "sw": [
-    {
-      "id": 3,
-      "key": "login.placeholder",
-      "value": "e.g. 0123456789"
-    },
-    {
-      "id": 34,
-      "key": "loading",
-      "value": "Inapakia ..."
-    },
-    {
-      "id": 39,
-      "key": "error.network.title",
-      "value": "Tatizo la mtandao"
-    },
-    {
-      "id": 40,
-      "key": "error.network.body",
-      "value": "Samahani, inaonekana kuna shida na kompyuta zetu. Tafadhali jaribu tena baadae."
-    },
-    {
-      "id": 41,
-      "key": "error.unknown.title",
-      "value": "Kosa lisilotarajiwa"
-    },
+  "fr": [
     {
       "id": 42,
       "key": "error.unknown.body",
-      "value": "Samahani, inaonekana kuna shida. Ikiendelea kutokea, jaribu kuweka tena programu."
-    },
-    {
-      "id": 43,
-      "key": "error.details",
-      "value": "Error details:"
-    },
-    {
-      "id": 1,
-      "key": "login.prompt",
-      "value": "Nambari yako ya simu ni ipi?"
-    },
-    {
-      "id": 2,
-      "key": "login.failed",
-      "value": "Imeshindikana kujiandikisha kuingia. Nambari ya simu isiyojulikana."
-    }
-  ],
-  "fr": [
-    {
-      "id": 3,
-      "key": "login.placeholder",
-      "value": "par ex. 0123456789"
-    },
-    {
-      "id": 34,
-      "key": "loading",
-      "value": "Chargement..."
-    },
-    {
-      "id": 39,
-      "key": "error.network.title",
-      "value": "Erreur réseau"
+      "value": "Désolé, il semble y avoir un problème. Si cela continue, essayez de réinstaller l'application."
     },
     {
       "id": 40,
@@ -73,19 +16,14 @@ const preLoginTranslations = {
       "value": "Désolé, il semble y avoir un problème avec nos ordinateurs. Veuillez réessayer plus tard."
     },
     {
-      "id": 41,
-      "key": "error.unknown.title",
-      "value": "Erreur inattendue"
+      "id": 39,
+      "key": "error.network.title",
+      "value": "Erreur réseau"
     },
     {
-      "id": 42,
-      "key": "error.unknown.body",
-      "value": "Désolé, il semble y avoir un problème. Si cela continue, essayez de réinstaller l'application."
-    },
-    {
-      "id": 43,
-      "key": "error.details",
-      "value": "Détails de l'erreur:"
+      "id": 2,
+      "key": "login.failed",
+      "value": "Échec de la connexion. Numéro de mobile non reconnu."
     },
     {
       "id": 1,
@@ -93,26 +31,31 @@ const preLoginTranslations = {
       "value": "Quel est ton numéro de portable?"
     },
     {
-      "id": 2,
-      "key": "login.failed",
-      "value": "Échec de la connexion. Numéro de mobile non reconnu."
-    }
-  ],
-  "en": [
+      "id": 43,
+      "key": "error.details",
+      "value": "Détails de l'erreur:"
+    },
     {
-      "id": 3,
-      "key": "login.placeholder",
-      "value": "e.g. 0123456789"
+      "id": 41,
+      "key": "error.unknown.title",
+      "value": "Erreur inattendue"
     },
     {
       "id": 34,
       "key": "loading",
-      "value": "Loading..."
+      "value": "Chargement..."
     },
     {
-      "id": 39,
-      "key": "error.network.title",
-      "value": "Network error"
+      "id": 3,
+      "key": "login.placeholder",
+      "value": "par ex. 0123456789"
+    }
+  ],
+  "en": [
+    {
+      "id": 42,
+      "key": "error.unknown.body",
+      "value": "Sorry, there seems to be a problem. If it keeps happening, try reinstalling the app."
     },
     {
       "id": 40,
@@ -120,19 +63,14 @@ const preLoginTranslations = {
       "value": "Sorry, there seems to be a problem with our computers. Please try again later."
     },
     {
-      "id": 41,
-      "key": "error.unknown.title",
-      "value": "Unexpected error"
+      "id": 39,
+      "key": "error.network.title",
+      "value": "Network error"
     },
     {
-      "id": 42,
-      "key": "error.unknown.body",
-      "value": "Sorry, there seems to be a problem. If it keeps happening, try reinstalling the app."
-    },
-    {
-      "id": 43,
-      "key": "error.details",
-      "value": "Error details:"
+      "id": 2,
+      "key": "login.failed",
+      "value": "Login failed. Unrecognised mobile number."
     },
     {
       "id": 1,
@@ -140,9 +78,118 @@ const preLoginTranslations = {
       "value": "What’s your mobile number?"
     },
     {
+      "id": 43,
+      "key": "error.details",
+      "value": "Error details:"
+    },
+    {
+      "id": 41,
+      "key": "error.unknown.title",
+      "value": "Unexpected error"
+    },
+    {
+      "id": 34,
+      "key": "loading",
+      "value": "Loading..."
+    },
+    {
+      "id": 3,
+      "key": "login.placeholder",
+      "value": "e.g. 0123456789"
+    }
+  ],
+  "mg": [
+    {
+      "id": 42,
+      "key": "error.unknown.body",
+      "value": "Mialatsiny, ohatran'ny misy olana. Raha mbola mitohy dia avereno ampidirina ilay rindrambaiko."
+    },
+    {
+      "id": 40,
+      "key": "error.network.body",
+      "value": "Mialatsiny, ohatran'ny misy olana ny solosaina. Avereno afaka fotoana fohy"
+    },
+    {
+      "id": 39,
+      "key": "error.network.title",
+      "value": "Misy olana ny tambazotram-pifandraisana"
+    },
+    {
       "id": 2,
       "key": "login.failed",
-      "value": "Login failed. Unrecognised mobile number."
+      "value": "Tsy nahomby ny fidirana. Misy diso ny laharana finday."
+    },
+    {
+      "id": 1,
+      "key": "login.prompt",
+      "value": "Inona ny laharana finday anao?"
+    },
+    {
+      "id": 43,
+      "key": "error.details",
+      "value": "Pitsopitsony amin'ny fahadisoana:"
+    },
+    {
+      "id": 41,
+      "key": "error.unknown.title",
+      "value": "Fahadisoana tsy nampoizina"
+    },
+    {
+      "id": 34,
+      "key": "loading",
+      "value": "Andalam-pamitana"
+    },
+    {
+      "id": 3,
+      "key": "login.placeholder",
+      "value": "Oh: 0123456789"
+    }
+  ],
+  "sw": [
+    {
+      "id": 42,
+      "key": "error.unknown.body",
+      "value": "Samahani, inaonekana kuna itilafu. Ikiendelea kutokea, jaribu kupakua tena programu."
+    },
+    {
+      "id": 40,
+      "key": "error.network.body",
+      "value": "Samahani, inaonekana kuna itilafu na kompyuta zetu. Tafadhali jaribu tena baadae."
+    },
+    {
+      "id": 39,
+      "key": "error.network.title",
+      "value": "Tatizo la mtandao"
+    },
+    {
+      "id": 2,
+      "key": "login.failed",
+      "value": "Imeshindikana kuingia. Nambari ya simu aiyasajiliwa"
+    },
+    {
+      "id": 1,
+      "key": "login.prompt",
+      "value": "Nambari yako ya simu ni ipi?"
+    },
+    {
+      "id": 43,
+      "key": "error.details",
+      "value": "Maelezo ya itilafu:"
+    },
+    {
+      "id": 41,
+      "key": "error.unknown.title",
+      "value": "itilafu lisilotarajiwa"
+    },
+    {
+      "id": 34,
+      "key": "loading",
+      "value": "Inapakia ..."
+    },
+    {
+      "id": 3,
+      "key": "login.placeholder",
+      "value": "Mfano. 0123456789"
     }
   ]
 };
