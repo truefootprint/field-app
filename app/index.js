@@ -10,7 +10,6 @@ import Project from "./screens/project";
 import Source from "./screens/source";
 import Issue from "./screens/issue";
 import Loading from "./components/loading";
-import DevConsole from "./components/dev_console";
 
 // Create the navigation stack so that you can't go back to the login screen.
 const options = { headerMode: "none" };
@@ -56,7 +55,6 @@ const App = () => {
     <AppContext.Provider value={{ data, setData, token, setToken, connected }}>
       <View style={{ flex: 1 }} {...className("root")}>
         <AppContainer />
-        <DevConsole />
       </View>
     </AppContext.Provider>
   );

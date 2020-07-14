@@ -1,4 +1,5 @@
 import Constants from "expo-constants";
+import DevConsole from "../dev_console";
 
 // If the version is tapped five times, we throw some errors so we can test the
 // Sentry integration and that the user sees some alert messages in production.
@@ -6,14 +7,14 @@ import Constants from "expo-constants";
 const Version = () => {
   const [count, setCount] = useState(0);
   const [color, setColor] = useState("#ddd");
+  const [showConsole, setShowConsole] = useState(false);
 
   const handlePress = () => {
     const newCount = count + 1;
     setCount(newCount);
 
     if (newCount % 5 == 0) {
-      setColor("#999");
-      throwTestErrors();
+      setShowConsole(true);
     } else {
       setColor("#ddd");
     }
@@ -32,11 +33,14 @@ const Version = () => {
   }
 
   return (
-    <Touchable onPress={handlePress}>
-      <Text style={{ marginBottom: 20, color, fontSize: 12 }}>
-        FieldApp version {Constants.manifest.version}
-      </Text>
-    </Touchable>
+    <View>
+      <Touchable onPress={handlePress}>
+        <Text style={{ marginBottom: 20, color, fontSize: 12, textAlignVertical: "center", textAlign: "center" }}>
+          FieldApp version {Constants.manifest.version}
+        </Text>
+      </Touchable>
+      { showConsole && <DevConsole /> }
+    </View>
   );
 };
 
