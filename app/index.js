@@ -23,7 +23,7 @@ PhotoUploadTask.enable({ log: true });
 FileDownloadTask.enable({ log: true });
 
 const App = () => {
-  useScreens();
+  enableScreens();
 
   const [loaded, setLoaded] = useState();
   const [data, setData] = useState();

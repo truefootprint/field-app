@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useRef, cloneElement } from "react";
-import { useScreens } from "react-native-screens";
+import { enableScreens } from "react-native-screens";
 import { View, StyleSheet, TouchableOpacity, TouchableHighlight, TouchableWithoutFeedback, Text, Modal, ScrollView, KeyboardAvoidingView, Keyboard } from "react-native";
 import Svg, { Circle, Polygon, Path, G as Group } from "react-native-svg";
 import Markdown from "react-native-markdown-display";
@@ -48,7 +48,7 @@ global.useState = useState;
 global.useEffect = useEffect;
 global.useContext = useContext;
 global.useRef = useRef;
-global.useScreens = useScreens;
+global.enableScreens = enableScreens;
 global.cloneElement = cloneElement;
 global.View = View;
 global.StyleSheet = StyleSheet;

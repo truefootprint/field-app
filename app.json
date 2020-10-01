@@ -4,17 +4,24 @@
     "slug": "field-app",
     "owner": "truefootprint",
     "privacy": "unlisted",
-    "sdkVersion": "35.0.0",
-    "platforms": ["android"],
+    "platforms": [
+      "android"
+    ],
     "orientation": "portrait",
     "githubUrl": "https://github.com/truefootprint/field-app",
     "icon": "app/assets/images/app-icon.png",
-    "splash": { "image": "app/assets/images/splash-screen.png" },
-    "assetBundlePatterns": ["app/assets/**/*"],
-    "updates": { "fallbackToCacheTimeout": 0 },
-    "version": "0.57.5",
+    "splash": {
+      "image": "app/assets/images/splash-screen.png"
+    },
+    "assetBundlePatterns": [
+      "app/assets/**/*"
+    ],
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "version": "0.57.6",
     "android": {
-      "versionCode": 62,
+      "versionCode": 63,
       "package": "com.truefootprint.field_app",
       "permissions": [
         "CAMERA",
@@ -26,7 +33,9 @@
         "USER_FACING_NOTIFICATIONS"
       ],
       "config": {
-        "googleMaps": { "apiKey": "AIzaSyBcT8g_xEPsRJ59qKoVfeuycYGxeYqOERQ" }
+        "googleMaps": {
+          "apiKey": "AIzaSyBcT8g_xEPsRJ59qKoVfeuycYGxeYqOERQ"
+        }
       }
     },
     "ios": {
