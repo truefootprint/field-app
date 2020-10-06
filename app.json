@@ -22,7 +22,7 @@
     "version": "0.57.6",
     "android": {
       "versionCode": 63,
-      "package": "com.truefootprint.field_app",
+      "package": "com.truefootprint.field-app",
       "permissions": [
         "CAMERA",
         "CAMERA_ROLL",
