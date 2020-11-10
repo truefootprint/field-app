@@ -31,6 +31,7 @@ const TextInput = ({ color="blue", placeholder, defaultValue, units, onChangeTex
           blurOnSubmit={true}
           selectionColor={styles.selection.color}
           onChangeText={handleChange}
+          color="black"
           onFocus={handleFocus}
           onBlur={handleBlur}
           onSubmitEditing={handleSubmit}
