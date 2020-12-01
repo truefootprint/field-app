@@ -10,17 +10,18 @@ if path_to_token.nil?
   exit(1)
 end
 
-appending = append_flag == "--append"
+appending = (append_flag == "--append")
 command = appending ? "edit" : "create"
 
 token = File.read(path_to_token).strip
 version = JSON.parse(File.read("app.json")).dig("expo", "version")
 
 paths = appending ? "dist/field-app*" : "dist/*"
-attachments = Dir.glob(paths).map { |file| "--attach #{file}" }.join(" ")
-
+attachments = Dir.glob(paths).map { |file| "-a #{file}" }.join(" ")
+# one long string of the form --attach ../dist/962f72036d1f74b2809c3abb5ab6a360 --attach ../dist/f5b790e2ac193b3d41015edb3551f9b8 
+puts attachments.inspect
 success = system(<<~CMD)
-  (which hub || brew install hub) &&                                           \
+  (which hub || sudo apt install hub) &&                                           \
                                                                                \
   GITHUB_TOKEN=#{token}                                                        \
     hub release #{command} #{version} -m 'Release version #{version}' #{attachments}
@@ -28,3 +29,27 @@ CMD
 
 exit(success ? 0 : 1)
 
+# hub release create 0.56.7 -m 'Release verion 0.56.7' --attach ../dist/962f72036d1f74b2809c3abb5ab6a360
+
+#create
+
+ #   Create a GitHub release for the specified TAG name.
+ # If git tag TAG does not exist, it will be created at TARGET (default: current branch).
+#edit
+
+  #  Edit the GitHub release for the specified TAG name. Accepts the same options as create command. Publish a draft with --draft=false.
+
+  #  Without --message or --file, a text editor will open pre-populated with the current release title and body. To re-use existing title and body unchanged, pass -m "".
+
+# -a, --attach FILE
+
+  #  Attach a file as an asset for this release.
+
+  # If FILE is in the "filename#text" format, the text after the "#" character is taken as asset label.
+# -m, --message MESSAGE
+
+  #  The text up to the first blank line in MESSAGE is treated as the release title, and the rest is used as release description in Markdown format.
+
+  #  When multiple --message are passed, their values are concatenated with a blank line in-between.
+
+  #  When neither --message nor --file were supplied to release create, a text editor will open to author the title and description in.

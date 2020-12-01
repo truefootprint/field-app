@@ -30,7 +30,7 @@ env = [
 ].join(" ")
 
 success = system(<<~CMD)
-  (which sentry-cli || brew install getsentry/tools/sentry-cli)             && \
+  (which sentry-cli || (curl -sL https://sentry.io/get-cli/ | bash))        && \
                                                                                \
   cp dist/android-*.js tmp/main.android.bundle                              && \
   cp dist/android-*.map tmp/main.android.map                                && \

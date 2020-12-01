@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require "json"
-
+puts "In upload file"
 path_to_credentials = ARGV.first
 
 if path_to_credentials.nil?
