@@ -18,7 +18,6 @@
     "expo-random": "~9.0.0",
     "expo-secure-store": "~9.2.0",
     "expo-task-manager": "~8.5.0",
-    "lottie-react-native": "~2.6.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.3.tar.gz",
@@ -32,7 +31,7 @@
     "react-native-svg": "12.1.0",
     "react-native-web": "~0.13.7",
     "react-native-webview": "10.7.0",
-    "react-navigation": "^4.4.0",
+    "react-navigation": "^4.4.3",
     "react-navigation-stack": "^1.10.3",
     "rn-pdf-reader-js": "^0.7.2",
     "rn-sequelize": "github:punisher97/rn-sequelize",
@@ -41,7 +40,7 @@
     "uuid": "^7.0.3"
   },
   "devDependencies": {
-    "appium": "^1.18.1",
+    "appium": "^1.18.3",
     "babel-preset-expo": "^8.3.0",
     "jest-expo": "^39.0.0",
     "react-native-testing-library": "^1.14.0",
