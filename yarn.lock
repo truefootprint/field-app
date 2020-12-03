@@ -11,7 +11,7 @@
     deep-eql "^0.1.3"
     keypather "^1.10.2"
 
-"@babel/code-frame@^7.0.0", "@babel/code-frame@^7.0.0-beta.44", "@babel/code-frame@^7.10.4", "@babel/code-frame@^7.8.3":
+"@babel/code-frame@^7.0.0", "@babel/code-frame@^7.0.0-beta.44", "@babel/code-frame@^7.10.4", "@babel/code-frame@^7.8.3", "@babel/code-frame@~7.10.4":
   version "7.10.4"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.10.4.tgz#168da1a36e90da68ae8d49c0f1b48c7c6249213a"
   integrity sha512-vG6SvB6oYEhvgisZNFRmRCUkLz11c7rp+tbNTynGqc6mS1d5ATd/sGyV6W0KZZnXRKMTzZDRgQT3Ou9jhpAfUg==
@@ -1084,6 +1084,23 @@
   resolved "https://registry.yarnpkg.com/@expo/config-types/-/config-types-40.0.0-beta.1.tgz#4192b120edc9ec235147329a50bd0a7da16ae89c"
   integrity sha512-hTp+6ZIKK57O8qhVoO+GBCkx0UCdOhwcWxaXfjpsELIR8LfXDGz8OmCxTzGvb7nnadcrGCccHBX5dO1NmPBbmg==
 
+"@expo/config@3.3.18":
+  version "3.3.18"
+  resolved "https://registry.yarnpkg.com/@expo/config/-/config-3.3.18.tgz#5e685ba35469deacd41caa6827a94828ee1c8fcb"
+  integrity sha512-R78HOWnLcxdip3FBrfbxti+85jdoRNpXV0Eihb6dl+sBRNo4+uzBNEQQ1P7ICoTzrehdkhdXkQYflvQFuQXyAA==
+  dependencies:
+    "@babel/core" "7.9.0"
+    "@expo/babel-preset-cli" "0.2.18"
+    "@expo/config-types" "^40.0.0-beta.1"
+    "@expo/json-file" "8.2.25"
+    fs-extra "9.0.0"
+    getenv "0.7.0"
+    glob "7.1.6"
+    require-from-string "^2.0.2"
+    resolve-from "^5.0.0"
+    semver "^7.1.3"
+    slugify "^1.3.4"
+
 "@expo/config@^3.2.3":
   version "3.3.15"
   resolved "https://registry.yarnpkg.com/@expo/config/-/config-3.3.15.tgz#8241eb575f3f9071dc0277b260906ab32eb9ca95"
@@ -1168,6 +1185,25 @@
     json5 "^1.0.1"
     lodash "^4.17.15"
     write-file-atomic "^2.3.0"
+
+"@expo/json-file@8.2.25":
+  version "8.2.25"
+  resolved "https://registry.yarnpkg.com/@expo/json-file/-/json-file-8.2.25.tgz#3f7f403612efab98b6043868b8bb8b27a7189ed1"
+  integrity sha512-KFX6grWVzttaDskq/NK8ByqFPgpDZGFnyeZVeecGoKx5kU61zuR7/xQM04OvN6BNXq3jTUst1TyS8fXEfJuscA==
+  dependencies:
+    "@babel/code-frame" "~7.10.4"
+    fs-extra "9.0.0"
+    json5 "^1.0.1"
+    lodash "^4.17.15"
+    write-file-atomic "^2.3.0"
+
+"@expo/metro-config@^0.1.16":
+  version "0.1.43"
+  resolved "https://registry.yarnpkg.com/@expo/metro-config/-/metro-config-0.1.43.tgz#2ad88a3bf1110cd99eace4e3fca8f1cec31e7a26"
+  integrity sha512-ZkZXu2dVjZ88tiH51gqM3DUAmey18tM9MlDh91r1iLF6hHT6UeZD0lBDN7IJTQv/SJuAPQHoylXmAx6cuIGU9A==
+  dependencies:
+    "@expo/config" "3.3.18"
+    metro-react-native-babel-transformer "^0.58.0"
 
 "@expo/plist@0.0.10":
   version "0.0.10"
@@ -6102,6 +6138,15 @@ expo-task-manager@~8.5.0:
   integrity sha512-5r0k9m7sY802pGjC/HtFchEG1oiOEScuSOA1jgsbaiC6qXyxKEOGNLBcjtvmI5BAKuSkGBC4dmxyL8sWCRLTAg==
   dependencies:
     unimodules-app-loader "~1.3.0"
+
+expo-updates@~0.3.3:
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/expo-updates/-/expo-updates-0.3.5.tgz#cd9aafeb5cbe16399df7d39243d00d330d99e674"
+  integrity sha512-O+W0MfDZPhhCYKFtLL85ifd+YAm3rFKALWzmyKOSGBb/L+8CBPQsbbB3mdvji0V2NCqq0+jrBvSCmNa5LRD41w==
+  dependencies:
+    "@expo/metro-config" "^0.1.16"
+    fbemitter "^2.1.1"
+    uuid "^3.4.0"
 
 expo@^39.0.0:
   version "39.0.4"

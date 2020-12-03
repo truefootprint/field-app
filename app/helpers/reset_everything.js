@@ -1,4 +1,4 @@
-import { Updates } from "expo";
+import * as Updates from 'expo-updates';
 
 const resetEverything = async () => {
   // Reset the database.
@@ -19,7 +19,7 @@ const resetEverything = async () => {
   }
 
   // Restart the app.
-  Updates.reload();
+  Updates.reloadAsync();
 };
 
 export default resetEverything;
