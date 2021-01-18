@@ -19,7 +19,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "version": "0.57.7",
+    "version": "0.57.8",
     "android": {
       "versionCode": 64,
       "package": "com.truefootprint.field_app",

@@ -1,3 +1,4 @@
+import { LogBox } from 'react-native';
 //import catchGlobalErrors from "./app/helpers/global_errors";
 //import initializeSentry from "./app/helpers/sentry";
 
@@ -8,4 +9,5 @@
 //catchGlobalErrors();
 
 export { default } from "./app/index";
+LogBox.ignoreLogs(['Animated: `useNativeDriver` was not specified.']);
 // deploy changes test Chanda
