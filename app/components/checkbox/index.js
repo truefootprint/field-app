@@ -2,7 +2,7 @@ import ButtonLike from "../button_like";
 import { Tick } from "../svg_icon";
 import styles from "./styles.js";
 
-const Checkbox = ({ color="blue", defaultChecked=false, checked, disabled=false, onCheck=()=>{}, rounded=false, Box=Square, children }) => {
+const Checkbox = ({ color="blue", defaultChecked=false, checked, disabled=false, onCheck=()=>{}, rounded=false, recordIssue=false, Box=Square, children }) => {
   const [active, setActive] = useState(defaultChecked);
   const controlled = typeof checked !== "undefined";
   const fill = active && !disabled;
@@ -18,10 +18,10 @@ const Checkbox = ({ color="blue", defaultChecked=false, checked, disabled=false,
 
   const buttonLike = (
     <View {...className(["checkbox", disabled && "disabled"], styles(color))} data={{ checked: active }}>
-      <ButtonLike color={color} border={!disabled} rounded={rounded} fill={fill}>
+      <ButtonLike color={color} border={!disabled && !recordIssue} rounded={rounded} fill={fill}>
         <Box color={color} active={active} disabled={disabled} />
 
-        <Text {...className(["text", fill && "white", disabled && "grey"])}>
+        <Text {...className(["text", fill && "white", disabled && "grey", recordIssue && "underline_text"])}>
           {children}
         </Text>
       </ButtonLike>

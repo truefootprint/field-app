@@ -17,13 +17,15 @@ const FreeText = ({ color="blue", placeholder, unit, response, onAnswer=()=>{}, 
   };
 
   return (
-    <TextInput
+      <TextInput
       color={color}
       placeholder={placeholder}
       units={unit && unit.plural}
       defaultValue={defaultValue}
       onBlur={handleBlur}
-      onChangeText={handleChange} />
+      onChangeText={handleChange} 
+      question={true}
+      />
   );
 };
 

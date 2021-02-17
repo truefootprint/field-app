@@ -1,7 +1,7 @@
 import { TextInput as NativeInput } from "react-native";
 import stylesheet from "./styles.js";
 
-const TextInput = ({ color="blue", placeholder, defaultValue, units, onChangeText=()=>{}, onFocus=()=>{}, onBlur=()=>{}, onSubmit=()=>{}, ...rest }) => {
+const TextInput = ({ color="blue", placeholder, defaultValue, units, onChangeText=()=>{}, onFocus=()=>{}, onBlur=()=>{}, onSubmit=()=>{}, question,...rest }) => {
   const [focussed, setFocussed] = useState(false);
   const [text, setText] = useState(defaultValue || "");
 
@@ -15,6 +15,24 @@ const TextInput = ({ color="blue", placeholder, defaultValue, units, onChangeTex
   const handleFocus = () => { setFocussed(true); onFocus(text); };
   const handleBlur = () => { setFocussed(false); onBlur(text); };
   const handleSubmit = () => { setFocussed(false); onSubmit(text); };
+  const questionStyles = {borderTopColor: "#ddd", borderLeftColor: "#ddd", borderRightColor: "#ddd", borderTopWidth: 1, borderLeftWidth: 1, borderRightWidth: 1};
+  //const focusedQuestionStyles = {borderTopColor: "#ddd", borderLeftColor: "#ddd", borderRightColor: "#ddd", borderTopWidth: 1, borderLeftWidth: 1, borderRightWidth: 1};
+
+  //useEffect(() => {
+    // Update the document title using the browser API
+    console.log("ZZZZZZZZZZZQQQQQQQ")
+    console.log(question);
+    Logger.log(styles.native_input);
+    if (focussed && question){
+      styles.native_input = {...styles.native_input, ...styles.focused_question_styles};
+    } else if (question) {
+      styles.native_input = {...styles.native_input, ...questionStyles};
+    }
+  //}, []);
+ 
+
+  
+
 
   return (
     <View>
@@ -25,6 +43,7 @@ const TextInput = ({ color="blue", placeholder, defaultValue, units, onChangeTex
           {...className(classes)}
           value={text}
           multiline={true}
+          numberOfLines = {4}
           placeholder={placeholder}
           keyboardType={units ? "numeric" : "default"}
           placeholderTextColor={styles.placeholder.color}

@@ -52,7 +52,6 @@ const Question = ({ navigation, color="blue", id, type, text, expectedValue, res
       <View {...className(type)}>
         {questionFor({ type, color, response, onAnswer: handleAnswer, setCanSubmit, ...rest })}
       </View>
-
       {<View {...className(`${type}_issue`)}>
         <IssueListing color={color} questionId={id} issues={issues} onViewIssue={onViewIssue} />
       </View>}

@@ -27,7 +27,11 @@ const styles = (theme) => StyleSheet.create({
     marginBottom: 1,
     color: theme.primary,
     fontFamily: "Roboto-Medium",
-    letterSpacing: 0.5,
+    letterSpacing: 0.5    
+  },
+
+  underline_text: {
+    textDecorationLine: 'underline'
   },
 
   white: {

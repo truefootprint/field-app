@@ -2,9 +2,10 @@ const styles = (theme) => StyleSheet.create({
   native_input: {
     borderBottomColor: "#ddd",
     borderBottomWidth: 1,
-    paddingTop: 4,
-    paddingBottom: 4,
-    lineHeight: 24,
+    paddingTop: 1,
+    paddingLeft: 5,
+    paddingBottom: 5,
+    lineHeight:1,
     fontStyle: "normal",
     fontSize: 16,
     flex: 1,
@@ -13,6 +14,15 @@ const styles = (theme) => StyleSheet.create({
   focussed: {
     borderBottomColor: theme.primary,
     borderBottomWidth: 2,
+  },
+
+  focused_question_styles: {
+    borderTopColor: theme.primary, 
+    borderLeftColor: theme.primary, 
+    borderRightColor: theme.primary, 
+    borderTopWidth: 2, 
+    borderLeftWidth: 2, 
+    borderRightWidth: 2
   },
 
   selection: {

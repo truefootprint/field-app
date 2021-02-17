@@ -22,9 +22,9 @@ const IssueListing = ({ color="blue", questionId, issues=[], onViewIssue=()=>{} 
       {closedIssues.map((issue, i) => (
         <IssuePreview key={i} color={color} issue={issue} onOpen={handleViewIssue(issue)} />
       ))}
-
+      
       {showNewIssue &&
-        <Checkbox color={color} checked={false} onCheck={handleViewIssue()}>
+        <Checkbox color={color} recordIssue={true} checked={false} onCheck={handleViewIssue()}>
           {t.issue.record}
         </Checkbox>
       }
