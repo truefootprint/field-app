@@ -15,6 +15,11 @@ const images = {
   7: require("../assets/images/project-id-7.jpg"),
   8: require("../assets/images/project-id-8.jpg"),
   239: require("../assets/images/project-id-239.png"),
+  255: require("../assets/images/east-timor-tb.jpg"),
+  289: require("../assets/images/east-timor-tb.jpg"),
+  290: require("../assets/images/east-timor-tb.jpg"),
+  291: require("../assets/images/east-timor-tb.jpg"),
+  292: require("../assets/images/east-timor-tb.jpg"),
   _: require("../assets/images/project-id-3.jpg"),
 };
 
