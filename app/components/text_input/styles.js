@@ -5,7 +5,7 @@ const styles = (theme) => StyleSheet.create({
     paddingTop: 1,
     paddingLeft: 5,
     paddingBottom: 5,
-    lineHeight:1,
+    lineHeight: 24,
     fontStyle: "normal",
     fontSize: 16,
     flex: 1,
