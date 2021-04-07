@@ -28,9 +28,24 @@ class Client {
     this.headers["Time-Zone"] = timezone;
   }
 
+  async submitLocale(locale) {
+    Client.setLocale(locale);
+    let path = "/translations/select_locale";
+    const response = await fetch(`${host}${path}`, { headers: Client.headers });
+    const data = await response.json();
+    return data; 
+  }
+
   getMyData() {
     return this.getJSON("/my_data");
   }
+
+  async getSupportedLanguages(){
+    let path = "/translations/supported_locales";
+    const response = await fetch(`${host}${path}`, { headers: Client.headers });
+    const data = await response.json();
+    return data;    
+  }  
 
   postMyUpdates(updates) {
     return this.postJSON("/my_updates", { updates });

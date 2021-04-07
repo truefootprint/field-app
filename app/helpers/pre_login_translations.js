@@ -239,6 +239,53 @@ const preLoginTranslations = {
       "value": "Mialatsiny, ohatran'ny misy olana. Raha mbola mitohy dia avereno ampidirina ilay rindrambaiko."
     }
   ],
+  "laj": [
+    {
+      "id": 34,
+      "key": "loading",
+      "value": "Loading..."
+    },
+    {
+      "id": 3,
+      "key": "login.placeholder",
+      "value": "e.g. 0123456789"
+    },
+    {
+      "id": 39,
+      "key": "error.network.title",
+      "value": "Network error"
+    },
+    {
+      "id": 43,
+      "key": "error.details",
+      "value": "Error details:"
+    },
+    {
+      "id": 2,
+      "key": "login.failed",
+      "value": "Login failed. Unrecognised mobile number."
+    },
+    {
+      "id": 1,
+      "key": "login.prompt",
+      "value": "Nama cim ni tye adi?"
+    },
+    {
+      "id": 41,
+      "key": "error.unknown.title",
+      "value": "Unexpected error"
+    },
+    {
+      "id": 40,
+      "key": "error.network.body",
+      "value": "Sorry, there seems to be a problem with our computers. Please try again later."
+    },
+    {
+      "id": 42,
+      "key": "error.unknown.body",
+      "value": "Sorry, there seems to be a problem. If it keeps happening, try reinstalling the app."
+    }
+  ],
   "ro": [
     {
       "id": 34,

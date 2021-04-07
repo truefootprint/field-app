@@ -4,6 +4,7 @@ import PhotoUploadTask from "./tasks/photo_upload_task";
 import FileDownloadTask from "./tasks/file_download_task";
 import loadApp from "./workflows/load_app";
 import Login from "./screens/login";
+import LanguageSelection from './screens/language_selection'
 import Home from "./screens/home";
 import Intro from "./screens/intro";
 import Project from "./screens/project";
@@ -14,7 +15,7 @@ import Loading from "./components/loading";
 // Create the navigation stack so that you can't go back to the login screen.
 const options = { headerMode: "none" };
 const AppStack = createStackNavigator({ Home, Intro, Project, Source, Issue }, options);
-const AuthStack = createSwitchNavigator({ Login, App: AppStack }, options);
+const AuthStack = createSwitchNavigator({ LanguageSelection, Login, App: AppStack }, options);
 const AppContainer = createAppContainer(AuthStack);
 
 // These tasks run every 15 minutes when the app is in the background.
@@ -24,11 +25,10 @@ FileDownloadTask.enable({ log: true });
 
 const App = () => {
   enableScreens();
-
   const [loaded, setLoaded] = useState();
   const [data, setData] = useState();
   const [token, setToken] = useSecret("token", () => setData({}));
-  const { locale, timezone } = useLocale();
+
 
   const foreground = useForeground();
   const connected = useWifi();
@@ -43,11 +43,11 @@ const App = () => {
     await FileDownloadTask.runWith({ connected });
   }, [connected]);
 
-  useWhen([locale, timezone], async () => {
-    useTranslate.setLocale(locale);
-    Client.setLocale(locale);
-    Client.setTimezone(timezone);
-  });
+  // useWhen([locale, timezone], async () => {
+  //   useTranslate.setLocale(locale);
+  //   Client.setLocale(locale);
+  //   Client.setTimezone(timezone);
+  // });
 
   if (!loaded || !data) return <Loading />;
 
