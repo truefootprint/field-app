@@ -12,6 +12,8 @@ const Checkbox = ({ color="blue", defaultChecked=false, checked, disabled=false,
   const handlePress = () => {
     onCheck(!active);
 
+    if (active) setActive(!active);
+
     if (controlled) return;
     setActive(!active);
   };

@@ -18,7 +18,11 @@ const RadioGroup = ({ children=[], defaultIndex, index, onChange=()=>{}, ...rest
       const callback = child.props.onCheck;
       if (callback) callback(active);
 
-      if (i === current) return;
+      if (i === current) {
+        onChange(-1);
+        setCurrent(-1);
+        return;
+      }
       onChange(i);
 
       if (controlled) return;
