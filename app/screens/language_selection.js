@@ -37,6 +37,7 @@ const LanguageSelection = ({ navigation }) => {
       <ListItem key={locales[lang_name]} bottomDivider 
       onPress={() => handleCheckBoxPress(locales[lang_name])}>
         <CheckBox
+          onPress={() => handleCheckBoxPress(locales[lang_name])}
           center
           checkedIcon="dot-circle-o"
           uncheckedIcon="circle-o"
