@@ -6,7 +6,8 @@ import { ListItem, CheckBox } from "react-native-elements";
 import { useEffect } from "react";
 
 const LanguageSelection = ({ navigation }) => {
-  const [data, setData] = useState(<Text>Nothing</Text>);
+  const { token, setToken, data, connected } = useContext(AppContext);
+  const [langData, setData] = useState(<Text>Nothing</Text>);
   const [dataHere, setDataHere] = useState(false);
   const [locales, setLocales] = useState([]);
   const { locale, timezone } = useLocale();
@@ -18,15 +19,23 @@ const LanguageSelection = ({ navigation }) => {
     //andleSubmit();
   }, []);
 
+  useEffect(() => {
+    renderItemList(locales);
+  }, [checked]);
+
+  useWhen([token], () => {
+    if (data.projects) {
+      navigation.navigate("App");
+    }
+  }, [data]);
+
   const initialItemListRender = async () => {
     let res = await new Client().getSupportedLanguages();
     setLocales(res);
     renderItemList(res);
   };
 
-  useEffect(() => {
-    renderItemList(locales);
-  }, [checked]);
+
 
   const handleCheckBoxPress = (locale) => {
     setChecked(locale);
@@ -65,7 +74,7 @@ const LanguageSelection = ({ navigation }) => {
   return (
     <Layout>
       <ScrollView>
-        {data}
+        {langData}
       </ScrollView>
       <Button
         color={"blue"}
