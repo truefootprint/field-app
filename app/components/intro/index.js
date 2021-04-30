@@ -17,11 +17,17 @@ const Intro = ({ color="blue", project, page=1, onNextPage=()=>{}, onFinish=()=>
   const buttonText = hasNextPage ? t.intro.next_page : t.intro.finish;
   const handlePress = () => {
     inputRef.current.showLoading(true);    
-    if(hasNextPage) {
-      onNextPage(role)
-     } else {
-      onFinish(role);
-     }
+    setTimeout(
+      () => { 
+        if(hasNextPage) {
+          onNextPage(role)
+         } else {
+          onFinish(role);
+         }
+        }
+    , 1500);
+
+    
   }
 
   const resolveMarker = (node, children, parent, styles) => {
