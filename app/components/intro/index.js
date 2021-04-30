@@ -1,10 +1,12 @@
 import Button from "../button";
 import RoleListing from "../role_listing";
 import styles from "./styles.js";
+import AnimateLoadingButton from "../animated_button";
 
 const Intro = ({ color="blue", project, page=1, onNextPage=()=>{}, onFinish=()=>{} }) => {
   const s = styles(color);
   const t = useTranslate();
+  const inputRef = useRef(null);
 
   const [disabled, setDisabled] = useState(false);
   const [role, setRole] = useState();
@@ -13,7 +15,14 @@ const Intro = ({ color="blue", project, page=1, onNextPage=()=>{}, onFinish=()=>
   const hasNextPage = markdown && markdown.length >= 10;
 
   const buttonText = hasNextPage ? t.intro.next_page : t.intro.finish;
-  const handlePress = () => hasNextPage ? onNextPage(role) : onFinish(role);
+  const handlePress = () => {
+    inputRef.current.showLoading(true);    
+    if(hasNextPage) {
+      onNextPage(role)
+     } else {
+      onFinish(role);
+     }
+  }
 
   const resolveMarker = (node, children, parent, styles) => {
     if (innerContent(node) === "%{roles}") {
@@ -28,7 +37,19 @@ const Intro = ({ color="blue", project, page=1, onNextPage=()=>{}, onFinish=()=>
       </Markdown>
 
       <View {...className("button")}>
-        <Button color={color} caps={false} text={buttonText} onPress={handlePress} disabled={disabled} />
+        {/* <Button color={color} caps={false} text={buttonText} onPress={handlePress} disabled={disabled} /> */}
+        <AnimateLoadingButton
+          ref={inputRef}
+          width={350}
+          height={40}
+          title={buttonText}
+          titleFontSize={14}
+          titleWeight={'100'}
+          titleColor="white" 
+          backgroundColor={palette[color].primary}
+          borderRadius={4}
+          onPress={handlePress}
+        />
       </View>
     </ScrollView>
   );
