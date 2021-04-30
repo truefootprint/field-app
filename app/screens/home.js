@@ -20,6 +20,8 @@ const images = {
   290: require("../assets/images/east-timor-tb.jpg"),
   291: require("../assets/images/east-timor-tb.jpg"),
   292: require("../assets/images/east-timor-tb.jpg"),
+  340: require("../assets/images/jackie-p-340.jpg"),
+  341: require("../assets/images/jackie-p-341.jpg"),
   _: require("../assets/images/project-id-3.jpg"),
 };
 
