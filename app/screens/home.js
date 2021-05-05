@@ -22,7 +22,6 @@ const images = {
   292: require("../assets/images/east-timor-tb.jpg"),
   340: require("../assets/images/jackie-p-340.jpg"),
   341: require("../assets/images/jackie-p-341.jpg"),
-  349: require("../assets/images/project-id-7.jpg"),
   _: require("../assets/images/project-id-3.jpg"),
 };
 
@@ -45,6 +44,8 @@ const Home = ({ navigation }) => {
       result = images[7]
     } else if (id === 239) {
       result = images[239]
+    } else if (id >= 349) {
+      result = images[7]
     } else {
       result = (images[id] || images._)
     }
