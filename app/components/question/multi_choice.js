@@ -1,9 +1,14 @@
 import RadioGroup, { Radio } from "../radio_group";
 import CheckList, { Checkbox } from "../check_list";
+import Image from "react-native-fullwidth-image";
+import { host } from "../../../config/host.json";
+import { View } from "react-native";
+//field-app/config/host.json
 
 const MultiChoice = ({ color="blue", response, multiChoiceOptions=[], multipleAnswers, onAnswer=()=>{} }) => {
-  const optionsText = multiChoiceOptions.map(o => o.text);
-
+  const optionsTextAndPhoto = multiChoiceOptions.map(o => ({photo: o.photo, text: o.text}));
+  console.log("THE IMAGES AND PHOTOS");
+  console.log(optionsTextAndPhoto);
   const defaultIds = response && [JSON.parse(response.value)].flat() || [];
   const defaultIndexes = filterIndex(multiChoiceOptions, o => contains(o.id, defaultIds));
 
@@ -15,26 +20,36 @@ const MultiChoice = ({ color="blue", response, multiChoiceOptions=[], multipleAn
     onAnswer(value);
   };
 
-  const props = { color, defaultIndexes, optionsText, onChange };
+  const props = { color, defaultIndexes, optionsTextAndPhoto, onChange };
   return multipleAnswers ? <MultipleAnswers {...props} /> : <SingleAnswer {...props} />;
 };
 
-const MultipleAnswers = ({ color, defaultIndexes, optionsText, onChange=()=>{} }) => (
+const MultipleAnswers = ({ color, defaultIndexes, optionsTextAndPhoto, onChange=()=>{} }) => (
   <CheckList color={color} onChange={onChange} defaultIndexes={defaultIndexes}>
-    {optionsText.map((text, i) => (
-      <Checkbox key={i}>
-        <Text>{text}</Text>
+    {optionsTextAndPhoto.map((obj, i) => (
+      <View  key={i}>
+      <Checkbox>
+        <Text>{obj.text}</Text>
       </Checkbox>
+      {obj.photo !== undefined &&
+        <Image color={color} source={{uri: `${host}/${obj.photo}`}}/>
+      }       
+       </View>
     ))}
   </CheckList>
 );
 
-const SingleAnswer = ({ color, defaultIndexes, optionsText, onChange=()=>{} }) => (
+const SingleAnswer = ({ color, defaultIndexes, optionsTextAndPhoto, onChange=()=>{} }) => (
   <RadioGroup color={color} onChange={i => onChange([i])} defaultIndex={defaultIndexes[0]}>
-    {optionsText.map((text, i) => (
-      <Radio key={i}>
-        <Text>{text}</Text>
+    {optionsTextAndPhoto.map((obj, i) => (
+      <View key={i}>
+      <Radio>
+        <Text>{obj.text}</Text>
       </Radio>
+      {obj.photo !== undefined &&
+        <Image color={color} source={{uri: `${host}/${obj.photo}`}}/>
+      }
+      </View>
     ))}
   </RadioGroup>
 );
