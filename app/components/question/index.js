@@ -55,11 +55,7 @@ const Question = ({ navigation, color="blue", id, type, text, expectedValue, res
       {<View {...className(`${type}_issue`)}>
         <IssueListing color={color} questionId={id} issues={issues} onViewIssue={onViewIssue} />
       </View>}
-    
-      {/* {<Button text={t.submit} color={color} 
-      disabled={!canSubmit} 
-      onPress={handleSubmit} />}
-      <Text>Animated button below </Text> */}
+
       <AnimateLoadingButton
           ref={inputRef}
           width={350}

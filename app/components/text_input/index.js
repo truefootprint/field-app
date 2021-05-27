@@ -20,9 +20,7 @@ const TextInput = ({ color="blue", placeholder, defaultValue, units, onChangeTex
 
   //useEffect(() => {
     // Update the document title using the browser API
-    console.log("ZZZZZZZZZZZQQQQQQQ")
-    console.log(question);
-    Logger.log(styles.native_input);
+    // TODO COME BACK
     if (focussed && question){
       styles.native_input = {...styles.native_input, ...styles.focused_question_styles};
     } else if (question) {
