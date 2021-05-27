@@ -1,8 +1,10 @@
 import ButtonLike from "../button_like";
 import { Tick } from "../svg_icon";
 import styles from "./styles.js";
+import { host } from "../../../config/host.json";
+import Image from "react-native-fullwidth-image";
 
-const Checkbox = ({ color="blue", defaultChecked=false, checked, disabled=false, onCheck=()=>{}, rounded=false, recordIssue=false, Box=Square, children }) => {
+const Checkbox = ({ obj={photo: undefined}, color="blue", defaultChecked=false, checked, disabled=false, onCheck=()=>{}, rounded=false, recordIssue=false, Box=Square, children }) => {
   const [active, setActive] = useState(defaultChecked);
   const controlled = typeof checked !== "undefined";
   const fill = active && !disabled;
@@ -27,6 +29,9 @@ const Checkbox = ({ color="blue", defaultChecked=false, checked, disabled=false,
           {children}
         </Text>
       </ButtonLike>
+      {obj.photo !== undefined &&
+        <Image color={color} source={{uri: `${host}/${obj.photo}`}}/>
+      } 
     </View>
   );
 
