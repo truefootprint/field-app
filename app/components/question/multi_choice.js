@@ -10,6 +10,12 @@ const MultiChoice = ({ color="blue", response, multiChoiceOptions=[], multipleAn
   const defaultIndexes = filterIndex(multiChoiceOptions, o => contains(o.id, defaultIds));
 
   const onChange = (indexes) => {
+    
+    if (indexes[0] == -1) {
+      onAnswer("");
+      return;
+    }
+
     const ids = indexes.map(index => multiChoiceOptions[index].id);
     ids.sort((a, b) => a - b);
 
@@ -34,7 +40,7 @@ const MultipleAnswers = ({ color, defaultIndexes, optionsTextAndPhoto, onChange=
 const SingleAnswer = ({ color, defaultIndexes, optionsTextAndPhoto, onChange=()=>{} }) => (
   <RadioGroup color={color} onChange={i => onChange([i])} defaultIndex={defaultIndexes[0]}>
     {optionsTextAndPhoto.map((obj, i) => (
-      <Radio obj={obj}>
+      <Radio key={i} obj={obj}>
         <Text>{obj.text}</Text>
       </Radio>
     ))}
