@@ -8,6 +8,7 @@ import styles from "./styles.js";
 import AnimateLoadingButton from "../animated_button";
 
 const Question = ({ navigation, color="blue", id, type, text, expectedValue, responses=[], onAnswer=()=>{}, issues=[], onViewIssue=()=>{}, ...rest }) => {
+
   const [canSubmit, setCanSubmit] = useState(false);
   const response = SubmissionPeriod.last(responses);
   const t = useTranslate();
@@ -53,7 +54,7 @@ const Question = ({ navigation, color="blue", id, type, text, expectedValue, res
         {questionFor({ type, color, response, onAnswer: handleAnswer, setCanSubmit, ...rest })}
       </View>
       {<View {...className(`${type}_issue`)}>
-        <IssueListing color={color} questionId={id} issues={issues} onViewIssue={onViewIssue} />
+        <IssueListing color={color} questionId={id} issues={issues} issuesPossible={rest.issuesPossible} onViewIssue={onViewIssue} />
       </View>}
 
       <AnimateLoadingButton

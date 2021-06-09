@@ -2,7 +2,7 @@ import IssuePreview from "../issue_preview";
 import Checkbox from "../checkbox";
 import styles from "./styles.js";
 
-const IssueListing = ({ color="blue", questionId, issues=[], onViewIssue=()=>{} }) => {
+const IssueListing = ({ color="blue", questionId, issuesPossible, issues=[], onViewIssue=()=>{} }) => {
   const t = useTranslate();
 
   const openIssues = issues.filter(i => !i.resolution);
@@ -15,15 +15,13 @@ const IssueListing = ({ color="blue", questionId, issues=[], onViewIssue=()=>{} 
 
   return (
     <View {...className("issue_listing", styles(color))}>
-      {openIssues.map((issue, i) => (
+      {issuesPossible && openIssues.map((issue, i) => (
         <IssuePreview key={i} color={color} issue={issue} onOpen={handleViewIssue(issue)} />
       ))}
-
-      {closedIssues.map((issue, i) => (
+      {issuesPossible && closedIssues.map((issue, i) => (
         <IssuePreview key={i} color={color} issue={issue} onOpen={handleViewIssue(issue)} />
       ))}
-      
-      {showNewIssue &&
+      {showNewIssue && issuesPossible &&
         <Checkbox color={color} recordIssue={true} checked={false} onCheck={handleViewIssue()}>
           {t.issue.record}
         </Checkbox>
